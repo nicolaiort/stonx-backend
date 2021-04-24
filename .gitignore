@@ -54,3 +54,4 @@ test/**/*.js.map
 *.lock
 package-lock.json
 *.sqlite
+.env
