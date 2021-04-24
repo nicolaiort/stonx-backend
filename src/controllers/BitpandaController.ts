@@ -6,10 +6,10 @@ import { Wallet } from "src/models/Wallet";
 
 @Controller("/bitpanda")
 export class BitpandaController {
-    @Get("/wallets")
-    @Description("Returns your bitpanda wallets by coin with balance.")
+    @Get("assets/crypto")
+    @Description("Returns your bitpanda wallets by coin with balance and fiat equivalent.")
     @Returns(200, Wallet)
-    async getWallets(@QueryParams("withEmpty") withEmpty: boolean = false): Promise<Wallet[]> {
+    async getCryptoAssets(@QueryParams("withEmpty") withEmpty: boolean = false): Promise<Wallet[]> {
         let wallets = (await axios.get('https://api.bitpanda.com/v1/wallets', {
             headers: {
                 'X-API-KEY': config["BITPANDA_API_KEY"]
