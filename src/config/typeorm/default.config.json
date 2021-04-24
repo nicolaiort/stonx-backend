@@ -5,7 +5,7 @@
   "synchronize": true,
   "logging": false,
   "entities": [
-    "${rootDir}/entity/**/*.{js,ts}"
+    "${rootDir}/models/entity/**/*.{js,ts}"
   ],
   "migrations": [
     "${rootDir}/migration/**/*.{js,ts}"
@@ -14,7 +14,7 @@
     "${rootDir}/subscriber/**/*.{js,ts}"
   ],
   "cli": {
-    "entitiesDir": "${rootDir}/entity",
+    "entitiesDir": "${rootDir}/models/entity",
     "migrationsDir": "${rootDir}/migration",
     "subscribersDir": "${rootDir}/subscriber"
   }
