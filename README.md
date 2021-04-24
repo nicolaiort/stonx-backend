@@ -1,21 +1,19 @@
-# backend
+# stonks/backend
 
-> An awesome project based on Ts.ED framework
+Information aggregation for some of your assets.
+Powers the stonks/frontend dashboard.
 
-See [Ts.ED](https://tsed.io) project for more information.
+Powered by:
+* [Ts.ED](https://tsed.io)
+* TypeORM
 
-## Build setup
+## Supported assets
+* [x] Bitpanda Wallets
+* [x] Bitpanda Indices
+* [ ] ETH Wallets
 
-> **Important!** Ts.ED requires Node >= 10, Express >= 4 and TypeScript >= 3.
-
-```batch
-# install dependencies
-$  install
-
-# serve
-$  start
-
-# build for production
-$  build
-$  start:prod
+## Dev Setup 🛠
+```bash
+yarn
+yarn dev
 ```
