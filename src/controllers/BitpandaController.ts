@@ -1,10 +1,12 @@
 import { Controller, Get, QueryParams } from "@tsed/common";
+import { Authorize } from "@tsed/passport";
 import { Description, Returns } from "@tsed/schema";
 import axios from "axios";
 import { config } from "src/config/env";
 import { Wallet } from "src/models/Wallet";
 
 @Controller("/bitpanda")
+@Authorize("login")
 export class BitpandaController {
     @Get("/assets/crypto")
     @Description("Returns your bitpanda wallets by coin with balance and fiat equivalent.")
