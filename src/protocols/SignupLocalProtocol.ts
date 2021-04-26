@@ -25,7 +25,7 @@ export class SignupLocalProtocol implements OnVerify, OnInstall {
       throw new Forbidden("Email is already registered");
     }
 
-    return this.userService.create(user);
+    return this.userService.createUser(user);
   }
 
   $onInstall(strategy: Strategy): void {

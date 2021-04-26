@@ -15,6 +15,6 @@ export class UserService extends Repository<User> {
   async createUser(new_user: UserCreation): Promise<User>{
     let user = new User(new_user.email);
     await user.setPassword(new_user.password);
-    return this.create(user);
+    return this.save(user);
   }
 }
