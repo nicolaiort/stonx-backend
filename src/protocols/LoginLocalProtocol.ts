@@ -20,7 +20,7 @@ export class LoginLocalProtocol implements OnVerify, OnInstall {
   async $onVerify(@Req() request: Req, @BodyParams() credentials: Credentials) {
     const {email, password} = credentials;
 
-    const user = await this.userService.findOne({email});
+    const user = await this.userService.findByEmail(email);
 
     if (!user) {
       return false;
