@@ -10,13 +10,19 @@ import "@tsed/ajv";
 import "@tsed/swagger";
 import "@tsed/typeorm";
 import {config, rootDir} from "./config";
+import{ config as env} from "./config/env";
 import {IndexCtrl} from "./controllers/pages/IndexController";
+import session from "express-session";
 
 @Configuration({
   ...config,
   acceptMimes: ["application/json"],
   httpPort: process.env.PORT || 8083,
   httpsPort: false, // CHANGE
+  componentsScan: [
+    `${rootDir}/services/**/*.ts`,
+    `${rootDir}/protocols/**/*.ts`
+  ],
   mount: {
     "/rest": [
       `${rootDir}/controllers/**/*.ts`
@@ -53,6 +59,18 @@ export class Server {
       .use(bodyParser.json())
       .use(bodyParser.urlencoded({
         extended: true
+      }))
+      .use(session({
+        secret: env.SESSION_SECRET,
+        resave: true,
+        saveUninitialized: true,
+        // maxAge: 36000,
+        cookie: {
+          path: "/",
+          httpOnly: true,
+          secure: false,
+          maxAge: 6000000
+        }
       }));
   }
 }
