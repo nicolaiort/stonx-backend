@@ -6,12 +6,14 @@ import * as argon2 from "argon2";
 export class User {
   @PrimaryGeneratedColumn("uuid")
   @Description("Id assigned by the datbase.")
+  @Ignore()
   id: string;
 
-  @Column({unique: true})
+  @Column({unique: true, nullable: true})
+  @Optional()
   username: string;
 
-  @Column({unique: true})
+  @Column({unique: true, nullable: false})
   @Required()
   @Email()
   email: string;
@@ -24,7 +26,7 @@ export class User {
   @Ignore()
   confirmed: boolean = false;
 
-  @Column()
+  @Column({nullable: true})
   @Optional()
   bitpanda_api_key: string;
 
