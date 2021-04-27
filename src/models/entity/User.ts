@@ -26,6 +26,10 @@ export class User {
   @Ignore()
   confirmed: boolean = false;
 
+  @Optional()
+  @Description("The user's jwt. Will get provided on login.")
+  token: string;
+
   @Column({nullable: true})
   @Optional()
   bitpanda_api_key: string;
