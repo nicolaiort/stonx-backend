@@ -1,20 +1,21 @@
-import { Controller, Get, QueryParams } from "@tsed/common";
-import { Authorize } from "@tsed/passport";
+import { Controller, Get, QueryParams, Req } from "@tsed/common";
+import { Authenticate, Authorize } from "@tsed/passport";
 import { Description, Returns } from "@tsed/schema";
 import axios from "axios";
 import { config } from "src/config/env";
+import { User } from "src/models/entity/User";
 import { Wallet } from "src/models/Wallet";
 
 @Controller("/bitpanda")
-@Authorize("login")
 export class BitpandaController {
     @Get("/assets/crypto")
     @Description("Returns your bitpanda wallets by coin with balance and fiat equivalent.")
     @Returns(200, Wallet)
-    async getCryptoAssets(@QueryParams("withEmpty") withEmpty: boolean = false): Promise<Wallet[]> {
+    @Authenticate("jwt")
+    async getCryptoAssets(@QueryParams("withEmpty") withEmpty: boolean = false, @Req() req: Req): Promise<Wallet[]> {
         let wallets = (await axios.get('https://api.bitpanda.com/v1/wallets', {
             headers: {
-                'X-API-KEY': config["BITPANDA_API_KEY"]
+                'X-API-KEY': (req.user as User).bitpanda_api_key
             }
         })).data.data;
         let prices = (await axios.get('https://api.bitpanda.com/v1/ticker')).data
