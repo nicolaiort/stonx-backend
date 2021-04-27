@@ -4,6 +4,7 @@ import {Strategy} from "passport-local";
 import {Forbidden} from "@tsed/exceptions";
 import {UserCreation} from "../models/UserCreation";
 import {UserService} from "../services/users/UserService";
+import { User } from "src/models/entity/User";
 
 @Protocol({
   name: "signup",
@@ -17,7 +18,7 @@ export class SignupLocalProtocol implements OnVerify, OnInstall {
   constructor(private userService: UserService) {
   }
 
-  async $onVerify(@Req() request: Req, @BodyParams() user: UserCreation) {
+  async $onVerify(@Req() request: Req, @BodyParams() user: UserCreation): Promise<User> {
     const {email} = user;
     const found = await this.userService.findByEmail(email);
 

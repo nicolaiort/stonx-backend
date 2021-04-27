@@ -4,8 +4,8 @@ import { Arg, OnVerify, Protocol } from "@tsed/passport";
 import { Description, Required } from "@tsed/schema";
 import { ExtractJwt, Strategy, StrategyOptions } from "passport-jwt";
 import { config } from "src/config/env";
+import { User } from "src/models/entity/User";
 import { UserService } from "src/services/users/UserService";
-
 
 export class JwtPayload{
     @Required()
@@ -43,13 +43,13 @@ export class JwtProtocol implements OnVerify {
     constructor(private userService: UserService) {
     }
 
-    async $onVerify(@Req() req: Req, @Arg(0) jwtPayload: JwtPayload) {
+    async $onVerify(@Req() req: Req, @Arg(0) jwtPayload: JwtPayload): Promise<User> {
         const user = await this.userService.findById(jwtPayload.sub);
 
         if (!user) {
-            throw new Unauthorized("Wrong token");
+            throw new Unauthorized("Wrong jwt");
         }
 
-        return user ? user : false;
+        return user;
     }
 }
