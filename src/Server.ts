@@ -13,6 +13,7 @@ import {config, rootDir} from "./config";
 import{ config as env} from "./config/env";
 import {IndexCtrl} from "./controllers/pages/IndexController";
 import session from "express-session";
+import { User } from "./models/entity/User";
 
 @Configuration({
   ...config,
@@ -41,7 +42,10 @@ import session from "express-session";
   ],
   exclude: [
     "**/*.spec.ts"
-  ]
+  ],
+  passport: {
+    userInfoModel: User
+  }
 })
 export class Server {
   @Inject()
@@ -59,18 +63,6 @@ export class Server {
       .use(bodyParser.json())
       .use(bodyParser.urlencoded({
         extended: true
-      }))
-      .use(session({
-        secret: env.SESSION_SECRET,
-        resave: true,
-        saveUninitialized: true,
-        // maxAge: 36000,
-        cookie: {
-          path: "/",
-          httpOnly: true,
-          secure: false,
-          maxAge: 6000000
-        }
       }));
   }
 }
