@@ -10,9 +10,7 @@ import "@tsed/ajv";
 import "@tsed/swagger";
 import "@tsed/typeorm";
 import {config, rootDir} from "./config";
-import{ config as env} from "./config/env";
 import {IndexCtrl} from "./controllers/pages/IndexController";
-import session from "express-session";
 import { User } from "./models/entity/User";
 
 @Configuration({
