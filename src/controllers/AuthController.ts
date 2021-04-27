@@ -25,7 +25,7 @@ export class PassportCtrl {
   }
 
   @Get("/userinfo")
-  @Authenticate("jwt")
+  @Authorize("jwt")
   @Returns(200, User)
   getUserInfo(@Req() req: Req): User {
     // FACADE
@@ -36,22 +36,5 @@ export class PassportCtrl {
   @Get("/logout")
   logout(@Req() req: Req) {
     req.logout();
-  }
-
-  @Get("/connect/:protocol")
-  @Authorize(":protocol")
-  @Returns(200, User)
-  connectProtocol(@Req() req: Req): any {
-    // FACADE
-    return (req.user as User);
-  }
-
-
-  @Get("/connect/:protocol/callback")
-  @Authorize(":protocol")
-  @Returns(200, User)
-  connectProtocolCallback(@Req() req: Req): any {
-    // FACADE
-    return (req.user as User);
   }
 }
