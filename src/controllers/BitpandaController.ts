@@ -37,10 +37,11 @@ export class BitpandaController {
     @Get("/assets/index")
     @Description("Returns your bitpanda crypto index wallets with balance.")
     @Returns(200, Wallet)
-    async getIndexAssets(@QueryParams("withEmpty") withEmpty: boolean = false): Promise<Wallet[]> {
+    @Authenticate("jwt")
+    async getIndexAssets(@QueryParams("withEmpty") withEmpty: boolean = false, @Req() req: Req): Promise<Wallet[]> {
         let indices = (await axios.get('https://api.bitpanda.com/v1/asset-wallets', {
             headers: {
-                'X-API-KEY': config["BITPANDA_API_KEY"]
+                'X-API-KEY': (req.user as User).bitpanda_api_key
             }
         })).data.data.attributes.index.index.attributes.wallets;
 
