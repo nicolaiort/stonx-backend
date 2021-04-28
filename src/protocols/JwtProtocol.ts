@@ -27,6 +27,19 @@ export class JwtPayload{
     @Required()
     @Description("The JWT's issuance date in unix/epoch time")
     iat: string;
+
+    @Required()
+    @Description("The users current jwt count")
+    cnt: number;
+
+    constructor(iss: string, aud:string, sub:string,exp:string,iat:string,cnt:number){
+        this.iss = iss;
+        this.aud = aud;
+        this.sub = sub;
+        this.exp = exp;
+        this.iat = iat;
+        this.cnt = cnt;
+    }
 }
 
 @Protocol<StrategyOptions>({
@@ -48,6 +61,10 @@ export class JwtProtocol implements OnVerify {
 
         if (!user) {
             throw new Unauthorized("Wrong jwt");
+        }
+
+        if(user.jwt_count > jwtPayload.cnt){
+            throw new Unauthorized("Jwt no longer valid")
         }
 
         return user;

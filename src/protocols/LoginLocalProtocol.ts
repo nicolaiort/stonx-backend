@@ -6,6 +6,7 @@ import { User } from "src/models/entity/User";
 import { Credentials } from "../models/Credentials";
 import { UserService } from "../services/users/UserService";
 import * as jwt from "jsonwebtoken";
+import { JwtPayload } from "./JwtProtocol";
 
 @Protocol<IStrategyOptions>({
   name: "login",
@@ -50,14 +51,7 @@ export class LoginLocalProtocol implements OnVerify, OnInstall {
     const { issuer, audience, secretOrKey, maxAge = 3600 } = this.jwtSettings;
     const now = Date.now();
 
-    return jwt.sign(
-      {
-        iss: issuer,
-        aud: audience,
-        sub: user.id,
-        exp: now + maxAge * 1000,
-        iat: now
-      },
+    return jwt.sign( new JwtPayload(issuer, audience, user.id, (now + maxAge*1000).toString(), now.toString(), user.jwt_count),
       secretOrKey
     );
   }
