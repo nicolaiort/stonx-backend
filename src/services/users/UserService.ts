@@ -13,7 +13,7 @@ export class UserService extends Repository<User> {
   }
 
   async createUser(new_user: UserCreation): Promise<User>{
-    let user = new User(new_user.email);
+    let user = new User(new_user.email, new_user.username);
     user.bitpanda_api_key=new_user.bitpanda_api_key;
     await user.setPassword(new_user.password);
     return this.save(user);

@@ -43,8 +43,11 @@ export class User {
   @OneToMany(() => EthWallet, wallet => wallet.owner, { nullable: true })
   wallets: EthWallet[];
 
-  constructor(email: string) {
+  constructor(email: string, username?:string) {
     this.email = email;
+    if(username){
+      this.username=username;
+    }
     this.confirmed = false;
   }
 
