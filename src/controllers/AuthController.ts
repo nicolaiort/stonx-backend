@@ -7,7 +7,7 @@ import { User } from "../models/entity/User";
 import { UserCreation } from "../models/UserCreation";
 
 @Controller("/auth")
-export class PassportCtrl {
+export class AuthController {
   @Post("/login")
   @Authenticate("login", { failWithError: false })
   @Returns(200, User)
