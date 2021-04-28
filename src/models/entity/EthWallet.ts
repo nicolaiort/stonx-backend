@@ -23,7 +23,7 @@ export class EthWallet {
 
   async balance():Promise<number>{
     const res = await axios.get(`https://api.etherscan.io/api?module=account&action=balance&address=${this.address}&tag=latest&apikey=${config["ETHERSCAN_APIKEY"]}`)
-    return (parseInt(res.data.result)*0.1);
+    return (parseInt(res.data.result)/1000000000000000000);
   }
 
   constructor(owner: User, address: string) {
