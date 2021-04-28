@@ -5,27 +5,31 @@ import axios from "axios";
 import { config } from "src/config/env";
 import { User } from "src/models/entity/User";
 import { Wallet } from "src/models/Wallet";
+import { WalletService } from "src/services/users/WalletService";
 
 @Controller("/wallets")
-export class BitpandaController {
+export class WalletController {
     @Get("/eth")
-    @Description("Returns your bitpanda wallets by coin with balance and fiat equivalent.")
+    @Description("Returns your eth wallets by coin with balance and fiat equivalent.")
     @Returns(200, Wallet)
     @Authenticate("jwt")
     async getEthWallets(@Req() req: Req): Promise<Wallet[]> {
-        let wallets = (await axios.get('https://api.bitpanda.com/v1/wallets', {
-            headers: {
-                'X-API-KEY': (req.user as User)
-            }
-        })).data.data;
+        let wallets = await this.walletService.findByUser((req.user as User));
+        if(!wallets){
+            return [];
+        }
+
         let prices = (await axios.get('https://api.bitpanda.com/v1/ticker')).data
 
         let returnWallets: Wallet[] = new Array<Wallet>();
 
         for (let wallet of wallets) {
-                returnWallets.push(new Wallet(wallet.attributes.cryptocoin_symbol, parseFloat(wallet.attributes.balance), parseFloat(prices[wallet.attributes.cryptocoin_symbol][config["CURRENCY"]])));
+                returnWallets.push(new Wallet("ETH", await wallet.balance(), parseFloat(prices["ETH"][config["CURRENCY"]])));
         }
 
         return returnWallets;
+    }
+
+    constructor(private walletService: WalletService) {
     }
 }
