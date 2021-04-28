@@ -1,5 +1,6 @@
 import { EthWallet } from "src/models/entity/EthWallet";
 import { UserCreation } from "src/models/UserCreation";
+import { WalletCreation } from "src/models/WalletCreation";
 import {Repository, EntityRepository} from "typeorm";
 import {User} from "../../models/entity/User";
 
@@ -13,10 +14,8 @@ export class WalletService extends Repository<EthWallet> {
     return this.find({ owner: user });
   }
 
-  async createWallet(new_user: UserCreation): Promise<EthWallet>{
-    let user = new User(new_user.email);
-    user.bitpanda_api_key=new_user.bitpanda_api_key;
-    await user.setPassword(new_user.password);
-    return this.save(user);
+  async createWallet(owner: User, new_wallet: WalletCreation): Promise<EthWallet>{
+    let wallet = new EthWallet(owner, new_wallet.address);
+    return this.save(wallet);
   }
 }
