@@ -1,7 +1,7 @@
 import { Description, Email, Ignore, Optional, Required } from "@tsed/schema";
 import axios from "axios";
 import { config } from "src/config/env";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./User";
 
 @Entity()
@@ -11,8 +11,7 @@ export class EthWallet {
   @Ignore()
   id: string;
 
-  @Column({ nullable: true })
-  @Optional()
+  @ManyToOne(() => User, user => user.wallets)
   owner: User;
 
   @Column({ nullable: false })
