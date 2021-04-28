@@ -18,4 +18,10 @@ export class UserService extends Repository<User> {
     await user.setPassword(new_user.password);
     return this.save(user);
   }
+
+  async increaseJwtCount(user: User){
+    user = await this.findOneOrFail(user);
+    user.jwt_count = user.jwt_count +1;
+    await this.save(user);
+  }
 }

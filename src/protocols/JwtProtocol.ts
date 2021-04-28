@@ -7,7 +7,7 @@ import { config } from "src/config/env";
 import { User } from "src/models/entity/User";
 import { UserService } from "src/services/users/UserService";
 
-export class JwtPayload{
+export class JwtPayload {
     @Required()
     @Description("The JWT's issuer")
     iss: string;
@@ -22,17 +22,17 @@ export class JwtPayload{
 
     @Required()
     @Description("The JWT's expiry date in unix/epoch time")
-    exp: string;
+    exp: number;
 
     @Required()
     @Description("The JWT's issuance date in unix/epoch time")
-    iat: string;
+    iat: number;
 
     @Required()
     @Description("The users current jwt count")
     cnt: number;
 
-    constructor(iss: string, aud:string, sub:string,exp:string,iat:string,cnt:number){
+    constructor(iss: string, aud: string, sub: string, exp: number, iat: number, cnt: number) {
         this.iss = iss;
         this.aud = aud;
         this.sub = sub;
@@ -63,7 +63,7 @@ export class JwtProtocol implements OnVerify {
             throw new Unauthorized("Wrong jwt");
         }
 
-        if(user.jwt_count > jwtPayload.cnt){
+        if (user.jwt_count > jwtPayload.cnt) {
             throw new Unauthorized("Jwt no longer valid")
         }
 

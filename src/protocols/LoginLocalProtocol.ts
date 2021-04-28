@@ -51,7 +51,7 @@ export class LoginLocalProtocol implements OnVerify, OnInstall {
     const { issuer, audience, secretOrKey, maxAge = 3600 } = this.jwtSettings;
     const now = Date.now();
 
-    return jwt.sign( new JwtPayload(issuer, audience, user.id, (now + maxAge*1000).toString(), now.toString(), user.jwt_count),
+    return jwt.sign(Object.assign({}, new JwtPayload(issuer, audience, user.id, (now + maxAge * 1000), now, user.jwt_count)),
       secretOrKey
     );
   }

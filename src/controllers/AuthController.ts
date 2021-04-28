@@ -1,6 +1,7 @@
 import { BodyParams, Controller, Get, Post, Req } from "@tsed/common";
 import { Authenticate, Authorize } from "@tsed/passport";
 import { Returns, Security } from "@tsed/schema";
+import { UserService } from "src/services/users/UserService";
 import { Credentials } from "../models/Credentials";
 import { User } from "../models/entity/User";
 import { UserCreation } from "../models/UserCreation";
@@ -33,8 +34,13 @@ export class PassportCtrl {
   }
 
 
-  @Get("/logout")
+  @Post("/logout")
+  @Authorize("jwt")
   logout(@Req() req: Req) {
+    this.userService.increaseJwtCount((req.user as User));
     req.logout();
+  }
+
+  constructor(private userService: UserService) {
   }
 }
