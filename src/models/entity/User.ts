@@ -32,6 +32,7 @@ export class User {
 
   @Column({nullable: true})
   @Optional()
+  @Ignore()
   bitpanda_api_key: string;
 
   constructor(email: string){
