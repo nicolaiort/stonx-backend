@@ -1,7 +1,7 @@
-# stonks/backend
+# stonkx-backend
 
 Information aggregation for some of your assets.
-Powers the stonks/frontend dashboard.
+Powers the stonkx-frontend dashboard.
 
 Powered by:
 * [Ts.ED](https://tsed.io)
@@ -10,7 +10,7 @@ Powered by:
 ## Supported assets
 * [x] Bitpanda Wallets
 * [x] Bitpanda Indices
-* [ ] ETH Wallets
+* [x] ETH Wallets
 
 ## Dev Setup 🛠
 ```bash

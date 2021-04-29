@@ -1,6 +1,6 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
+  "name": "stonkx-backend",
+  "version": "0.0.1",
   "description": "",
   "scripts": {
     "dev": "tsnd --inspect --ignore-watch node_modules --respawn --transpile-only -r tsconfig-paths/register src/index.ts --watch",
