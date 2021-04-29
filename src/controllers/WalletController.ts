@@ -46,8 +46,7 @@ export class WalletController {
     @Returns(200, Wallet)
     @Authenticate("jwt")
     async deleteWallet(@PathParams("id") id: string, @Req() req: Req): Promise<any> {
-        const wallet = await this.walletService.findById(id);
-        await this.walletService.delete(wallet);
+        await this.walletService.delete({id: id});
         return true;
     }
 
