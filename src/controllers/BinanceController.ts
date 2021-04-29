@@ -1,4 +1,4 @@
-import { Controller, Get } from "@tsed/common";
+import { Controller, Get, PathParams } from "@tsed/common";
 import { Authenticate } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
 import { BinanceTradingPair } from "src/models/BinanceTradingPair";
@@ -13,5 +13,14 @@ export class BinanceController {
     @Returns(200)
     async getTradingPairs(): Promise<BinanceTradingPair[]> {
         return await BinanceService.getTradingPairs();
+    }
+
+    @Get("/prices/:token/:currency")
+    @Authenticate("jwt")
+    @Security("jwt")
+    @Description("Returns the current crypto token prices listen on bitpanda")
+    @Returns(200)
+    async getTradingPair(@PathParams("token") token: string, @PathParams("currency") currency: string): Promise<BinanceTradingPair> {
+        return await BinanceService.getTradingPair(token, currency);
     }
 }
