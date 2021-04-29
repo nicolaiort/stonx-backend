@@ -5,6 +5,7 @@ import {Forbidden} from "@tsed/exceptions";
 import {UserCreation} from "../models/UserCreation";
 import {UserService} from "../services/users/UserService";
 import { User } from "src/models/entity/User";
+import { config } from "src/config/env";
 
 @Protocol({
   name: "signup",
@@ -19,6 +20,9 @@ export class SignupLocalProtocol implements OnVerify, OnInstall {
   }
 
   async $onVerify(@Req() request: Req, @BodyParams() user: UserCreation): Promise<User> {
+    if(config["ENABLE_SIGNUP"] == "false"){
+      throw new Forbidden("Signup is disabled right now. Please try again later or contact the admin.")
+    }
     const {email} = user;
     const found = await this.userService.findByEmail(email);
 
