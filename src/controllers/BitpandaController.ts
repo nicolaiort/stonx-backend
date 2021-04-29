@@ -8,6 +8,16 @@ import { BitpandaService } from "src/services/utils/BitpandaService";
 
 @Controller("/bitpanda")
 export class BitpandaController {
+
+    @Get("/prices")
+    @Authenticate("jwt")
+    @Security("jwt")
+    @Description("Returns the current crypto token prices listen on bitpanda")
+    @Returns(200)
+    async getPrices() {
+        return BitpandaService.getPrices();
+    }
+
     @Get("/assets/crypto")
     @Authenticate("jwt")
     @Security("jwt")
