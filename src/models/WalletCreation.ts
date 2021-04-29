@@ -1,8 +1,10 @@
 import { Required } from "@tsed/schema";
+import { SupportedTokens } from "./SupportedTokens";
 
 export class WalletCreation {
-    token: string = "ETH";
-
     @Required()
     address: string;
+
+    @Required()
+    token: SupportedTokens;
 }

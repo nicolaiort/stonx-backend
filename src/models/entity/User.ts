@@ -2,6 +2,7 @@ import { Description, Email, Ignore, Optional, Required } from "@tsed/schema";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import * as argon2 from "argon2";
 import { EthWallet } from "./EthWallet";
+import { CryptoWallet } from "./CryptoWallet";
 
 @Entity()
 export class User {
@@ -40,8 +41,8 @@ export class User {
   @Ignore()
   bitpanda_api_key: string;
 
-  @OneToMany(() => EthWallet, wallet => wallet.owner, { nullable: true })
-  wallets: EthWallet[];
+  @OneToMany(() => CryptoWallet, wallet => wallet.owner, { nullable: true })
+  wallets: CryptoWallet[];
 
   constructor(email: string, username?:string) {
     this.email = email;

@@ -10,8 +10,8 @@ import { WalletService } from "src/services/users/WalletService";
 
 @Controller("/wallets")
 export class WalletController {
-    @Get("/eth")
-    @Description("Returns your eth wallets by coin with balance and fiat equivalent.")
+    @Get()
+    @Description("Returns your wallets by coin with balance and fiat equivalent.")
     @Returns(200, Wallet)
     @Authenticate("jwt")
     async getEthWallets(@Req() req: Req): Promise<Wallet[]> {
@@ -25,20 +25,20 @@ export class WalletController {
         let returnWallets: Wallet[] = new Array<Wallet>();
 
         for (let wallet of wallets) {
-            returnWallets.push(new Wallet("ETH", await wallet.balance(), parseFloat(prices["ETH"][config["CURRENCY"]])));
+            returnWallets.push(new Wallet("ETH", await wallet.balance(), parseFloat(prices[wallet.token][config["CURRENCY"]])));
         }
 
         return returnWallets;
     }
 
-    @Post("/eth")
-    @Description("Create a new eth wallet for yourself.")
+    @Post()
+    @Description("Create a new wallet for yourself.")
     @Returns(200, Wallet)
     @Authenticate("jwt")
     async createEthWallets(@BodyParams() new_wallet: WalletCreation, @Req() req: Req): Promise<Wallet> {
         let wallet = await this.walletService.createWallet((req.user as User), new_wallet);
         let prices = (await axios.get('https://api.bitpanda.com/v1/ticker')).data
-        return new Wallet("ETH", await wallet.balance(), parseFloat(prices["ETH"][config["CURRENCY"]]));
+        return new Wallet("ETH", await wallet.balance(), parseFloat(prices[wallet.token][config["CURRENCY"]]));
     }
 
     constructor(private walletService: WalletService) {
