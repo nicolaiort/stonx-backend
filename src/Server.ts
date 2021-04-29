@@ -30,11 +30,7 @@ import { User } from "./models/entity/User";
   },
   swagger: [
     {
-      path: "/v2/docs",
-      specVersion: "2.0"
-    },
-    {
-      path: "/v3/docs",
+      path: "/docs",
       specVersion: "3.0.1"
     }
   ],
