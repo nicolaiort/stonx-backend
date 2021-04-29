@@ -1,7 +1,6 @@
 import { Description, Email, Ignore, Optional, Required } from "@tsed/schema";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import * as argon2 from "argon2";
-import { EthWallet } from "./EthWallet";
 import { CryptoWallet } from "./CryptoWallet";
 
 @Entity()
