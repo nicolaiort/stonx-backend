@@ -1,17 +1,17 @@
-import {Configuration, Inject} from "@tsed/di";
-import {PlatformApplication} from "@tsed/common";
+import "@tsed/ajv";
+import { PlatformApplication } from "@tsed/common";
+import { Configuration, Inject } from "@tsed/di";
 import "@tsed/platform-express"; // /!\ keep this import
+import "@tsed/swagger";
+import "@tsed/typeorm";
 import bodyParser from "body-parser";
 import compress from "compression";
 import cookieParser from "cookie-parser";
-import methodOverride from "method-override";
 import cors from "cors";
-import "@tsed/ajv";
-import "@tsed/swagger";
-import "@tsed/typeorm";
-import {config, rootDir} from "./config";
-import {IndexCtrl} from "./controllers/pages/IndexController";
-import {User} from "./models/entity/User";
+import methodOverride from "method-override";
+import { config, rootDir } from "./config";
+import { IndexCtrl } from "./controllers/pages/IndexController";
+import { User } from "./models/entity/User";
 
 @Configuration({
   ...config,

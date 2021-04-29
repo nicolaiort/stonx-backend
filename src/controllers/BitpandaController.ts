@@ -1,10 +1,10 @@
 import { Controller, Get, QueryParams, Req } from "@tsed/common";
 import { Authenticate } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
-import { config } from "src/config/env";
-import { User } from "src/models/entity/User";
-import { Wallet } from "src/models/Wallet";
-import { BitpandaService } from "src/services/utils/BitpandaService";
+import { config } from "../config/env";
+import { User } from "../models/entity/User";
+import { Wallet } from "../models/Wallet";
+import { BitpandaService } from "../services/utils/BitpandaService";
 
 @Controller("/bitpanda")
 export class BitpandaController {

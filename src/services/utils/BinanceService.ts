@@ -1,6 +1,6 @@
 import { NotFound } from "@tsed/exceptions";
 import axios from "axios";
-import { BinanceTradingPair } from "src/models/BinanceTradingPair";
+import { BinanceTradingPair } from "../../models/BinanceTradingPair";
 
 /**
  * The BinanceService is a simple api-wrapper over the binance api - mainly used to get pricing data.

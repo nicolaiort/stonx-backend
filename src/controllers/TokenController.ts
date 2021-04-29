@@ -1,6 +1,6 @@
-import {BodyParams, Controller, Get, Post, QueryParams, Req} from "@tsed/common";
-import {Description, Returns} from "@tsed/schema";
-import {SupportedTokens} from "src/models/SupportedTokens";
+import { Controller, Get, Req } from "@tsed/common";
+import { Description, Returns } from "@tsed/schema";
+import { SupportedTokens } from "../models/SupportedTokens";
 
 @Controller("/tokens")
 export class TokenController {

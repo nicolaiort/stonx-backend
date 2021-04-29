@@ -15,7 +15,7 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "allowSyntheticDefaultImports": true,
-    "importHelpers": true,
+    "importHelpers": false,
     "newLine": "LF",
     "noEmit": true,
     "esModuleInterop": true,

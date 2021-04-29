@@ -1,9 +1,9 @@
-import {Description, Email, Ignore, Optional, Required} from "@tsed/schema";
+import { Description, Ignore, Required } from "@tsed/schema";
 import axios from "axios";
-import {config} from "src/config/env";
-import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
-import {SupportedTokens} from "../SupportedTokens";
-import {User} from "./User";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { config } from "../../config/env";
+import { SupportedTokens } from "../SupportedTokens";
+import { User } from "./User";
 
 @Entity()
 export class CryptoWallet {
@@ -15,11 +15,11 @@ export class CryptoWallet {
   @ManyToOne(() => User, (user) => user.wallets)
   owner: User;
 
-  @Column({nullable: false, type: "text"})
+  @Column({ nullable: false, type: "text" })
   @Required()
   token: SupportedTokens;
 
-  @Column({nullable: false})
+  @Column({ nullable: false })
   address: string;
 
   constructor(owner: User, address: string, token: SupportedTokens) {

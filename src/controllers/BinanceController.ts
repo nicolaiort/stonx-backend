@@ -1,8 +1,8 @@
 import { Controller, Get, PathParams } from "@tsed/common";
 import { Authenticate } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
-import { BinanceTradingPair } from "src/models/BinanceTradingPair";
-import { BinanceService } from "src/services/utils/BinanceService";
+import { BinanceTradingPair } from "../models/BinanceTradingPair";
+import { BinanceService } from "../services/utils/BinanceService";
 
 @Controller("/binance")
 export class BinanceController {

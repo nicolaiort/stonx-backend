@@ -1,11 +1,11 @@
-import {Req} from "@tsed/common";
-import {Unauthorized} from "@tsed/exceptions";
-import {Arg, OnVerify, Protocol} from "@tsed/passport";
-import {Description, Required} from "@tsed/schema";
-import {ExtractJwt, Strategy, StrategyOptions} from "passport-jwt";
-import {config} from "src/config/env";
-import {User} from "src/models/entity/User";
-import {UserService} from "src/services/users/UserService";
+import { Req } from "@tsed/common";
+import { Unauthorized } from "@tsed/exceptions";
+import { Arg, OnVerify, Protocol } from "@tsed/passport";
+import { Description, Required } from "@tsed/schema";
+import { ExtractJwt, Strategy, StrategyOptions } from "passport-jwt";
+import { config } from "../config/env";
+import { User } from "../models/entity/User";
+import { UserService } from "../services/users/UserService";
 
 export class JwtPayload {
   @Required()
@@ -53,7 +53,7 @@ export class JwtPayload {
   }
 })
 export class JwtProtocol implements OnVerify {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
   async $onVerify(@Req() req: Req, @Arg(0) jwtPayload: JwtPayload): Promise<User> {
     if (jwtPayload.exp < Date.now()) {

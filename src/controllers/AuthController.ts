@@ -1,15 +1,15 @@
-import {BodyParams, Controller, Get, Post, Req} from "@tsed/common";
-import {Authenticate, Authorize} from "@tsed/passport";
-import {Returns, Security} from "@tsed/schema";
-import {UserService} from "src/services/users/UserService";
-import {Credentials} from "../models/Credentials";
-import {User} from "../models/entity/User";
-import {UserCreation} from "../models/UserCreation";
+import { BodyParams, Controller, Get, Post, Req } from "@tsed/common";
+import { Authenticate, Authorize } from "@tsed/passport";
+import { Returns, Security } from "@tsed/schema";
+import { Credentials } from "../models/Credentials";
+import { User } from "../models/entity/User";
+import { UserCreation } from "../models/UserCreation";
+import { UserService } from "../services/users/UserService";
 
 @Controller("/auth")
 export class AuthController {
   @Post("/login")
-  @Authenticate("login", {failWithError: false})
+  @Authenticate("login", { failWithError: false })
   @Security("local")
   @Returns(200, User)
   @(Returns(400).Description("Validation error"))
@@ -43,5 +43,5 @@ export class AuthController {
     req.logout();
   }
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 }

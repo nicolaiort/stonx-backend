@@ -1,6 +1,6 @@
 import axios from "axios";
-import { User } from "src/models/entity/User";
-import { SupportedTokens } from "src/models/SupportedTokens";
+import { User } from "../../models/entity/User";
+import { SupportedTokens } from "../../models/SupportedTokens";
 
 /**
  * The BitpandaService is a simple api-wrapper over the bitpanda api.
