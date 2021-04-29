@@ -11,7 +11,7 @@ export class BinanceController {
     @Security("jwt")
     @Description("Returns the current crypto token prices listen on bitpanda")
     @Returns(200)
-    async getPrices(): Promise<BinanceTradingPair[]> {
+    async getTradingPairs(): Promise<BinanceTradingPair[]> {
         return await BinanceService.getTradingPairs();
     }
 }
