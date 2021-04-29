@@ -6,5 +6,5 @@ export class WalletCreation {
     address: string;
 
     @Required()
-    token: SupportedTokens;
+    token: string;
 }

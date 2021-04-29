@@ -1,4 +1,4 @@
-import { BodyParams, Controller, Get, Post, QueryParams, Req } from "@tsed/common";
+import { BodyParams, Controller, Delete, Get, PathParams, Post, QueryParams, Req } from "@tsed/common";
 import { Authenticate, Authorize } from "@tsed/passport";
 import { Description, Returns } from "@tsed/schema";
 import axios from "axios";
@@ -14,7 +14,7 @@ export class WalletController {
     @Description("Returns your wallets by coin with balance and fiat equivalent.")
     @Returns(200, Wallet)
     @Authenticate("jwt")
-    async getEthWallets(@Req() req: Req): Promise<Wallet[]> {
+    async getWallets(@Req() req: Req): Promise<Wallet[]> {
         let wallets = await this.walletService.findByUser((req.user as User));
         if (!wallets) {
             return [];
@@ -25,7 +25,7 @@ export class WalletController {
         let returnWallets: Wallet[] = new Array<Wallet>();
 
         for (let wallet of wallets) {
-            returnWallets.push(new Wallet("ETH", await wallet.balance(), parseFloat(prices[wallet.token][config["CURRENCY"]])));
+            returnWallets.push(new Wallet("ETH", await wallet.balance(), parseFloat(prices[wallet.token][config["CURRENCY"]]), wallet.id));
         }
 
         return returnWallets;
@@ -35,10 +35,20 @@ export class WalletController {
     @Description("Create a new wallet for yourself.")
     @Returns(200, Wallet)
     @Authenticate("jwt")
-    async createEthWallets(@BodyParams() new_wallet: WalletCreation, @Req() req: Req): Promise<Wallet> {
+    async createWallets(@BodyParams() new_wallet: WalletCreation, @Req() req: Req): Promise<Wallet> {
         let wallet = await this.walletService.createWallet((req.user as User), new_wallet);
         let prices = (await axios.get('https://api.bitpanda.com/v1/ticker')).data
-        return new Wallet("ETH", await wallet.balance(), parseFloat(prices[wallet.token][config["CURRENCY"]]));
+        return new Wallet("ETH", await wallet.balance(), parseFloat(prices[wallet.token][config["CURRENCY"]]), wallet.id);
+    }
+
+    @Delete("/:id")
+    @Description("Delete one of your wallets.")
+    @Returns(200, Wallet)
+    @Authenticate("jwt")
+    async deleteWallet(@PathParams("id") id: string, @Req() req: Req): Promise<any> {
+        const wallet = await this.walletService.findById(id);
+        await this.walletService.delete(wallet);
+        return true;
     }
 
     constructor(private walletService: WalletService) {

@@ -4,6 +4,10 @@ import {
 } from "@tsed/schema";
 
 export class Wallet {
+
+    @Optional()
+    id:string;
+
     @Required()
     token: string;
 
@@ -13,10 +17,13 @@ export class Wallet {
     @Optional()
     fiat: number;
 
-    constructor(token: string, balance:number, price:number = 0){
+    constructor(token: string, balance:number, price:number = 0, id?:string){
         this.token=token;
         this.balance=balance;
         this.fiat=this.balance*price;
+        if(id){
+            this.id=id;
+        }
     }
 
     public set price(value:number){
