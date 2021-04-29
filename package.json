@@ -5,11 +5,8 @@
   "scripts": {
     "dev": "tsnd --inspect --ignore-watch node_modules --respawn --transpile-only -r tsconfig-paths/register src/index.ts --watch",
     "build": "yarn run tsc",
-    "tsc": "tsc --project tsconfig.compile.json",
-    "tsc:w": "tsc --project tsconfig.json -w",
-    "start": "tsnd --inspect --ignore-watch node_modules --respawn --transpile-only -r tsconfig-paths/register src/index.ts",
     "start:prod": "cross-env NODE_ENV=production node dist/index.js",
-    "prettier": "prettier '{src,test}/**/*.ts' --write",
+    "prettier": "prettier src/**/*.ts --write",
     "typeorm": "tsed typeorm"
   },
   "dependencies": {

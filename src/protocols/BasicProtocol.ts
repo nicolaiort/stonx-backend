@@ -1,9 +1,9 @@
 import {Req} from "@tsed/common";
-import { Unauthorized } from "@tsed/exceptions";
+import {Unauthorized} from "@tsed/exceptions";
 import {Arg, OnInstall, OnVerify, Protocol} from "@tsed/passport";
 import {Strategy} from "passport";
 import {BasicStrategy} from "passport-http";
-import { User } from "src/models/entity/User";
+import {User} from "src/models/entity/User";
 import {UserService} from "../services/users/UserService";
 
 @Protocol({
@@ -12,18 +12,17 @@ import {UserService} from "../services/users/UserService";
   settings: {}
 })
 export class BasicProtocol implements OnVerify, OnInstall {
-  constructor(private userService: UserService) {
-  }
+  constructor(private userService: UserService) {}
 
   async $onVerify(@Req() request: Req, @Arg(0) username: string, @Arg(1) password: string): Promise<User> {
     const user = await this.userService.findByEmail(username);
 
     if (!user) {
-      throw new Unauthorized("Unknown user")
+      throw new Unauthorized("Unknown user");
     }
 
     if (!(await user.verifyPassword(password))) {
-      throw new Unauthorized("Wrong credentials")
+      throw new Unauthorized("Wrong credentials");
     }
 
     return user;

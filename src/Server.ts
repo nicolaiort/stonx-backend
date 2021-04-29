@@ -11,21 +11,16 @@ import "@tsed/swagger";
 import "@tsed/typeorm";
 import {config, rootDir} from "./config";
 import {IndexCtrl} from "./controllers/pages/IndexController";
-import { User } from "./models/entity/User";
+import {User} from "./models/entity/User";
 
 @Configuration({
   ...config,
   acceptMimes: ["application/json"],
   httpPort: process.env.PORT || 8083,
   httpsPort: false, // CHANGE
-  componentsScan: [
-    `${rootDir}/services/**/*.ts`,
-    `${rootDir}/protocols/**/*.ts`
-  ],
+  componentsScan: [`${rootDir}/services/**/*.ts`, `${rootDir}/protocols/**/*.ts`],
   mount: {
-    "/rest": [
-      `${rootDir}/controllers/**/*.ts`
-    ],
+    "/rest": [`${rootDir}/controllers/**/*.ts`],
     "/": [IndexCtrl]
   },
   swagger: [
@@ -34,9 +29,7 @@ import { User } from "./models/entity/User";
       specVersion: "3.0.1"
     }
   ],
-  exclude: [
-    "**/*.spec.ts"
-  ],
+  exclude: ["**/*.spec.ts"],
   passport: {
     userInfoModel: User
   }
@@ -55,8 +48,10 @@ export class Server {
       .use(compress({}))
       .use(methodOverride())
       .use(bodyParser.json())
-      .use(bodyParser.urlencoded({
-        extended: true
-      }));
+      .use(
+        bodyParser.urlencoded({
+          extended: true
+        })
+      );
   }
 }

@@ -1,7 +1,7 @@
-import { Description, Email, Ignore, Optional, Required } from "@tsed/schema";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {Description, Email, Ignore, Optional, Required} from "@tsed/schema";
+import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import * as argon2 from "argon2";
-import { CryptoWallet } from "./CryptoWallet";
+import {CryptoWallet} from "./CryptoWallet";
 
 @Entity()
 export class User {
@@ -10,16 +10,16 @@ export class User {
   @Ignore()
   id: string;
 
-  @Column({ unique: true, nullable: true })
+  @Column({unique: true, nullable: true})
   @Optional()
   username: string;
 
-  @Column({ unique: true, nullable: false })
+  @Column({unique: true, nullable: false})
   @Required()
   @Email()
   email: string;
 
-  @Column({ nullable: false })
+  @Column({nullable: false})
   @Ignore()
   password: string;
 
@@ -27,7 +27,7 @@ export class User {
   @Ignore()
   confirmed: boolean = false;
 
-  @Column({ nullable: true })
+  @Column({nullable: true})
   @Ignore()
   jwt_count: number = 0;
 
@@ -35,18 +35,18 @@ export class User {
   @Description("The user's jwt. Will get provided on login.")
   token: string;
 
-  @Column({ nullable: true })
+  @Column({nullable: true})
   @Optional()
   @Ignore()
   bitpanda_api_key: string;
 
-  @OneToMany(() => CryptoWallet, wallet => wallet.owner, { nullable: true })
+  @OneToMany(() => CryptoWallet, (wallet) => wallet.owner, {nullable: true})
   wallets: CryptoWallet[];
 
-  constructor(email: string, username?:string) {
+  constructor(email: string, username?: string) {
     this.email = email;
-    if(username){
-      this.username=username;
+    if (username) {
+      this.username = username;
     }
     this.confirmed = false;
   }
@@ -56,6 +56,6 @@ export class User {
   }
 
   async verifyPassword(password: string): Promise<boolean> {
-    return await argon2.verify(this.password, password)
+    return await argon2.verify(this.password, password);
   }
 }

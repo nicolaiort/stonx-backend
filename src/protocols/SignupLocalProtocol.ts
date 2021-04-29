@@ -4,8 +4,8 @@ import {Strategy} from "passport-local";
 import {Forbidden} from "@tsed/exceptions";
 import {UserCreation} from "../models/UserCreation";
 import {UserService} from "../services/users/UserService";
-import { User } from "src/models/entity/User";
-import { config } from "src/config/env";
+import {User} from "src/models/entity/User";
+import {config} from "src/config/env";
 
 @Protocol({
   name: "signup",
@@ -16,12 +16,11 @@ import { config } from "src/config/env";
   }
 })
 export class SignupLocalProtocol implements OnVerify, OnInstall {
-  constructor(private userService: UserService) {
-  }
+  constructor(private userService: UserService) {}
 
   async $onVerify(@Req() request: Req, @BodyParams() user: UserCreation): Promise<User> {
-    if(config["ENABLE_SIGNUP"] == "false"){
-      throw new Forbidden("Signup is disabled right now. Please try again later or contact the admin.")
+    if (config["ENABLE_SIGNUP"] == "false") {
+      throw new Forbidden("Signup is disabled right now. Please try again later or contact the admin.");
     }
     const {email} = user;
     const found = await this.userService.findByEmail(email);

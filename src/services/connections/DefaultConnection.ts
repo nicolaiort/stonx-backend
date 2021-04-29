@@ -6,12 +6,12 @@ export const DEFAULT_CONNECTION = Symbol.for("DEFAULT_CONNECTION");
 export type DEFAULT_CONNECTION = Connection;
 
 registerProvider({
-    provide: DEFAULT_CONNECTION,
-    deps: [Configuration],
-    async useAsyncFactory(configuration: Configuration) {
-       const settings = configuration.get<ConnectionOptions[]>("typeorm")!;
-       const connectionOptions = settings.find(o => o.name === "default");
+  provide: DEFAULT_CONNECTION,
+  deps: [Configuration],
+  async useAsyncFactory(configuration: Configuration) {
+    const settings = configuration.get<ConnectionOptions[]>("typeorm")!;
+    const connectionOptions = settings.find((o) => o.name === "default");
 
-       return createConnection(connectionOptions!);
-    }
+    return createConnection(connectionOptions!);
+  }
 });
