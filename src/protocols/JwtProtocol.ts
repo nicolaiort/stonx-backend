@@ -57,6 +57,11 @@ export class JwtProtocol implements OnVerify {
     }
 
     async $onVerify(@Req() req: Req, @Arg(0) jwtPayload: JwtPayload): Promise<User> {
+
+        if(jwtPayload.exp < Date.now()){
+            throw new Unauthorized("Expired jwt")
+        }
+
         const user = await this.userService.findById(jwtPayload.sub);
 
         if (!user) {
