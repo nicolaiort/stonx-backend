@@ -10,6 +10,7 @@ import { UserCreation } from "../models/UserCreation";
 export class AuthController {
   @Post("/login")
   @Authenticate("login", { failWithError: false })
+  @Security("local")
   @Returns(200, User)
   @Returns(400).Description("Validation error")
   login(@Req() req: Req, @BodyParams() credentials: Credentials): User {
@@ -27,6 +28,7 @@ export class AuthController {
 
   @Get("/userinfo")
   @Authorize("jwt")
+  @Security("jwt")
   @Returns(200, User)
   getUserInfo(@Req() req: Req): User {
     // FACADE
@@ -36,6 +38,7 @@ export class AuthController {
 
   @Post("/logout")
   @Authorize("jwt")
+  @Security("jwt")
   logout(@Req() req: Req) {
     this.userService.increaseJwtCount((req.user as User));
     req.logout();

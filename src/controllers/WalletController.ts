@@ -1,6 +1,6 @@
 import { BodyParams, Controller, Delete, Get, PathParams, Post, QueryParams, Req } from "@tsed/common";
 import { Authenticate, Authorize } from "@tsed/passport";
-import { Description, Returns } from "@tsed/schema";
+import { Description, Returns, Security } from "@tsed/schema";
 import axios from "axios";
 import { config } from "src/config/env";
 import { User } from "src/models/entity/User";
@@ -11,9 +11,10 @@ import { WalletService } from "src/services/users/WalletService";
 @Controller("/wallets")
 export class WalletController {
     @Get()
+    @Authenticate("jwt")
+    @Security("jwt")
     @Description("Returns your wallets by coin with balance and fiat equivalent.")
     @Returns(200, Wallet)
-    @Authenticate("jwt")
     async getWallets(@Req() req: Req): Promise<Wallet[]> {
         let wallets = await this.walletService.findByUser((req.user as User));
         if (!wallets) {
@@ -32,9 +33,10 @@ export class WalletController {
     }
 
     @Post()
+    @Authenticate("jwt")
+    @Security("jwt")
     @Description("Create a new wallet for yourself.")
     @Returns(200, Wallet)
-    @Authenticate("jwt")
     async createWallets(@BodyParams() new_wallet: WalletCreation, @Req() req: Req): Promise<Wallet> {
         let wallet = await this.walletService.createWallet((req.user as User), new_wallet);
         let prices = (await axios.get('https://api.bitpanda.com/v1/ticker')).data
@@ -42,9 +44,10 @@ export class WalletController {
     }
 
     @Delete("/:id")
+    @Authenticate("jwt")
+    @Security("jwt")
     @Description("Delete one of your wallets.")
     @Returns(200, Wallet)
-    @Authenticate("jwt")
     async deleteWallet(@PathParams("id") id: string, @Req() req: Req): Promise<any> {
         await this.walletService.delete({id: id});
         return true;
