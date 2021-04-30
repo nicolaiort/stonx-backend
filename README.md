@@ -21,8 +21,7 @@ Powered by (among many others):
 ### Balances and prices powered by:
 * Bitpanda Assets and Prices: https://api.bitpanda.com
 * Other Token Prices: https://api.binance.com
-* ETH Wallet Balances: https://api.etherscan.io
-* BTC Wallet Balances: https://api.blockcypher.com
+* ETH and BTC Wallet Balances: https://api.blockcypher.com/
 * DOGE Wallet Balances: https://dogechain.info/
 
 ## Roadmap
@@ -37,7 +36,6 @@ Powered by (among many others):
 | Env var | Type | Optional | Default value | Description|
 | - | - | - | - | - |
 JWT_SECRET | String | No | empty | The secret used by the backend to sign jwts - Should be at least 32bits (Max 512) |
-ETHERSCAN_APIKEY | String | No | empty | An api key for etherscan - the backend uses etherscan to get the balance of erc20 wallets - You can get one [here](https://etherscan.io/apis) |
 CURRENCY | String | No | empty | Your local currency string (Tested with EUR and USD) |
 ENABLE_SIGNUP | Boolan | Yes | true | Enable the aut/signup endpoint(true,default) or disable it |
 

@@ -1,6 +1,5 @@
 import axios from "axios";
 import { SupportedTokens } from "src/models/SupportedTokens";
-import { config } from "../../config/env";
 
 /**
  * The BalanceService is a api-wrapper over multiple different apis.
@@ -11,7 +10,7 @@ export class BalanceService {
         switch (token) {
             case SupportedTokens.ETH:
                 const resEtherscan = await axios.get(
-                    `https://api.etherscan.io/api?module=account&action=balance&address=${address}&tag=latest&apikey=${config["ETHERSCAN_APIKEY"]}`
+                    `https://api.blockcypher.com/v1/eth/main/addrs/${address}/balance`
                 );
                 return parseInt(resEtherscan.data.result) / 1000000000000000000;
             case SupportedTokens.BTC:
