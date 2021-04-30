@@ -25,6 +25,11 @@ Powered by (among many others):
 * BTC Wallet Balances: https://api.blockcypher.com
 * DOGE Wallet Balances: https://dogechain.info/
 
+## Roadmap
+* Support for more ERC20 Tokens
+* Support for ADA
+* Save and view timeseries data about all of your wallets
+
 ## Configuration
 > You can (or sometimes have to) use the following env vars to configure some parts of the backend
 > This repository provides an .example.env file that contains all env vars
