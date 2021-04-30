@@ -46,7 +46,11 @@ export class CryptoWallet {
           `https://api.blockcypher.com/v1/btc/main/addrs/${this.address}/balance`
         );
         return parseInt(resBlockcypher.data.balance) / 100000000;
-
+      case SupportedTokens.DOGE:
+        const resDogechain = await axios.get(
+          `https://dogechain.info/api/v1/address/balance/${this.address}`
+        );
+        return parseFloat(resDogechain.data.balance);
       default:
         throw new Error("Token not supported");
     }

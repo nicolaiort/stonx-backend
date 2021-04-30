@@ -22,6 +22,7 @@ Powered by (among many others):
 * Other Token Prices: https://api.binance.com
 * ETH Wallet Balances: https://api.etherscan.io
 * BTC Wallet Balances: https://api.blockcypher.com
+* DOGE Wallet Balances: https://dogechain.info/
 
 ## Configuration
 > You can (or sometimes have to) use the following env vars to configure some parts of the backend
