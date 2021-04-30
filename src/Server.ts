@@ -30,7 +30,7 @@ import { User } from "./models/entity/User";
       spec: {
         components: {
           securitySchemes: {
-            "AuthToken": {
+            "jwt": {
               "type": "http",
               "scheme": "bearer",
               "bearerFormat": "JWT",
