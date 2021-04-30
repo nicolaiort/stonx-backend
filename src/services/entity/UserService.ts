@@ -12,6 +12,10 @@ export class UserService extends Repository<User> {
     return this.findOne({ email: email });
   }
 
+  async findByName(username: string): Promise<User | undefined> {
+    return this.findOne({ username: username });
+  }
+
   async createUser(new_user: UserCreation): Promise<User> {
     let user = new User(new_user.email, new_user.username);
     user.bitpanda_api_key = new_user.bitpanda_api_key;

@@ -25,11 +25,15 @@ export class SignupLocalProtocol implements OnVerify, OnInstall {
     if (config["ENABLE_SIGNUP"] == "false") {
       throw new Forbidden("Signup is disabled right now. Please try again later or contact the admin.");
     }
-    const { email } = user;
-    const found = await this.userService.findByEmail(email);
 
-    if (found) {
+    const found_mail = await this.userService.findByEmail(user.email);
+    if (found_mail) {
       throw new Forbidden("Email is already registered");
+    }
+
+    const found_name = await this.userService.findByEmail(user.username);
+    if (found_name) {
+      throw new Forbidden("Username is already registered");
     }
 
     const new_user = await this.userService.createUser(user);
