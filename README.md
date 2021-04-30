@@ -15,6 +15,13 @@ Powered by (among many others):
 * Bitpanda Wallets (Needs a bitpanda api token that can read your assets)
 * Bitpanda Indices (Needs a bitpanda api token that can read your assets)
 * ETH Wallets (Only needs the public key/address)
+* BTC Wallets (Only needs the public key/address)
+
+### Balances and prices powered by:
+* Bitpanda Assets and Prices: https://api.bitpanda.com
+* Other Token Prices: https://api.binance.com
+* ETH Wallet Balances: https://api.etherscan.io
+* BTC Wallet Balances: https://api.blockcypher.com
 
 ## Configuration
 > You can (or sometimes have to) use the following env vars to configure some parts of the backend
