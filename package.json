@@ -2,6 +2,7 @@
   "name": "stonkx-backend",
   "version": "0.0.1",
   "description": "",
+  "license": "MIT",
   "scripts": {
     "dev": "tsnd --inspect --ignore-watch node_modules --respawn --transpile-only -r tsconfig-paths/register src/index.ts --watch",
     "build": "tsc --project tsconfig.compile.json",
