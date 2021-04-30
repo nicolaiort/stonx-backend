@@ -1,11 +1,13 @@
 import { BodyParams, Constant, Req } from "@tsed/common";
 import { Forbidden } from "@tsed/exceptions";
 import { OnInstall, OnVerify, Protocol } from "@tsed/passport";
+import * as jwt from "jsonwebtoken";
 import { Strategy } from "passport-local";
 import { config } from "../config/env";
 import { User } from "../models/entity/User";
 import { UserCreation } from "../models/UserCreation";
 import { UserService } from "../services/entity/UserService";
+import { JwtPayload } from "./JwtProtocol";
 
 @Protocol({
   name: "signup",
@@ -36,7 +38,7 @@ export class SignupLocalProtocol implements OnVerify, OnInstall {
       throw new Forbidden("Username is already registered");
     }
 
-    const new_user = await this.userService.createUser(user);
+    const new_user: User = await this.userService.createUser(user);
 
     const token = this.createJwt(new_user);
     new_user.token = token;
