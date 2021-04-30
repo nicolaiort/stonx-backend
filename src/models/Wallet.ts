@@ -16,7 +16,7 @@ export class Wallet {
   @Optional()
   description?: string;
 
-  constructor(token: string, balance: number, price: number = 0, id?: string, description?: string) {
+  constructor(token: string, balance: number, price: number = 0, id: string, description?: string) {
     this.token = token;
     this.balance = balance;
     this.fiat = this.balance * price;
@@ -24,7 +24,7 @@ export class Wallet {
       this.id = id;
     }
     if (description) {
-      this.id = description;
+      this.description = description;
     }
   }
 

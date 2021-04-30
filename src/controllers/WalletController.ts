@@ -24,7 +24,7 @@ export class WalletController {
     let returnWallets: Wallet[] = new Array<Wallet>();
 
     for (let wallet of wallets) {
-      returnWallets.push(new Wallet(wallet.token, await wallet.balance(), (await BinanceService.getTradingPair(wallet.token, config["CURRENCY"])).price, wallet.id));
+      returnWallets.push(new Wallet(wallet.token, await wallet.balance(), (await BinanceService.getTradingPair(wallet.token, config["CURRENCY"])).price, wallet.id, wallet.description));
     }
 
     return returnWallets;
@@ -37,7 +37,7 @@ export class WalletController {
   @Returns(200, Wallet)
   async createWallets(@BodyParams() new_wallet: WalletCreation, @Req() req: Req): Promise<Wallet> {
     let wallet = await this.walletService.createWallet(req.user as User, new_wallet);
-    return new Wallet(wallet.token, await wallet.balance(), (await BinanceService.getTradingPair(wallet.token, config["CURRENCY"])).price, wallet.id);
+    return new Wallet(wallet.token, await wallet.balance(), (await BinanceService.getTradingPair(wallet.token, config["CURRENCY"])).price, wallet.id, wallet.description);
   }
 
   @Delete("/:id")
