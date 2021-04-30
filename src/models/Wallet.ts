@@ -1,4 +1,4 @@
-import {Optional, Required} from "@tsed/schema";
+import { Optional, Required } from "@tsed/schema";
 
 export class Wallet {
   @Optional()
@@ -13,12 +13,18 @@ export class Wallet {
   @Optional()
   fiat: number;
 
-  constructor(token: string, balance: number, price: number = 0, id?: string) {
+  @Optional()
+  description?: string;
+
+  constructor(token: string, balance: number, price: number = 0, id?: string, description?: string) {
     this.token = token;
     this.balance = balance;
     this.fiat = this.balance * price;
     if (id) {
       this.id = id;
+    }
+    if (description) {
+      this.id = description;
     }
   }
 

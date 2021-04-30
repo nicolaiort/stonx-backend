@@ -22,10 +22,16 @@ export class CryptoWallet {
   @Column({ nullable: false })
   address: string;
 
-  constructor(owner: User, address: string, token: SupportedTokens) {
+  @Column({ nullable: true })
+  description?: string;
+
+  constructor(owner: User, address: string, token: SupportedTokens, description?: string) {
     this.address = address;
     this.owner = owner;
     this.token = token;
+    if (description) {
+      this.description = description;
+    }
   }
 
   async balance(): Promise<number> {

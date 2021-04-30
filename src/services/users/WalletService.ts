@@ -15,7 +15,7 @@ export class WalletService extends Repository<CryptoWallet> {
   }
 
   async createWallet(owner: User, new_wallet: WalletCreation): Promise<CryptoWallet> {
-    let wallet = new CryptoWallet(owner, new_wallet.address, new_wallet.token as SupportedTokens);
+    let wallet = new CryptoWallet(owner, new_wallet.address, new_wallet.token as SupportedTokens, new_wallet.description);
     return this.save(wallet);
   }
 }

@@ -1,5 +1,4 @@
-import {Required} from "@tsed/schema";
-import {SupportedTokens} from "./SupportedTokens";
+import { Optional, Required } from "@tsed/schema";
 
 export class WalletCreation {
   @Required()
@@ -7,4 +6,7 @@ export class WalletCreation {
 
   @Required()
   token: string;
+
+  @Optional()
+  description?: string;
 }
