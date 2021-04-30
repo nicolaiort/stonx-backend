@@ -25,6 +25,8 @@ Powered by (among many others):
 * DOGE Wallet Balances: https://dogechain.info/
 
 ## Roadmap
+* Add support for postgresql and mysql databases alongside the existing sqlite option
+* Create a helmchart
 * Support for more ERC20 Tokens
 * Support for ADA
 * Save and view timeseries data about all of your wallets
