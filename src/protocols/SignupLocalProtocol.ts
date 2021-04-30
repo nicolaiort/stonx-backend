@@ -1,4 +1,4 @@
-import { BodyParams, Req } from "@tsed/common";
+import { BodyParams, Constant, Req } from "@tsed/common";
 import { Forbidden } from "@tsed/exceptions";
 import { OnInstall, OnVerify, Protocol } from "@tsed/passport";
 import { Strategy } from "passport-local";
@@ -18,6 +18,9 @@ import { UserService } from "../services/entity/UserService";
 export class SignupLocalProtocol implements OnVerify, OnInstall {
   constructor(private userService: UserService) { }
 
+  @Constant("passport.protocols.jwt.settings")
+  jwtSettings: any;
+
   async $onVerify(@Req() request: Req, @BodyParams() user: UserCreation): Promise<User> {
     if (config["ENABLE_SIGNUP"] == "false") {
       throw new Forbidden("Signup is disabled right now. Please try again later or contact the admin.");
@@ -29,10 +32,22 @@ export class SignupLocalProtocol implements OnVerify, OnInstall {
       throw new Forbidden("Email is already registered");
     }
 
-    return this.userService.createUser(user);
+    const new_user = await this.userService.createUser(user);
+
+    const token = this.createJwt(new_user);
+    new_user.token = token;
+
+    return new_user;
   }
 
   $onInstall(strategy: Strategy): void {
     // intercept the strategy instance to adding extra configuration
+  }
+
+  createJwt(user: User) {
+    const { issuer, audience, secretOrKey, maxAge = 3600 } = this.jwtSettings;
+    const now = Date.now();
+
+    return jwt.sign(Object.assign({}, new JwtPayload(issuer, audience, user.id, now + maxAge * 1000, now, user.jwt_count)), secretOrKey);
   }
 }
