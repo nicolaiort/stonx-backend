@@ -5,7 +5,7 @@ import { config } from "../config/env";
 import { User } from "../models/entity/User";
 import { Wallet } from "../models/Wallet";
 import { WalletCreation } from "../models/WalletCreation";
-import { WalletService } from "../services/users/WalletService";
+import { WalletService } from "../services/entity/WalletService";
 import { BinanceService } from "../services/utils/BinanceService";
 
 @Controller("/wallets")

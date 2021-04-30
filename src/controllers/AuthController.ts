@@ -4,7 +4,7 @@ import { Returns, Security } from "@tsed/schema";
 import { Credentials } from "../models/Credentials";
 import { User } from "../models/entity/User";
 import { UserCreation } from "../models/UserCreation";
-import { UserService } from "../services/users/UserService";
+import { UserService } from "../services/entity/UserService";
 
 @Controller("/auth")
 export class AuthController {

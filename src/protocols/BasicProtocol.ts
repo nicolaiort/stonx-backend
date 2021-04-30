@@ -4,7 +4,7 @@ import { Arg, OnInstall, OnVerify, Protocol } from "@tsed/passport";
 import { Strategy } from "passport";
 import { BasicStrategy } from "passport-http";
 import { User } from "../models/entity/User";
-import { UserService } from "../services/users/UserService";
+import { UserService } from "../services/entity/UserService";
 
 @Protocol({
   name: "basic",

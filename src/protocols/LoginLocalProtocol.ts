@@ -5,7 +5,7 @@ import * as jwt from "jsonwebtoken";
 import { IStrategyOptions, Strategy } from "passport-local";
 import { Credentials } from "../models/Credentials";
 import { User } from "../models/entity/User";
-import { UserService } from "../services/users/UserService";
+import { UserService } from "../services/entity/UserService";
 import { JwtPayload } from "./JwtProtocol";
 
 @Protocol<IStrategyOptions>({

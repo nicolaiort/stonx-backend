@@ -1,7 +1,6 @@
 import { Description, Ignore, Required } from "@tsed/schema";
-import axios from "axios";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { config } from "../../config/env";
+import { BalanceService } from "../../services/utils/BalanceService";
 import { SupportedTokens } from "../SupportedTokens";
 import { User } from "./User";
 
@@ -35,24 +34,6 @@ export class CryptoWallet {
   }
 
   async balance(): Promise<number> {
-    switch (this.token) {
-      case SupportedTokens.ETH:
-        const resEtherscan = await axios.get(
-          `https://api.etherscan.io/api?module=account&action=balance&address=${this.address}&tag=latest&apikey=${config["ETHERSCAN_APIKEY"]}`
-        );
-        return parseInt(resEtherscan.data.result) / 1000000000000000000;
-      case SupportedTokens.BTC:
-        const resBlockcypher = await axios.get(
-          `https://api.blockcypher.com/v1/btc/main/addrs/${this.address}/balance`
-        );
-        return parseInt(resBlockcypher.data.balance) / 100000000;
-      case SupportedTokens.DOGE:
-        const resDogechain = await axios.get(
-          `https://dogechain.info/api/v1/address/balance/${this.address}`
-        );
-        return parseFloat(resDogechain.data.balance);
-      default:
-        throw new Error("Token not supported");
-    }
+    return BalanceService.getBalance(this.address, this.token)
   }
 }

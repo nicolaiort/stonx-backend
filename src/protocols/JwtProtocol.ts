@@ -5,7 +5,7 @@ import { Description, Required } from "@tsed/schema";
 import { ExtractJwt, Strategy, StrategyOptions } from "passport-jwt";
 import { config } from "../config/env";
 import { User } from "../models/entity/User";
-import { UserService } from "../services/users/UserService";
+import { UserService } from "../services/entity/UserService";
 
 export class JwtPayload {
   @Required()
