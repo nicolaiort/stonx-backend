@@ -31,7 +31,7 @@ export class SignupLocalProtocol implements OnVerify, OnInstall {
       throw new Forbidden("Email is already registered");
     }
 
-    const found_name = await this.userService.findByEmail(user.username);
+    const found_name = await this.userService.findByName(user.username);
     if (found_name) {
       throw new Forbidden("Username is already registered");
     }
