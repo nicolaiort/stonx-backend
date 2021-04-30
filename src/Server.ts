@@ -26,7 +26,19 @@ import { User } from "./models/entity/User";
   swagger: [
     {
       path: "/docs",
-      specVersion: "3.0.1"
+      specVersion: "3.0.1",
+      spec: {
+        components: {
+          securitySchemes: {
+            "AuthToken": {
+              "type": "http",
+              "scheme": "bearer",
+              "bearerFormat": "JWT",
+              description: "A JWT based access token. Use /rest/auth/login to get one."
+            },
+          }
+        }
+      }
     }
   ],
   exclude: ["**/*.spec.ts"],
