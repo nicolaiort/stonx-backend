@@ -1,7 +1,7 @@
-# stonkx-backend
+# stonx-backend
 
 Information aggregation for some of your assets.
-Powers the stonkx-frontend dashboard.
+Powers the [stonx-frontend](https://github.com/nicolaiort/stonx-frontend) dashboard.
 
 Powered by (among many others):
 * [Ts.ED](https://tsed.io)
