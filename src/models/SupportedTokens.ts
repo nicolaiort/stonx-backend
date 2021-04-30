@@ -1,3 +1,4 @@
 export enum SupportedTokens {
-  ETH = "ETH"
+  ETH = "ETH",
+  BTC = "BTC"
 }

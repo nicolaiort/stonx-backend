@@ -31,10 +31,16 @@ export class CryptoWallet {
   async balance(): Promise<number> {
     switch (this.token) {
       case SupportedTokens.ETH:
-        const res = await axios.get(
+        const resEtherscan = await axios.get(
           `https://api.etherscan.io/api?module=account&action=balance&address=${this.address}&tag=latest&apikey=${config["ETHERSCAN_APIKEY"]}`
         );
-        return parseInt(res.data.result) / 1000000000000000000;
+        return parseInt(resEtherscan.data.result) / 1000000000000000000;
+      case SupportedTokens.BTC:
+        const resBlockcypher = await axios.get(
+          `https://api.blockcypher.com/v1/btc/main/addrs/${this.address}/balance`
+        );
+        return parseInt(resBlockcypher.data.balance) / 100000000;
+
       default:
         throw new Error("Token not supported");
     }
