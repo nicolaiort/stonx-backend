@@ -12,8 +12,8 @@ Powered by (among many others):
 ## Supported assets
 > Warning: We currently save your bitpanda api keys in plaintext in our DB
 
-* Bitpanda Wallets (Needs a bitpanda api token that can read your assets)
-* Bitpanda Indices (Needs a bitpanda api token that can read your assets)
+* Bitpanda Wallets (Needs a bitpanda api token that can read your assets - scope "Guthaben")
+* Bitpanda Indices (Needs a bitpanda api token that can read your assets - scope "Guthaben")
 * ETH Wallets (Only needs the public key/address)
 * BTC Wallets (Only needs the public key/address)
 * DOGE Wallets (Only needs the public key/address)
