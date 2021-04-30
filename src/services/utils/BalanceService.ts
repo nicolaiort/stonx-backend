@@ -12,7 +12,7 @@ export class BalanceService {
                 const resEtherscan = await axios.get(
                     `https://api.blockcypher.com/v1/eth/main/addrs/${address}/balance`
                 );
-                return parseInt(resEtherscan.data.result) / 1000000000000000000;
+                return parseInt(resEtherscan.data.balance) / 1000000000000000000;
             case SupportedTokens.BTC:
                 const resBlockcypher = await axios.get(
                     `https://api.blockcypher.com/v1/btc/main/addrs/${address}/balance`
