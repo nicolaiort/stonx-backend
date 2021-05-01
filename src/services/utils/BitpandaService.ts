@@ -53,4 +53,22 @@ export class BitpandaService {
             })
         ).data.data.attributes.index.index.attributes.wallets;
     }
+
+    /**
+     * Validates a bitpanda api key by trying to access the api.
+     * @param key The api key that should be validated
+     * @returns The validity as a boolean.
+     */
+    public static async validateApiKey(key: string): Promise<boolean> {
+        const res = await axios.get("https://api.bitpanda.com/v1/asset-wallets", {
+            headers: {
+                "X-API-KEY": key
+            },
+            validateStatus: null
+        });
+        if (res.status == 401) {
+            return false;
+        }
+        return true;
+    }
 }
