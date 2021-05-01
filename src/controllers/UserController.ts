@@ -2,6 +2,7 @@ import { BodyParams, Controller, Delete, Get, Put, QueryParams, Req } from "@tse
 import { Forbidden } from "@tsed/exceptions";
 import { Authenticate } from "@tsed/passport";
 import { boolean, Description, Returns, Security } from "@tsed/schema";
+import { WalletService } from "src/services/entity/WalletService";
 import { User } from "../models/entity/User";
 import { UserResponse } from "../models/UserResponse";
 import { UserUpdating } from "../models/UserUpdating";
@@ -37,10 +38,13 @@ export class UserController {
       throw new Forbidden("You have to confirm the deletion via queryparam.");
     }
 
-    console.log(await req.user)
+    for (let wallet in await this.walletService.findByUser(req.user as User)) {
+      await this.walletService.delete(wallet);
+    }
+
     await this.userService.deleteByEmail((req.user as User).email);
     return true;
   }
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private walletService: WalletService) { }
 }

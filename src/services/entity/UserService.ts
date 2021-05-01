@@ -4,12 +4,9 @@ import { User } from "../../models/entity/User";
 import { UserCreation } from "../../models/UserCreation";
 import { UserUpdating } from "../../models/UserUpdating";
 import { BitpandaService } from "../utils/BitpandaService";
-import { WalletService } from "./WalletService";
 
 @EntityRepository(User)
 export class UserService extends Repository<User> {
-
-  constructor(private walletService: WalletService) { super(); }
 
   async findById(id: string): Promise<User | undefined> {
     return this.findOne({ id: id });
@@ -82,10 +79,6 @@ export class UserService extends Repository<User> {
     const user = await this.findByEmail(email);
     if (!user) {
       return undefined;
-    }
-
-    for (let wallet of (await this.walletService.findByUser(user))) {
-      await this.walletService.delete(wallet);
     }
 
     await this.delete(user);
