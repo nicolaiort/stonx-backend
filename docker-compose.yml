@@ -1,8 +1,8 @@
 version: '3.3'
 services:
   server:
-    #build: .
-    image: niggl/stonx-backend
+    build: .
+    # image: niggl/stonx-backend
     ports:
       - '8083:8083'
     environment: 
