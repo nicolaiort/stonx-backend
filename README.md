@@ -40,7 +40,7 @@ Powered by (among many others):
 | JWT_SECRET | String | No | empty | The secret used by the backend to sign jwts - Should be at least 32bits (Max 512) |
 | CURRENCY | String | No | empty | Your local currency string (Tested with EUR and USD) |
 | ENABLE_SIGNUP | Boolan | Yes | true | Enable the aut/signup endpoint(true,default) or disable it |
-| DATABASE_TYPE | String | No | `sqlite` | The type of the db that you want to use(currently supported: `sqlite`) |
+| DATABASE_TYPE | String | No | `sqlite` | The type of the db that you want to use(currently supported: `sqlite`, `postgres`, `mysql`, `mariadb`) |
 | DATABASE_NAME | String | No | `database.sql` | The name of the db that you want to use (filename for sqlite) |
 | DATABASE_HOST | String | No | empty | The fqdn for the db's host (empty for sqlite) |
 | DATABASE_PORT | String | No | empty | The port for the db's host (empty for sqlite) |
