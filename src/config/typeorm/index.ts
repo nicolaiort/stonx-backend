@@ -1,15 +1,13 @@
 // @tsed/cli do not edit
 
-import { config } from "../env";
-
 const db_config = {
     name: "default",
-    type: config["DATABASE_TYPE"],
-    database: config["DATABASE_NAME"],
-    host: config["DATABASE_HOST"],
-    port: config["DATABASE_PORT"],
-    username: config["DATABASE_USER"],
-    password: config["DATABASE_PASSWORD"],
+    type: process.env.DATABASE_TYPE,
+    database: process.env.DATABASE_NAME,
+    host: process.env.DATABASE_HOST,
+    port: process.env.DATABASE_PORT,
+    username: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
     synchronize: true,
     logging: false,
     entities: [
