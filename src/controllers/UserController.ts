@@ -13,7 +13,6 @@ export class UserController {
   @Returns(200, User)
   @Description("Returns some basic information about you.")
   getUserInfo(@Req() req: Req): User {
-    // FACADE
     return req.user as User;
   }
 
