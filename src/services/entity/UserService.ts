@@ -1,8 +1,9 @@
-import { Forbidden, NotFound } from "@tsed/exceptions";
+import { BadRequest, Forbidden, NotFound } from "@tsed/exceptions";
 import { UserUpdating } from "src/models/UserUpdating";
 import { EntityRepository, Repository } from "typeorm";
 import { User } from "../../models/entity/User";
 import { UserCreation } from "../../models/UserCreation";
+import { BitpandaService } from "../utils/BitpandaService";
 import { WalletService } from "./WalletService";
 
 @EntityRepository(User)
@@ -27,6 +28,10 @@ export class UserService extends Repository<User> {
 
   async createUser(new_user: UserCreation): Promise<User> {
     let user = new User(new_user.email, new_user.username);
+    const key_valid: boolean = await BitpandaService.validateApiKey(new_user.bitpanda_api_key);
+    if (!key_valid) {
+      throw new BadRequest("Bitpanda API Key is invalid.")
+    }
     user.bitpanda_api_key = new_user.bitpanda_api_key;
     await user.setPassword(new_user.password);
     return this.save(user);
@@ -58,6 +63,10 @@ export class UserService extends Repository<User> {
     user.username = update_user.username;
 
     if (update_user.bitpanda_api_key) {
+      const key_valid: boolean = await BitpandaService.validateApiKey(update_user.bitpanda_api_key);
+      if (!key_valid) {
+        throw new BadRequest("Bitpanda API Key is invalid.")
+      }
       user.bitpanda_api_key = update_user.bitpanda_api_key;
     }
 
