@@ -1,4 +1,4 @@
-import { BodyParams, Controller, Get, Post, Req } from "@tsed/common";
+import { BodyParams, Controller, Delete, Get, Post, Req } from "@tsed/common";
 import { Authenticate, Authorize } from "@tsed/passport";
 import { Returns, Security } from "@tsed/schema";
 import { Credentials } from "../models/Credentials";
@@ -41,6 +41,14 @@ export class AuthController {
   logout(@Req() req: Req) {
     this.userService.increaseJwtCount(req.user as User);
     req.logout();
+  }
+
+  @Delete("/delete")
+  @Authorize("jwt")
+  @Security("jwt")
+  async deleteme(@Req() req: Req) {
+    await this.userService.deleteById((req.user as User).id);
+    return true;
   }
 
   constructor(private userService: UserService) { }
