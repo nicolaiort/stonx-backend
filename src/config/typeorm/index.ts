@@ -1,9 +1,15 @@
 // @tsed/cli do not edit
 
+import { config } from "../env";
+
 const db_config = {
     name: "default",
-    type: "sqlite",
-    database: "database.sqlite",
+    type: config["DATABASE_TYPE"],
+    database: config["DATABASE_NAME"],
+    host: config["DATABASE_HOST"],
+    port: config["DATABASE_PORT"],
+    username: config["DATABASE_USER"],
+    password: config["DATABASE_PASSWORD"],
     synchronize: true,
     logging: false,
     entities: [
