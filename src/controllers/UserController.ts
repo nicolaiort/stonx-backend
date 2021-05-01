@@ -23,7 +23,7 @@ export class UserController {
   @Returns(200, boolean)
   @Description("Updates the account of the user calling this endpoint.")
   async updateMe(@Req() req: Req, @BodyParams() update_user: UserUpdating): Promise<User> {
-    return this.userService.updateByEmail(((await req.user) as User).email, update_user);
+    return this.userService.updateByEmail((req.user as User).email, update_user);
   }
 
   @Delete("/me")
@@ -37,7 +37,7 @@ export class UserController {
     }
 
     console.log(await req.user)
-    await this.userService.deleteByEmail(((await req.user) as User).email);
+    await this.userService.deleteByEmail((req.user as User).email);
     return true;
   }
 

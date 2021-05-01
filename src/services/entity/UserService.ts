@@ -1,4 +1,4 @@
-import { NotFound } from "@tsed/exceptions";
+import { Forbidden, NotFound } from "@tsed/exceptions";
 import { UserUpdating } from "src/models/UserUpdating";
 import { EntityRepository, Repository } from "typeorm";
 import { User } from "../../models/entity/User";
@@ -44,12 +44,12 @@ export class UserService extends Repository<User> {
     const user_email = await this.findByEmail(update_user.email);
     const user_name = await this.findByName(update_user.username);
 
-    // if (user_email && user_email?.id != user.id) {
-    //   throw new Forbidden("Email is already registered");
-    // }
-    // if (user_name && user_name?.id != user.id) {
-    //   throw new Forbidden("Username is already registered");
-    // }
+    if (user_email && user_email?.id != user.id) {
+      throw new Forbidden("Email is already registered");
+    }
+    if (user_name && user_name?.id != user.id) {
+      throw new Forbidden("Username is already registered");
+    }
 
     user.email = update_user.email;
     user.username = update_user.username;
