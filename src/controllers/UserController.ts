@@ -2,9 +2,9 @@ import { BodyParams, Controller, Delete, Get, Put, QueryParams, Req } from "@tse
 import { Forbidden } from "@tsed/exceptions";
 import { Authenticate } from "@tsed/passport";
 import { boolean, Description, Returns, Security } from "@tsed/schema";
-import { UserResponse } from "src/models/UserResponse";
-import { UserUpdating } from "src/models/UserUpdating";
 import { User } from "../models/entity/User";
+import { UserResponse } from "../models/UserResponse";
+import { UserUpdating } from "../models/UserUpdating";
 import { UserService } from "../services/entity/UserService";
 
 @Controller("/users")

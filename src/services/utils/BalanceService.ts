@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SupportedTokens } from "src/models/SupportedTokens";
+import { SupportedTokens } from "../../models/SupportedTokens";
 
 /**
  * The BalanceService is a api-wrapper over multiple different apis.

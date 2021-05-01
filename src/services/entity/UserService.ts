@@ -1,8 +1,8 @@
 import { BadRequest, Forbidden, NotFound } from "@tsed/exceptions";
-import { UserUpdating } from "src/models/UserUpdating";
 import { EntityRepository, Repository } from "typeorm";
 import { User } from "../../models/entity/User";
 import { UserCreation } from "../../models/UserCreation";
+import { UserUpdating } from "../../models/UserUpdating";
 import { BitpandaService } from "../utils/BitpandaService";
 import { WalletService } from "./WalletService";
 
