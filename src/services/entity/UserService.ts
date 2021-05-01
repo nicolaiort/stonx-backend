@@ -62,7 +62,7 @@ export class UserService extends Repository<User> {
     }
 
     if (update_user.password) {
-      user.setPassword(update_user.password);
+      await user.setPassword(update_user.password);
     }
 
     await this.save(user);
