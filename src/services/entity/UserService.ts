@@ -1,9 +1,13 @@
 import { EntityRepository, Repository } from "typeorm";
 import { User } from "../../models/entity/User";
 import { UserCreation } from "../../models/UserCreation";
+import { WalletService } from "./WalletService";
 
 @EntityRepository(User)
 export class UserService extends Repository<User> {
+
+  constructor(private walletService: WalletService) { super(); }
+
   async findById(id: string): Promise<User | undefined> {
     return this.findOne({ id: id });
   }
@@ -27,5 +31,19 @@ export class UserService extends Repository<User> {
     user = await this.findOneOrFail(user);
     user.jwt_count = user.jwt_count + 1;
     await this.save(user);
+  }
+
+  async deleteById(id: string): Promise<User | undefined> {
+    const user = await this.findOne({ id: id });
+    if (!user) {
+      return undefined;
+    }
+
+    for (let wallet of (await this.walletService.findByUser(user))) {
+      await this.walletService.delete(wallet);
+    }
+
+    await this.delete(user);
+    return user;
   }
 }
