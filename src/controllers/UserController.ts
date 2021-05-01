@@ -1,7 +1,8 @@
-import { Controller, Delete, Get, QueryParams, Req } from "@tsed/common";
+import { BodyParams, Controller, Delete, Get, Put, QueryParams, Req } from "@tsed/common";
 import { Forbidden } from "@tsed/exceptions";
 import { Authorize } from "@tsed/passport";
 import { boolean, Description, Returns, Security } from "@tsed/schema";
+import { UserUpdating } from "src/models/UserUpdating";
 import { User } from "../models/entity/User";
 import { UserService } from "../services/entity/UserService";
 
@@ -16,11 +17,20 @@ export class UserController {
     return req.user as User;
   }
 
+  @Put("/me")
+  @Authorize("jwt")
+  @Security("jwt")
+  @Returns(200, boolean)
+  @Description("Updates the account of the user calling this endpoint.")
+  async updateMe(@Req() req: Req, @BodyParams() update_user: UserUpdating): Promise<User> {
+    return this.userService.updateById((req.user as User).id, update_user);
+  }
+
   @Delete("/me")
   @Authorize("jwt")
   @Security("jwt")
   @Returns(200, boolean)
-  @Description("Deletes the account an wallets of the user calling this endpoint - handle with caution!")
+  @Description("Deletes the account and wallets of the user calling this endpoint - handle with caution!")
   async deleteMe(@Req() req: Req, @QueryParams("confirm") confirm: boolean) {
     if (!confirm) {
       throw new Forbidden("You have to confirm the deletion via queryparam.");
