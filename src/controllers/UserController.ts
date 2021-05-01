@@ -23,7 +23,7 @@ export class UserController {
   @Returns(200, boolean)
   @Description("Updates the account of the user calling this endpoint.")
   async updateMe(@Req() req: Req, @BodyParams() update_user: UserUpdating): Promise<User> {
-    return this.userService.updateById((req.user as User).id, update_user);
+    return this.userService.updateByEmail((req.user as User).email, update_user);
   }
 
   @Delete("/me")
@@ -36,7 +36,7 @@ export class UserController {
       throw new Forbidden("You have to confirm the deletion via queryparam.");
     }
 
-    await this.userService.deleteById((req.user as User).id);
+    await this.userService.deleteByEmail((req.user as User).email);
     return true;
   }
 
