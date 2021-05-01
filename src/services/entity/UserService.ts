@@ -13,6 +13,9 @@ export class UserService extends Repository<User> {
   async findById(id: string): Promise<User | undefined> {
     return this.findOne({ id: id });
   }
+  async findByIdOrFail(id: string): Promise<User> {
+    return this.findOneOrFail({ id: id });
+  }
 
   async findByEmail(email: string): Promise<User | undefined> {
     return this.findOne({ email: email });
@@ -62,7 +65,8 @@ export class UserService extends Repository<User> {
       user.setPassword(update_user.password);
     }
 
-    return (await this.save(user)) as User;
+    await this.save(user);
+    return this.findByIdOrFail(user.id);
   }
 
   async deleteByEmail(email: string): Promise<User | undefined> {
