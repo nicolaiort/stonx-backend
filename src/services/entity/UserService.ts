@@ -62,7 +62,7 @@ export class UserService extends Repository<User> {
       user.setPassword(update_user.password);
     }
 
-    return await this.save(user);
+    return (await this.save(user)) as User;
   }
 
   async deleteByEmail(email: string): Promise<User | undefined> {
