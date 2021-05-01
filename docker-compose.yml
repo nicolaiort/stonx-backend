@@ -1,6 +1,10 @@
 version: '3.3'
 services:
   server:
-    build: .
+    #build: .
+    image: niggl/stonx-backend
     ports:
       - '8083:8083'
+    environment: 
+      - DATABASE_TYPE=sqlite
+      - DATABASE_NAME=database.sqlite
