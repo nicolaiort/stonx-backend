@@ -16,6 +16,7 @@ export class BinanceService {
     }
     public static async getTradingPair(token: string, currency: string): Promise<BinanceTradingPair> {
         const res = (await axios.get("https://api.binance.com/api/v3/ticker/price")).data;
+        //@ts-ignore
         let pair = res.filter((p) => {
             return p.symbol == `${token}${currency}`;
         })[0];
@@ -23,6 +24,7 @@ export class BinanceService {
             return new BinanceTradingPair(pair.symbol, pair.price);
         }
         else {
+            //@ts-ignore
             pair = res.filter((p) => {
                 return p.symbol == `${token}USDT`;
             })[0];
@@ -30,6 +32,7 @@ export class BinanceService {
                 throw new NotFound(`Pair for the token ${token} and the currency/token ${currency} could not be found.`)
             }
             else {
+                //@ts-ignore
                 let eurusdt = res.filter((p) => {
                     return p.symbol == `${currency}USDT`;
                 })[0];
