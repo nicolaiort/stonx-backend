@@ -1,5 +1,5 @@
 import { BodyParams, Controller, Post, Req } from "@tsed/common";
-import { Authenticate, Authorize } from "@tsed/passport";
+import { Authenticate } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
 import { Credentials } from "../models/Credentials";
 import { User } from "../models/entity/User";
@@ -27,7 +27,7 @@ export class AuthController {
   }
 
   @Post("/logout")
-  @Authorize("jwt")
+  @Authenticate("jwt")
   @Security("jwt")
   @Description("The path says it all: Logs you out.")
   logout(@Req() req: Req) {

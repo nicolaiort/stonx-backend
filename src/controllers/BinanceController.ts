@@ -1,5 +1,5 @@
 import { Controller, Get, PathParams } from "@tsed/common";
-import { Authenticate } from "@tsed/passport";
+import { Authorize } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
 import { BinanceTradingPair } from "../models/BinanceTradingPair";
 import { BinanceService } from "../services/utils/BinanceService";
@@ -7,7 +7,7 @@ import { BinanceService } from "../services/utils/BinanceService";
 @Controller("/binance")
 export class BinanceController {
     @Get("/prices")
-    @Authenticate("jwt")
+    @Authorize("jwt")
     @Security("jwt")
     @Description("Returns the current crypto token prices listen on bitpanda")
     @Returns(200)
@@ -16,7 +16,7 @@ export class BinanceController {
     }
 
     @Get("/prices/:token/:currency")
-    @Authenticate("jwt")
+    @Authorize("jwt")
     @Security("jwt")
     @Description("Returns the current crypto token prices listen on bitpanda")
     @Returns(200)
