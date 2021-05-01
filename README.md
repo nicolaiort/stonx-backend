@@ -25,6 +25,7 @@ Powered by (among many others):
 * DOGE Wallet Balances: https://dogechain.info/
 
 ## Roadmap
+* Validate Bitpanda Key
 * Add support for postgresql and mysql databases alongside the existing sqlite option
 * Create a helmchart
 * Support for more ERC20 Tokens
