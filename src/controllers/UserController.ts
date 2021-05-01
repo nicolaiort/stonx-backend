@@ -6,7 +6,7 @@ import { UserService } from "../services/entity/UserService";
 
 @Controller("/users")
 export class UserController {
-  @Get()
+  @Get("/me")
   @Authorize("jwt")
   @Security("jwt")
   @Returns(200, User)
@@ -15,7 +15,7 @@ export class UserController {
     return req.user as User;
   }
 
-  @Delete("/delete")
+  @Delete("/me")
   @Authorize("jwt")
   @Security("jwt")
   async deleteMe(@Req() req: Req) {
