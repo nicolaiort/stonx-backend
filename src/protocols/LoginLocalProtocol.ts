@@ -23,15 +23,13 @@ export class LoginLocalProtocol implements OnVerify, OnInstall {
   constructor(private userService: UserService) { }
 
   async $onVerify(@Req() request: Req, @BodyParams() credentials: Credentials): Promise<User> {
-    const { email, password } = credentials;
-
-    const user = await this.userService.findByEmail(email);
+    const user = await this.userService.findByEmail(credentials.email);
 
     if (!user) {
       throw new Unauthorized("Unknown user");
     }
 
-    if (!(await user.verifyPassword(password))) {
+    if (!(await user.verifyPassword(credentials.password))) {
       throw new Unauthorized("Wrong credentials");
     }
 

@@ -10,7 +10,7 @@ import { UserService } from "../services/entity/UserService";
 export class AuthController {
   @Post("/login")
   @Authenticate("login", { failWithError: false })
-  @Security("local")
+  @Security("login")
   @Returns(200, User)
   @(Returns(400).Description("Validation error"))
   @Description("The path says it all: Logs you in and provides you with a JWT to authenticate against all other endpoints.")
