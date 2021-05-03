@@ -1,6 +1,6 @@
 import { Controller, Get, Req } from "@tsed/common";
 import { Description, Returns } from "@tsed/schema";
-import { SupportedTokens } from "../models/SupportedTokens";
+import { SupportedTokens } from "src/models/enums/SupportedTokens";
 
 @Controller("/tokens")
 export class TokenController {

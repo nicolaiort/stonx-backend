@@ -1,6 +1,7 @@
 import { Description, Email, Ignore, Optional, Required } from "@tsed/schema";
 import * as argon2 from "argon2";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { SupportedExchanges } from "../enums/SupportedExchanges";
 import { CryptoWallet } from "./CryptoWallet";
 
 @Entity()
@@ -40,6 +41,16 @@ export class User {
   @Ignore()
   bitpanda_api_key: string;
 
+  @Column({ nullable: true })
+  @Optional()
+  @Ignore()
+  binance_api_key: string;
+
+  @Column({ nullable: true })
+  @Optional()
+  @Ignore()
+  binance_api_secret: string;
+
   @OneToMany(() => CryptoWallet, (wallet) => wallet.owner, { nullable: true })
   wallets: CryptoWallet[];
 
@@ -57,5 +68,19 @@ export class User {
 
   async verifyPassword(password: string): Promise<boolean> {
     return await argon2.verify(this.password, password);
+  }
+
+  get linkedExchanges(): SupportedExchanges[] {
+    const exchanges = new Array<SupportedExchanges>();
+
+    if (this.bitpanda_api_key) {
+      exchanges.push(SupportedExchanges.BITPANDA)
+    }
+
+    if (this.binance_api_key && this.binance_api_secret) {
+      exchanges.push(SupportedExchanges.BINANCE)
+    }
+
+    return exchanges;
   }
 }

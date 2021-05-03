@@ -1,7 +1,7 @@
 import { Description, Ignore, Required } from "@tsed/schema";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { BalanceService } from "../../services/utils/BalanceService";
-import { SupportedTokens } from "../SupportedTokens";
+import { SupportedTokens } from "../enums/SupportedTokens";
 import { User } from "./User";
 
 @Entity()
