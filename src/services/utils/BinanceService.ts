@@ -24,7 +24,7 @@ export class BinanceService {
         return this.getPairFromList(token, currency, pairs);
     }
 
-    public static async getSpotWallets(token: string, secret: string) {
+    public static async getSpotWallets(token: string, secret: string): Promise<Wallet[]> {
         const binance = new Binance().options({
             APIKEY: token,
             APISECRET: secret
@@ -49,6 +49,7 @@ export class BinanceService {
                 )
             );
         }
+        return returnWallets;
     }
 
     private static getPairFromList(token: string, currency: string, prices: Array<any>): BinanceTradingPair {
