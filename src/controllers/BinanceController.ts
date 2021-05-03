@@ -10,7 +10,7 @@ export class BinanceController {
     @Get("/prices")
     @Authorize("jwt")
     @Security("jwt")
-    @Description("Returns the current crypto token prices listen on bitpanda")
+    @Description("Returns the current crypto token prices listed on binance")
     @Returns(200)
     async getTradingPairs(): Promise<BinanceTradingPair[]> {
         return await BinanceService.getTradingPairs();
@@ -19,7 +19,7 @@ export class BinanceController {
     @Get("/prices/:token/:currency")
     @Authorize("jwt")
     @Security("jwt")
-    @Description("Returns the current crypto token prices listen on bitpanda")
+    @Description("Returns the price of a specific trading pair listed on binance")
     @Returns(200)
     async getTradingPair(@PathParams("token") token: string, @PathParams("currency") currency: string): Promise<BinanceTradingPair> {
         return await BinanceService.getTradingPair(token, currency);
