@@ -67,6 +67,15 @@ export class UserService extends Repository<User> {
       user.bitpanda_api_key = update_user.bitpanda_api_key;
     }
 
+    if (update_user.binance_api_key && update_user.binance_api_secret) {
+      user.binance_api_key = update_user.binance_api_key;
+      user.binance_api_secret = update_user.binance_api_secret;
+    }
+
+    if ((update_user.binance_api_key && !update_user.binance_api_secret) || (!update_user.binance_api_key && update_user.binance_api_secret)) {
+      throw new BadRequest("You have to provide an api key and secret for binance.")
+    }
+
     if (update_user.password) {
       await user.setPassword(update_user.password);
     }
