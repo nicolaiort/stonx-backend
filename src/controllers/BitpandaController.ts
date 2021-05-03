@@ -26,7 +26,7 @@ export class BitpandaController {
         let wallets = await BitpandaService.getWallets((req.user as User));
 
         if (!withEmpty) {
-            return wallets.filter((w) => { w.balance != 0 })
+            return wallets.filter((w) => w.balance != 0)
         }
 
         return wallets;

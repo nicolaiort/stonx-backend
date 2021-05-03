@@ -52,7 +52,7 @@ export class BitpandaService {
                 )
             );
         }
-        return wallets
+        return returnWallets;
     }
 
     /**
