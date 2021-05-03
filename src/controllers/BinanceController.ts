@@ -1,6 +1,7 @@
 import { Controller, Get, PathParams } from "@tsed/common";
 import { Authorize } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
+import { Wallet } from "src/models/Wallet";
 import { BinanceTradingPair } from "../models/BinanceTradingPair";
 import { BinanceService } from "../services/utils/BinanceService";
 
@@ -22,5 +23,15 @@ export class BinanceController {
     @Returns(200)
     async getTradingPair(@PathParams("token") token: string, @PathParams("currency") currency: string): Promise<BinanceTradingPair> {
         return await BinanceService.getTradingPair(token, currency);
+    }
+
+    @Get("/wallets/spot")
+    @Authorize("jwt")
+    @Security("jwt")
+    @Description("All of the users spot wallets.")
+    @Returns(200)
+    async getSpotWallets(): Promise<Wallet[]> {
+        //TODO:
+        return [];
     }
 }
