@@ -1,6 +1,10 @@
 import { NotFound } from "@tsed/exceptions";
 import axios from "axios";
+//@ts-ignore
+import Binance from "node-binance-api";
+import { config } from "../../config/env";
 import { BinanceTradingPair } from "../../models/BinanceTradingPair";
+import { Wallet } from "../../models/Wallet";
 
 /**
  * The BinanceService is a simple api-wrapper over the binance api - mainly used to get pricing data.
@@ -14,10 +18,41 @@ export class BinanceService {
         }
         return pairs;
     }
+
     public static async getTradingPair(token: string, currency: string): Promise<BinanceTradingPair> {
-        const res = (await axios.get("https://api.binance.com/api/v3/ticker/price")).data;
-        //@ts-ignore
-        let pair = res.filter((p) => {
+        const pairs = await this.getTradingPairs();
+        return this.getPairFromList(token, currency, pairs);
+    }
+
+    public static async getSpotWallets(token: string, secret: string) {
+        const binance = new Binance().options({
+            APIKEY: token,
+            APISECRET: secret
+        });
+
+        const wallets: any = await new Promise((resolve, reject) => {
+            binance.balance((error: Error, balances: any) => {
+                if (error) { reject(); }
+                resolve(balances);
+            });
+        });
+
+        const prices = await this.getTradingPairs();
+        let returnWallets: Wallet[] = new Array<Wallet>();
+        for (let token of wallets.keys) {
+            returnWallets.push(
+                new Wallet(
+                    token,
+                    parseFloat(wallets[token].available),
+                    this.getPairFromList(token, config["CURRENCY"], prices).price,
+                    "bitpanda/crypto"
+                )
+            );
+        }
+    }
+
+    private static getPairFromList(token: string, currency: string, prices: Array<any>): BinanceTradingPair {
+        let pair = prices.filter((p) => {
             return p.symbol == `${token}${currency}`;
         })[0];
         if (pair) {
@@ -25,7 +60,7 @@ export class BinanceService {
         }
         else {
             //@ts-ignore
-            pair = res.filter((p) => {
+            pair = prices.filter((p) => {
                 return p.symbol == `${token}USDT`;
             })[0];
             if (!pair) {
@@ -33,13 +68,12 @@ export class BinanceService {
             }
             else {
                 //@ts-ignore
-                let eurusdt = res.filter((p) => {
+                let eurusdt = prices.filter((p) => {
                     return p.symbol == `${currency}USDT`;
                 })[0];
                 console.log(eurusdt)
                 return new BinanceTradingPair(`${token}-USDT-${currency}`, pair.price * eurusdt.price);
             }
         }
-
     }
 }
