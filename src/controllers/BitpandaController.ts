@@ -1,7 +1,6 @@
 import { Controller, Get, QueryParams, Req } from "@tsed/common";
 import { Authenticate } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
-import { config } from "../config/env";
 import { User } from "../models/entity/User";
 import { Wallet } from "../models/Wallet";
 import { BitpandaService } from "../services/utils/BitpandaService";
@@ -25,32 +24,12 @@ export class BitpandaController {
     @Returns(200, Wallet)
     async getCryptoAssets(@QueryParams("withEmpty") withEmpty: boolean = false, @Req() req: Req): Promise<Wallet[]> {
         let wallets = await BitpandaService.getWallets((req.user as User));
-        let prices = await BitpandaService.getPrices();
-        let returnWallets: Wallet[] = new Array<Wallet>();
 
-        for (let wallet of wallets) {
-            if (!withEmpty && parseFloat(wallet.attributes.balance) != 0) {
-                returnWallets.push(
-                    new Wallet(
-                        wallet.attributes.cryptocoin_symbol,
-                        parseFloat(wallet.attributes.balance),
-                        parseFloat(prices[wallet.attributes.cryptocoin_symbol][config["CURRENCY"]]),
-                        "bitpanda/crypto"
-                    )
-                );
-            } else if (withEmpty) {
-                returnWallets.push(
-                    new Wallet(
-                        wallet.attributes.cryptocoin_symbol,
-                        parseFloat(wallet.attributes.balance),
-                        parseFloat(prices[wallet.attributes.cryptocoin_symbol][config["CURRENCY"]]),
-                        "bitpanda/crypto"
-                    )
-                );
-            }
+        if (!withEmpty) {
+            return wallets.filter((w) => { w.balance != 0 })
         }
 
-        return returnWallets;
+        return wallets;
     }
 
     @Get("/assets/index")

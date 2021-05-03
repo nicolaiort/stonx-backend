@@ -1,6 +1,8 @@
 import axios from "axios";
+import { config } from "../../config/env";
 import { User } from "../../models/entity/User";
 import { SupportedTokens } from "../../models/SupportedTokens";
+import { Wallet } from "../../models/Wallet";
 
 /**
  * The BitpandaService is a simple api-wrapper over the bitpanda api.
@@ -29,14 +31,28 @@ export class BitpandaService {
      * @param user The user who's api key (and therefore account) will be used.
      * @returns 
      */
-    public static async getWallets(user: User) {
-        return (
+    public static async getWallets(user: User): Promise<Wallet[]> {
+        const wallets = (
             await axios.get("https://api.bitpanda.com/v1/wallets", {
                 headers: {
                     "X-API-KEY": user.bitpanda_api_key
                 }
             })
         ).data.data;
+        const prices = await this.getPrices();
+
+        let returnWallets: Wallet[] = new Array<Wallet>();
+        for (let wallet of wallets) {
+            returnWallets.push(
+                new Wallet(
+                    wallet.attributes.cryptocoin_symbol,
+                    parseFloat(wallet.attributes.balance),
+                    parseFloat(prices[wallet.attributes.cryptocoin_symbol][config["CURRENCY"]]),
+                    "bitpanda/crypto"
+                )
+            );
+        }
+        return wallets
     }
 
     /**
