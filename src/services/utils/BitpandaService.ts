@@ -1,7 +1,7 @@
 import axios from "axios";
 import { config } from "../../config/env";
 import { User } from "../../models/entity/User";
-import { SupportedTokens } from "../../models/SupportedTokens";
+import { SupportedTokens } from "../../models/enums/SupportedTokens";
 import { Wallet } from "../../models/Wallet";
 
 /**

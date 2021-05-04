@@ -1,7 +1,7 @@
 import { EntityRepository, Repository } from "typeorm";
 import { CryptoWallet } from "../../models/entity/CryptoWallet";
 import { User } from "../../models/entity/User";
-import { SupportedTokens } from "../../models/SupportedTokens";
+import { SupportedTokens } from "../../models/enums/SupportedTokens";
 import { WalletCreation } from "../../models/WalletCreation";
 
 @EntityRepository(CryptoWallet)
