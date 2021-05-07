@@ -1,6 +1,6 @@
 import axios from "axios";
+import { BitpandaConfig } from "src/models/entity/exchanges/BitpandaConfig";
 import { config } from "../../config/env";
-import { User } from "../../models/entity/User";
 import { SupportedTokens } from "../../models/enums/SupportedTokens";
 import { Wallet } from "../../models/Wallet";
 
@@ -31,11 +31,11 @@ export class BitpandaService {
      * @param user The user who's api key (and therefore account) will be used.
      * @returns 
      */
-    public static async getWallets(user: User): Promise<Wallet[]> {
+    public static async getWallets(exchange_config: BitpandaConfig): Promise<Wallet[]> {
         const wallets = (
             await axios.get("https://api.bitpanda.com/v1/wallets", {
                 headers: {
-                    "X-API-KEY": user.bitpanda_api_key
+                    "X-API-KEY": exchange_config.bitpanda_api_key
                 }
             })
         ).data.data;
@@ -60,11 +60,11 @@ export class BitpandaService {
      * @param user The user who's api key (and therefore account) will be used.
      * @returns 
      */
-    public static async getIndices(user: User) {
+    public static async getIndices(exchange_config: BitpandaConfig) {
         return (
             await axios.get("https://api.bitpanda.com/v1/asset-wallets", {
                 headers: {
-                    "X-API-KEY": user.bitpanda_api_key
+                    "X-API-KEY": exchange_config.bitpanda_api_key
                 }
             })
         ).data.data.attributes.index.index.attributes.wallets;
