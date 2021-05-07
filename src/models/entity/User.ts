@@ -37,16 +37,6 @@ export class User {
   @Description("The user's jwt. Will get provided on login and signup.")
   token: string;
 
-  @Column({ nullable: true })
-  @Optional()
-  @Ignore()
-  binance_api_key: string;
-
-  @Column({ nullable: true })
-  @Optional()
-  @Ignore()
-  binance_api_secret: string;
-
   @OneToMany(() => CryptoWallet, (wallet) => wallet.owner, { nullable: true })
   wallets: CryptoWallet[];
 
