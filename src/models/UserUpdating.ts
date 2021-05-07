@@ -15,16 +15,4 @@ export class UserUpdating {
   @Example("asd123312!")
   @Optional()
   password?: string;
-
-  @Description("Your bitpanda API key - scope Guthaben only!  Only provide this if you really want to change it!")
-  @Optional()
-  bitpanda_api_key?: string;
-
-  @Description("Your binance API key - scope read only! Only provide this if you really want to change it!")
-  @Optional()
-  binance_api_key?: string;
-
-  @Description("Your binance API secret - scope read only! Only provide this if you really want to change it!")
-  @Optional()
-  binance_api_secret?: string;
 }

@@ -1,9 +1,8 @@
-import { BadRequest, Forbidden, NotFound } from "@tsed/exceptions";
+import { Forbidden, NotFound } from "@tsed/exceptions";
 import { EntityRepository, Repository } from "typeorm";
 import { User } from "../../models/entity/User";
 import { UserCreation } from "../../models/UserCreation";
 import { UserUpdating } from "../../models/UserUpdating";
-import { BitpandaService } from "../utils/BitpandaService";
 
 @EntityRepository(User)
 export class UserService extends Repository<User> {
@@ -53,23 +52,6 @@ export class UserService extends Repository<User> {
 
     user.email = update_user.email;
     user.username = update_user.username;
-
-    if (update_user.bitpanda_api_key) {
-      const key_valid: boolean = await BitpandaService.validateApiKey(update_user.bitpanda_api_key);
-      if (!key_valid) {
-        throw new BadRequest("Bitpanda API Key is invalid.")
-      }
-      user.bitpanda_api_key = update_user.bitpanda_api_key;
-    }
-
-    if (update_user.binance_api_key && update_user.binance_api_secret) {
-      user.binance_api_key = update_user.binance_api_key;
-      user.binance_api_secret = update_user.binance_api_secret;
-    }
-
-    if ((update_user.binance_api_key && !update_user.binance_api_secret) || (!update_user.binance_api_key && update_user.binance_api_secret)) {
-      throw new BadRequest("You have to provide an api key and secret for binance.")
-    }
 
     if (update_user.password) {
       await user.setPassword(update_user.password);

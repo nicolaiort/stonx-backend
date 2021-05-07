@@ -2,6 +2,7 @@ import { BodyParams, Controller, Delete, Get, Put, QueryParams, Req } from "@tse
 import { Forbidden } from "@tsed/exceptions";
 import { Authenticate } from "@tsed/passport";
 import { boolean, Description, Returns, Security } from "@tsed/schema";
+import { ExchangeService } from "src/services/entity/ExchangeService";
 import { User } from "../models/entity/User";
 import { UserResponse } from "../models/UserResponse";
 import { UserUpdating } from "../models/UserUpdating";
@@ -32,7 +33,7 @@ export class UserController {
   @Authenticate("jwt")
   @Security("jwt")
   @Returns(200, boolean)
-  @Description("Deletes the account and wallets of the user calling this endpoint - handle with caution!")
+  @Description("Deletes the account, linked exchanges and wallets of the user calling this endpoint - handle with caution!")
   async deleteMe(@Req() req: Req, @QueryParams("confirm") confirm: boolean) {
     if (!confirm) {
       throw new Forbidden("You have to confirm the deletion via queryparam.");
@@ -42,9 +43,13 @@ export class UserController {
       await this.walletService.delete(wallet);
     }
 
+    for (let exchange in await this.exchangeService.findByUser(req.user as User)) {
+      await this.exchangeService.delete(exchange);
+    }
+
     await this.userService.deleteByEmail((req.user as User).email);
     return true;
   }
 
-  constructor(private userService: UserService, private walletService: WalletService) { }
+  constructor(private userService: UserService, private walletService: WalletService, private exchangeService: ExchangeService) { }
 }
