@@ -3,6 +3,7 @@ import * as argon2 from "argon2";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { SupportedExchanges } from "../enums/SupportedExchanges";
 import { CryptoWallet } from "./CryptoWallet";
+import { ExchangeConfig } from "./ExchangeConfig";
 
 @Entity()
 export class User {
@@ -53,6 +54,9 @@ export class User {
 
   @OneToMany(() => CryptoWallet, (wallet) => wallet.owner, { nullable: true })
   wallets: CryptoWallet[];
+
+  @OneToMany(() => ExchangeConfig, (exchange) => exchange.owner, { nullable: true })
+  exchanges: ExchangeConfig[];
 
   constructor(email: string, username?: string) {
     this.email = email;
