@@ -60,16 +60,6 @@ export class User {
   }
 
   get linkedExchanges(): SupportedExchanges[] {
-    const exchanges = new Array<SupportedExchanges>();
-
-    if (this.bitpanda_api_key) {
-      exchanges.push(SupportedExchanges.BITPANDA)
-    }
-
-    if (this.binance_api_key && this.binance_api_secret) {
-      exchanges.push(SupportedExchanges.BINANCE)
-    }
-
-    return exchanges;
+    return this.exchanges.map((x) => x.exchange);
   }
 }
