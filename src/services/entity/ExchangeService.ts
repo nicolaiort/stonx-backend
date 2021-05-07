@@ -18,7 +18,15 @@ export class ExchangeService extends Repository<ExchangeConfig> {
     return this.find({ owner: user });
   }
 
-  async findByUserAndExchange(user: User, exchange: SupportedExchanges): Promise<ExchangeConfig> {
+  async findByUserAndExchange(user: User, exchange: SupportedExchanges): Promise<ExchangeConfig | undefined> {
+    return this.findOne({ owner: user, exchange: exchange });
+  }
+
+  async findByUserAndExchangeOrFail(user: User, exchange: SupportedExchanges): Promise<ExchangeConfig> {
     return this.findOneOrFail({ owner: user, exchange: exchange });
+  }
+
+  async createExchange(new_exchange: ExchangeConfig): Promise<ExchangeConfig> {
+    return this.save(new_exchange);
   }
 }
