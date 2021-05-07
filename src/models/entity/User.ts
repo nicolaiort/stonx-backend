@@ -40,11 +40,6 @@ export class User {
   @Column({ nullable: true })
   @Optional()
   @Ignore()
-  bitpanda_api_key: string;
-
-  @Column({ nullable: true })
-  @Optional()
-  @Ignore()
   binance_api_key: string;
 
   @Column({ nullable: true })
