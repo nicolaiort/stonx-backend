@@ -2,9 +2,8 @@ import { Controller, Get, PathParams, QueryParams, Req } from "@tsed/common";
 import { NotFound } from "@tsed/exceptions";
 import { Authenticate, Authorize } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
-import { BinanceConfig } from "src/models/entity/BinanceConfig";
 import { User } from "src/models/entity/User";
-import { getConnectionManager } from "typeorm";
+import { ExchangeService } from "src/services/entity/ExchangeService";
 import { BinanceTradingPair } from "../models/BinanceTradingPair";
 import { Wallet } from "../models/Wallet";
 import { BinanceService } from "../services/utils/BinanceService";
@@ -35,7 +34,7 @@ export class BinanceController {
     @Description("All of the users spot wallets.")
     @Returns(200)
     async getSpotWallets(@QueryParams("withEmpty") withEmpty: boolean = false, @Req() req: Req): Promise<Wallet[]> {
-        const exchange = await getConnectionManager().get().getRepository(BinanceConfig).findOne({ owner: (req.user as User) });
+        const exchange = await this.exchangeService.findBinanceByUser((req.user as User));
         if (!exchange) {
             throw new NotFound("You haven't configured binance yet.")
         }
@@ -46,4 +45,6 @@ export class BinanceController {
         }
         return wallets;
     }
+
+    constructor(private exchangeService: ExchangeService) { }
 }

@@ -3,7 +3,6 @@ import { Forbidden } from "@tsed/exceptions";
 import { Authenticate } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
 import { BinanceConfig } from "src/models/entity/BinanceConfig";
-import { getConnectionManager } from "typeorm";
 import { BitpandaConfig } from "../models/entity/BitpandaConfig";
 import { User } from "../models/entity/User";
 import { SupportedExchanges } from "../models/enums/SupportedExchanges";
@@ -32,13 +31,13 @@ export class ExchangeController {
   @Returns(200, SupportedExchanges)
   async createBitpandaConfig(@BodyParams() new_config: BitpandaConfig, @Req() req: Req): Promise<SupportedExchanges> {
     const user = (req.user as User);
-    const exchange = await getConnectionManager().get().getRepository(BitpandaConfig).findOne({ owner: user });
+    const exchange = await await this.exchangeService.findBitpandaByUser(user);
     if (exchange) {
       throw new Forbidden("You already configured an account for this exchange.");
     }
 
     new_config.owner = user;
-    return (await getConnectionManager().get().getRepository(BitpandaConfig).save(new_config)).exchange as SupportedExchanges;
+    return (await this.exchangeService.createBitpanda(new_config)).exchange as SupportedExchanges;
   }
 
   @Post("/binance")
@@ -48,13 +47,13 @@ export class ExchangeController {
   @Returns(200, SupportedExchanges)
   async createBinanceConfig(@BodyParams() new_config: BinanceConfig, @Req() req: Req): Promise<SupportedExchanges> {
     const user = (req.user as User);
-    const exchange = await getConnectionManager().get().getRepository(BinanceConfig).findOne({ owner: user });
+    const exchange = await this.exchangeService.findBinanceByUser(user);
     if (exchange) {
       throw new Forbidden("You already configured an account for this exchange.");
     }
 
     new_config.owner = user;
-    return (await getConnectionManager().get().getRepository(BinanceConfig).save(new_config)).exchange as SupportedExchanges;
+    return (await this.exchangeService.createBinance(new_config)).exchange as SupportedExchanges;
   }
 
   @Delete("/:exchange")
@@ -62,16 +61,7 @@ export class ExchangeController {
   @Security("jwt")
   @Description("Delete one of your wallets.")
   async deleteConfig(@PathParams("exchange") exchange: string, @Req() req: Req): Promise<any> {
-    switch (exchange.toUpperCase() as SupportedExchanges) {
-      case SupportedExchanges.BITPANDA:
-        await getConnectionManager().get().getRepository(BitpandaConfig).delete({ owner: (req.user as User) });
-        break;
-      case SupportedExchanges.BINANCE:
-        await getConnectionManager().get().getRepository(BinanceConfig).delete({ owner: (req.user as User) });
-        break;
-      default:
-        throw new Error("Exchange not supported.");
-    }
+    this.exchangeService.delete((req.user as User), exchange.toUpperCase() as SupportedExchanges)
     return true;
   }
 

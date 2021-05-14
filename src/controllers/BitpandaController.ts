@@ -1,8 +1,6 @@
 import { Controller, Get, QueryParams, Req } from "@tsed/common";
 import { Authenticate } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
-import { getConnectionManager } from "typeorm";
-import { BitpandaConfig } from "../models/entity/BitpandaConfig";
 import { User } from "../models/entity/User";
 import { Wallet } from "../models/Wallet";
 import { ExchangeService } from "../services/entity/ExchangeService";
@@ -26,7 +24,7 @@ export class BitpandaController {
     @Description("Returns your bitpanda wallets by coin with balance and fiat equivalent.")
     @Returns(200, Wallet)
     async getCryptoAssets(@QueryParams("withEmpty") withEmpty: boolean = false, @Req() req: Req): Promise<Wallet[]> {
-        const exchange = await getConnectionManager().get().getRepository(BitpandaConfig).findOne({ owner: (req.user as User) });
+        const exchange = this.exchangeService.findBitpandaByUser((req.user as User));
         const wallets = await BitpandaService.getWallets(exchange);
 
         if (!withEmpty) {
@@ -42,7 +40,7 @@ export class BitpandaController {
     @Description("Returns your bitpanda crypto index wallets with balance.")
     @Returns(200, Wallet)
     async getIndexAssets(@QueryParams("withEmpty") withEmpty: boolean = false, @Req() req: Req): Promise<Wallet[]> {
-        const exchange = await getConnectionManager().get().getRepository(BitpandaConfig).findOne({ owner: (req.user as User) });
+        const exchange = this.exchangeService.findBitpandaByUser((req.user as User));
         const indices = await BitpandaService.getIndices(exchange);
 
         let returnWallets: Wallet[] = new Array<Wallet>();
