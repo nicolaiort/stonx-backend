@@ -24,7 +24,7 @@ export class BitpandaController {
     @Description("Returns your bitpanda wallets by coin with balance and fiat equivalent.")
     @Returns(200, Wallet)
     async getCryptoAssets(@QueryParams("withEmpty") withEmpty: boolean = false, @Req() req: Req): Promise<Wallet[]> {
-        const exchange = this.exchangeService.findBitpandaByUser((req.user as User));
+        const exchange = this.exchangeService.findBitpandaByUserOrFail((req.user as User));
         const wallets = await BitpandaService.getWallets(exchange);
 
         if (!withEmpty) {
@@ -40,7 +40,7 @@ export class BitpandaController {
     @Description("Returns your bitpanda crypto index wallets with balance.")
     @Returns(200, Wallet)
     async getIndexAssets(@QueryParams("withEmpty") withEmpty: boolean = false, @Req() req: Req): Promise<Wallet[]> {
-        const exchange = this.exchangeService.findBitpandaByUser((req.user as User));
+        const exchange = this.exchangeService.findBitpandaByUserOrFail((req.user as User));
         const indices = await BitpandaService.getIndices(exchange);
 
         let returnWallets: Wallet[] = new Array<Wallet>();
