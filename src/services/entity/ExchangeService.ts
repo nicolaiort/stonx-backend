@@ -1,3 +1,4 @@
+import { ExchangeConfig } from "src/models/entity/ExchangeConfig";
 import { SupportedExchanges } from "src/models/enums/SupportedExchanges";
 import { getConnectionManager, Repository } from "typeorm";
 import { BinanceConfig } from "../../models/entity/BinanceConfig";
@@ -8,10 +9,16 @@ export class ExchangeService {
 
   private bitpandaConfigService: Repository<BitpandaConfig>;
   private binanceConfigService: Repository<BinanceConfig>;
+  private configService: Repository<ExchangeConfig>;
 
   constructor() {
     this.bitpandaConfigService = getConnectionManager().get().getRepository(BitpandaConfig);
     this.binanceConfigService = getConnectionManager().get().getRepository(BinanceConfig);
+    this.configService = getConnectionManager().get().getRepository(ExchangeConfig);
+  }
+
+  public async findByUser(user: User): Promise<SupportedExchanges[]> {
+    return (await this.configService.find({ owner: user })).map((x) => x.exchange);
   }
 
   public async findBitpandaByUser(user: User): Promise<BitpandaConfig | undefined> {

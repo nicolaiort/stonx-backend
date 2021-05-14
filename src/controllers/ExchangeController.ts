@@ -16,12 +16,7 @@ export class ExchangeController {
   @Description("Returns your exchanges (Only the type).")
   @Returns(200, SupportedExchanges)
   async getWallets(@Req() req: Req): Promise<SupportedExchanges[]> {
-    const exchanges = await this.exchangeService.findByUser(req.user as User);
-    if (!exchanges) {
-      return [];
-    }
-
-    return exchanges.map((x) => x.exchange as SupportedExchanges);
+    return await this.exchangeService.findByUser(req.user as User);
   }
 
   @Post("/bitpanda")
