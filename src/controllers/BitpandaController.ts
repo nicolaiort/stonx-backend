@@ -1,11 +1,12 @@
 import { Controller, Get, QueryParams, Req } from "@tsed/common";
 import { Authenticate } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
-import { BitpandaConfig } from "src/models/entity/exchanges/BitpandaConfig";
-import { SupportedExchanges } from "src/models/enums/SupportedExchanges";
-import { ExchangeService } from "src/services/entity/ExchangeService";
+import { getConnectionManager } from "typeorm";
+import { BitpandaConfig } from "../models/entity/BitpandaConfig";
 import { User } from "../models/entity/User";
+import { SupportedExchanges } from "../models/enums/SupportedExchanges";
 import { Wallet } from "../models/Wallet";
+import { ExchangeService } from "../services/entity/ExchangeService";
 import { BitpandaService } from "../services/utils/BitpandaService";
 
 @Controller("/bitpanda")
@@ -26,7 +27,7 @@ export class BitpandaController {
     @Description("Returns your bitpanda wallets by coin with balance and fiat equivalent.")
     @Returns(200, Wallet)
     async getCryptoAssets(@QueryParams("withEmpty") withEmpty: boolean = false, @Req() req: Req): Promise<Wallet[]> {
-        const exchange = (await this.exchangeService.findByUserAndExchange((req.user as User), SupportedExchanges.BITPANDA)) as BitpandaConfig
+        const exchange = await getConnectionManager().get().getRepository(BitpandaConfig).findOne({ owner: (req.user as User) });
         const wallets = await BitpandaService.getWallets(exchange);
 
         if (!withEmpty) {
@@ -42,7 +43,7 @@ export class BitpandaController {
     @Description("Returns your bitpanda crypto index wallets with balance.")
     @Returns(200, Wallet)
     async getIndexAssets(@QueryParams("withEmpty") withEmpty: boolean = false, @Req() req: Req): Promise<Wallet[]> {
-        const exchange = (await this.exchangeService.findByUserAndExchange((req.user as User), SupportedExchanges.BITPANDA)) as BitpandaConfig
+        const exchange = (await this.exchangeService.findByUserAndExchangeOrFail((req.user as User), SupportedExchanges.BITPANDA)) as BitpandaConfig;
         const indices = await BitpandaService.getIndices(exchange);
 
         let returnWallets: Wallet[] = new Array<Wallet>();

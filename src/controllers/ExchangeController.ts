@@ -2,10 +2,11 @@ import { BodyParams, Controller, Get, Post, Req } from "@tsed/common";
 import { Forbidden } from "@tsed/exceptions";
 import { Authenticate } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
-import { ExchangeConfig } from "src/models/entity/ExchangeConfig";
-import { SupportedExchanges } from "src/models/enums/SupportedExchanges";
-import { ExchangeService } from "src/services/entity/ExchangeService";
+import { getConnectionManager } from "typeorm";
+import { BitpandaConfig } from "../models/entity/BitpandaConfig";
 import { User } from "../models/entity/User";
+import { SupportedExchanges } from "../models/enums/SupportedExchanges";
+import { ExchangeService } from "../services/entity/ExchangeService";
 
 @Controller("/exchanges")
 export class ExchangeController {
@@ -20,21 +21,23 @@ export class ExchangeController {
       return [];
     }
 
-    return exchanges.map((x) => x.exchange);
+    return exchanges.map((x) => x.exchange as SupportedExchanges);
   }
 
-  @Post()
+  @Post("/bitpanda")
   @Authenticate("jwt")
   @Security("jwt")
-  @Description("Create a new wallet for yourself.")
+  @Description("Create a bitpanda connection for yourself.")
   @Returns(200, SupportedExchanges)
-  async createWallets(@BodyParams() new_config: ExchangeConfig, @Req() req: Req): Promise<SupportedExchanges> {
-    const exchange = this.exchangeService.findByUserAndExchange((req.user as User), new_config.exchange);
+  async createWallets(@BodyParams() new_config: BitpandaConfig, @Req() req: Req): Promise<SupportedExchanges> {
+    const exchange = await getConnectionManager().get().getRepository(BitpandaConfig).findOne({ owner: (req.user as User) });
+
     if (exchange) {
       throw new Forbidden("You already configured an account for this exchange.");
     }
 
-    return (await this.exchangeService.createExchange(new_config)).exchange;
+    new_config.owner = (req.user as User);
+    return (await getConnectionManager().get().getRepository(BitpandaConfig).save(new_config)).exchange as SupportedExchanges;
   }
 
   // @Delete("/:id")

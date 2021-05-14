@@ -40,7 +40,7 @@ export class User {
   @OneToMany(() => CryptoWallet, (wallet) => wallet.owner, { nullable: true })
   wallets: CryptoWallet[];
 
-  @OneToMany(() => ExchangeConfig, (exchange) => exchange.owner, { nullable: true })
+  @OneToMany(() => ExchangeConfig, (exchange) => exchange.owner, { nullable: true, eager: true })
   exchanges: ExchangeConfig[];
 
   constructor(email: string, username?: string) {
@@ -59,7 +59,11 @@ export class User {
     return await argon2.verify(this.password, password);
   }
 
+  public getExchange(exchange: SupportedExchanges): ExchangeConfig {
+    return this.exchanges.filter((x) => x.exchange == exchange)[0];
+  }
+
   get linkedExchanges(): SupportedExchanges[] {
-    return this.exchanges.map((x) => x.exchange);
+    return this.exchanges.map((x) => x.exchange as SupportedExchanges);
   }
 }

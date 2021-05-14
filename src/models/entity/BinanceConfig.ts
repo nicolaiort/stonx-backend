@@ -1,9 +1,8 @@
 import { Description, Required } from "@tsed/schema";
-import { ChildEntity, Column, Entity } from "typeorm";
-import { SupportedExchanges } from "../../enums/SupportedExchanges";
-import { ExchangeConfig } from "../ExchangeConfig";
+import { ChildEntity, Column } from "typeorm";
+import { SupportedExchanges } from "../enums/SupportedExchanges";
+import { ExchangeConfig } from "./ExchangeConfig";
 
-@Entity()
 @ChildEntity()
 export class BinanceConfig extends ExchangeConfig {
   @Column({ nullable: false })
