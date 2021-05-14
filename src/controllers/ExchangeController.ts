@@ -1,4 +1,4 @@
-import { BodyParams, Controller, Get, Post, Req } from "@tsed/common";
+import { BodyParams, Controller, Delete, Get, PathParams, Post, Req } from "@tsed/common";
 import { Forbidden } from "@tsed/exceptions";
 import { Authenticate } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
@@ -57,16 +57,27 @@ export class ExchangeController {
     return (await getConnectionManager().get().getRepository(BinanceConfig).save(new_config)).exchange as SupportedExchanges;
   }
 
-  // @Delete("/:id")
-  // @Authenticate("jwt")
-  // @Security("jwt")
-  // @Description("Delete one of your wallets.")
-  // @Returns(200, Wallet)
-  // async deleteWallet(@PathParams("id") id: string, @Req() req: Req): Promise<any> {
-  //   await this.walletService.delete({ id: id });
-  //   return true;
-  // }
-
+  @Delete("/:exchange")
+  @Authenticate("jwt")
+  @Security("jwt")
+  @Description("Delete one of your wallets.")
+  async deleteConfig(@PathParams("exchange") exchange: string, @Req() req: Req): Promise<any> {
+    switch (exchange.toUpperCase() as SupportedExchanges) {
+      case SupportedExchanges.BITPANDA:
+        await getConnectionManager().get().getRepository(BitpandaConfig).delete({ owner: (req.user as User) });
+        break;
+      case SupportedExchanges.BINANCE:
+        await getConnectionManager().get().getRepository(BinanceConfig).delete({ owner: (req.user as User) });
+        break;
+      default:
+        throw new Error("Exchange not supported.");
+    }
+    return true;
+  }
 
   constructor(private exchangeService: ExchangeService) { }
 }
+function Wallet(arg0: number, Wallet: any) {
+  throw new Error("Function not implemented.");
+}
+
