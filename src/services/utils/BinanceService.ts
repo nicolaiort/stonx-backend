@@ -1,4 +1,3 @@
-import { NotFound } from "@tsed/exceptions";
 import axios from "axios";
 //@ts-ignore
 import Binance from "node-binance-api";
@@ -39,13 +38,13 @@ export class BinanceService {
 
         const prices = await this.getTradingPairs();
         let returnWallets: Wallet[] = new Array<Wallet>();
-        for (let token of wallets.keys) {
+        for (let token of Object.keys(wallets)) {
             returnWallets.push(
                 new Wallet(
                     token,
                     parseFloat(wallets[token].available),
                     this.getPairFromList(token, config["CURRENCY"], prices).price,
-                    "bitpanda/crypto"
+                    "binance/crypto"
                 )
             );
         }
@@ -65,14 +64,13 @@ export class BinanceService {
                 return p.symbol == `${token}USDT`;
             })[0];
             if (!pair) {
-                throw new NotFound(`Pair for the token ${token} and the currency/token ${currency} could not be found.`)
+                return new BinanceTradingPair(`N/A`, -1)
             }
             else {
                 //@ts-ignore
                 let eurusdt = prices.filter((p) => {
                     return p.symbol == `${currency}USDT`;
                 })[0];
-                console.log(eurusdt)
                 return new BinanceTradingPair(`${token}-USDT-${currency}`, pair.price * eurusdt.price);
             }
         }

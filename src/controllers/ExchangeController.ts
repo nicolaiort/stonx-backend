@@ -54,7 +54,7 @@ export class ExchangeController {
     }
 
     new_config.owner = user;
-    return (await getConnectionManager().get().getRepository(BitpandaConfig).save(new_config)).exchange as SupportedExchanges;
+    return (await getConnectionManager().get().getRepository(BinanceConfig).save(new_config)).exchange as SupportedExchanges;
   }
 
   // @Delete("/:id")
