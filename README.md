@@ -14,20 +14,20 @@ Powered by (among many others):
 
 * Bitpanda Wallets (Needs a bitpanda api token that can read your assets - scope "Guthaben")
 * Bitpanda Indices (Needs a bitpanda api token that can read your assets - scope "Guthaben")
+* Binance Spot Wallets (Needs a binance api token that can read your assets)
 * ETH Wallets (Only needs the public key/address)
 * BTC Wallets (Only needs the public key/address)
 * DOGE Wallets (Only needs the public key/address)
 
 ### Balances and prices powered by:
 * Bitpanda Assets and Prices: https://api.bitpanda.com
-* Other Token Prices: https://api.binance.com
+* Binance Assets and Prices: https://api.binance.com
 * ETH and BTC Wallet Balances: https://api.blockcypher.com/
 * DOGE Wallet Balances: https://dogechain.info/
 
 ## Roadmap
-* Support binance spot wallet assets
+* Get Non-Exchange Wallet Token prices from coingecko
 * Save and view timeseries data about all of your wallets
-* Create a helmchart
 * Support for more ERC20 Tokens
 * Support for ADA
 
