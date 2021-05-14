@@ -2,6 +2,7 @@ import { BodyParams, Controller, Get, Post, Req } from "@tsed/common";
 import { Forbidden } from "@tsed/exceptions";
 import { Authenticate } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
+import { BinanceConfig } from "src/models/entity/BinanceConfig";
 import { getConnectionManager } from "typeorm";
 import { BitpandaConfig } from "../models/entity/BitpandaConfig";
 import { User } from "../models/entity/User";
@@ -29,14 +30,30 @@ export class ExchangeController {
   @Security("jwt")
   @Description("Create a bitpanda connection for yourself.")
   @Returns(200, SupportedExchanges)
-  async createWallets(@BodyParams() new_config: BitpandaConfig, @Req() req: Req): Promise<SupportedExchanges> {
-    const exchange = await getConnectionManager().get().getRepository(BitpandaConfig).findOne({ owner: (req.user as User) });
-
+  async createBitpandaConfig(@BodyParams() new_config: BitpandaConfig, @Req() req: Req): Promise<SupportedExchanges> {
+    const user = (req.user as User);
+    const exchange = await getConnectionManager().get().getRepository(BitpandaConfig).findOne({ owner: user });
     if (exchange) {
       throw new Forbidden("You already configured an account for this exchange.");
     }
 
-    new_config.owner = (req.user as User);
+    new_config.owner = user;
+    return (await getConnectionManager().get().getRepository(BitpandaConfig).save(new_config)).exchange as SupportedExchanges;
+  }
+
+  @Post("/binance")
+  @Authenticate("jwt")
+  @Security("jwt")
+  @Description("Create a binance connection for yourself.")
+  @Returns(200, SupportedExchanges)
+  async createBinanceConfig(@BodyParams() new_config: BinanceConfig, @Req() req: Req): Promise<SupportedExchanges> {
+    const user = (req.user as User);
+    const exchange = await getConnectionManager().get().getRepository(BinanceConfig).findOne({ owner: user });
+    if (exchange) {
+      throw new Forbidden("You already configured an account for this exchange.");
+    }
+
+    new_config.owner = user;
     return (await getConnectionManager().get().getRepository(BitpandaConfig).save(new_config)).exchange as SupportedExchanges;
   }
 
@@ -49,6 +66,7 @@ export class ExchangeController {
   //   await this.walletService.delete({ id: id });
   //   return true;
   // }
+
 
   constructor(private exchangeService: ExchangeService) { }
 }

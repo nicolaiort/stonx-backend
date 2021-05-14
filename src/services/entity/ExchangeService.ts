@@ -1,4 +1,3 @@
-import { SupportedExchanges } from "src/models/enums/SupportedExchanges";
 import { EntityRepository, Repository } from "typeorm";
 import { BinanceConfig } from "../../models/entity/BinanceConfig";
 import { BitpandaConfig } from "../../models/entity/BitpandaConfig";
@@ -24,26 +23,7 @@ export class ExchangeService extends Repository<ExchangeConfig> {
     return this.find({ owner: user });
   }
 
-  async findByUserAndExchange(user: User, exchange: SupportedExchanges): Promise<BitpandaConfig | BinanceConfig | ExchangeConfig> {
-    switch (exchange) {
-      case SupportedExchanges.BITPANDA:
-        return await this.bitpandaConfigService.findOneOrFail({ owner: user });
-      case SupportedExchanges.BINANCE:
-        return await this.binanceConfigService.findOneOrFail({ owner: user });
-      default:
-        throw new Error("Exchange not supported.")
-    }
-  }
-
-  async findByUserAndExchangeOrFail(user: User, exchange: SupportedExchanges): Promise<BitpandaConfig | BinanceConfig | ExchangeConfig> {
-    switch (exchange) {
-      case SupportedExchanges.BITPANDA:
-        console.log(await this.bitpandaConfigService.findOneOrFail({ owner: user }))
-        return await this.bitpandaConfigService.findOneOrFail({ owner: user });
-      case SupportedExchanges.BINANCE:
-        return await this.binanceConfigService.findOneOrFail({ owner: user });
-      default:
-        throw new Error("Exchange not supported.")
-    }
+  async findBitpandaByUser(user: User): Promise<BitpandaConfig | undefined> {
+    return await this.bitpandaConfigService.findOneOrFail({ owner: user });
   }
 }
