@@ -77,7 +77,3 @@ export class ExchangeController {
 
   constructor(private exchangeService: ExchangeService) { }
 }
-function Wallet(arg0: number, Wallet: any) {
-  throw new Error("Function not implemented.");
-}
-
