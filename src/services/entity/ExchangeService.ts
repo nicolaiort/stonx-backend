@@ -18,8 +18,15 @@ export class ExchangeService {
     return this.bitpandaConfigService.findOne({ owner: user });
   }
 
+  public async findBitpandaByUserOrFail(user: User): Promise<BitpandaConfig | undefined> {
+    return this.bitpandaConfigService.findOneOrFail({ owner: user });
+  }
+
   public async findBinanceByUser(user: User): Promise<BinanceConfig | undefined> {
     return this.binanceConfigService.findOne({ owner: user });
+  }
+  public async findBinanceByUserOrFail(user: User): Promise<BinanceConfig | undefined> {
+    return this.binanceConfigService.findOneOrFail({ owner: user });
   }
 
   public async createBitpanda(new_config: BitpandaConfig): Promise<BitpandaConfig> {
