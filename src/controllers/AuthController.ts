@@ -1,6 +1,7 @@
 import { BodyParams, Controller, Post, Req } from "@tsed/common";
 import { Authenticate } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
+import { UserResponse } from "src/models/UserResponse";
 import { Credentials } from "../models/Credentials";
 import { User } from "../models/entity/User";
 import { UserCreation } from "../models/UserCreation";
@@ -11,19 +12,19 @@ export class AuthController {
   @Post("/login")
   @Authenticate("login", { failWithError: false })
   @Security("login")
-  @Returns(200, User)
+  @Returns(200, UserResponse)
   @(Returns(400).Description("Validation error"))
   @Description("The path says it all: Logs you in and provides you with a JWT to authenticate against all other endpoints.")
-  login(@Req() req: Req, @BodyParams() credentials: Credentials): User {
-    return req.user as User;
+  login(@Req() req: Req, @BodyParams() credentials: Credentials): UserResponse {
+    return new UserResponse(req.user as User);
   }
 
   @Post("/signup")
-  @Returns(201, User)
+  @Returns(201, UserResponse)
   @Authenticate("signup")
   @Description("Register for a new account (if signup is endabled)")
-  signup(@Req() req: Req, @BodyParams() user: UserCreation): User {
-    return req.user as User;
+  signup(@Req() req: Req, @BodyParams() user: UserCreation): UserResponse {
+    return new UserResponse(req.user as User);
   }
 
   @Post("/logout")
