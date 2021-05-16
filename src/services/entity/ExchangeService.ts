@@ -1,9 +1,9 @@
-import { ExchangeConfig } from "src/models/entity/ExchangeConfig";
-import { SupportedExchanges } from "src/models/enums/SupportedExchanges";
 import { getConnectionManager, Repository } from "typeorm";
 import { BinanceConfig } from "../../models/entity/BinanceConfig";
 import { BitpandaConfig } from "../../models/entity/BitpandaConfig";
+import { ExchangeConfig } from "../../models/entity/ExchangeConfig";
 import { User } from "../../models/entity/User";
+import { SupportedExchanges } from "../../models/enums/SupportedExchanges";
 
 export class ExchangeService {
 

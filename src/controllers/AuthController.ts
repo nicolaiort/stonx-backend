@@ -1,10 +1,10 @@
 import { BodyParams, Controller, Post, Req } from "@tsed/common";
 import { Authenticate } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
-import { UserResponse } from "src/models/UserResponse";
 import { Credentials } from "../models/Credentials";
 import { User } from "../models/entity/User";
 import { UserCreation } from "../models/UserCreation";
+import { UserResponse } from "../models/UserResponse";
 import { UserService } from "../services/entity/UserService";
 
 @Controller("/auth")

@@ -1,6 +1,6 @@
 import { NotFound } from "@tsed/exceptions";
 import axios from "axios";
-import { config } from "src/config/env";
+import { config } from "../../config/env";
 import { SupportedTokens } from "../../models/enums/SupportedTokens";
 
 /**

@@ -1,6 +1,6 @@
 import { Controller, Get, PathParams } from "@tsed/common";
 import { Description, Returns } from "@tsed/schema";
-import { GeckoService } from "src/services/utils/GeckoService";
+import { GeckoService } from "../services/utils/GeckoService";
 
 @Controller("/prices")
 export class PriceController {

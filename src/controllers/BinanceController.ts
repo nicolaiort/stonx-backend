@@ -1,10 +1,10 @@
 import { Controller, Get, PathParams, QueryParams, Req } from "@tsed/common";
 import { Authenticate, Authorize } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
-import { User } from "src/models/entity/User";
-import { ExchangeService } from "src/services/entity/ExchangeService";
 import { BinanceTradingPair } from "../models/BinanceTradingPair";
+import { User } from "../models/entity/User";
 import { Wallet } from "../models/Wallet";
+import { ExchangeService } from "../services/entity/ExchangeService";
 import { BinanceService } from "../services/utils/BinanceService";
 
 @Controller("/binance")

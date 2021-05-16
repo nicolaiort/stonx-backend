@@ -1,11 +1,11 @@
 import { BodyParams, Controller, Delete, Get, PathParams, Post, Req } from "@tsed/common";
 import { Authenticate } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
-import { GeckoService } from "src/services/utils/GeckoService";
 import { User } from "../models/entity/User";
 import { Wallet } from "../models/Wallet";
 import { WalletCreation } from "../models/WalletCreation";
 import { WalletService } from "../services/entity/WalletService";
+import { GeckoService } from "../services/utils/GeckoService";
 
 @Controller("/wallets")
 export class WalletController {
