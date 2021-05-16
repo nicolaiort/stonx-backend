@@ -27,6 +27,7 @@ Powered by (among many others):
 * Custom Wallet Prices: https://www.coingecko.com/api
 
 ## Roadmap
+* Add a coingecko api wrapper endpoint
 * Save and view timeseries data about all of your wallets
 * Support for more ERC20 Tokens
 * Support for ADA
