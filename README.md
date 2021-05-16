@@ -24,9 +24,9 @@ Powered by (among many others):
 * Binance Assets and Prices: https://api.binance.com
 * ETH and BTC Wallet Balances: https://api.blockcypher.com/
 * DOGE Wallet Balances: https://dogechain.info/
+* Custom Wallet Prices: https://www.coingecko.com/api
 
 ## Roadmap
-* Get Non-Exchange Wallet Token prices from coingecko
 * Save and view timeseries data about all of your wallets
 * Support for more ERC20 Tokens
 * Support for ADA
