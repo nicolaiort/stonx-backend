@@ -39,12 +39,12 @@ export class UserController {
       throw new Forbidden("You have to confirm the deletion via queryparam.");
     }
 
-    for (let wallet in await this.walletService.findByUser(req.user as User)) {
+    for (let wallet of await this.walletService.findByUser(req.user as User)) {
       await this.walletService.delete(wallet);
     }
 
-    for (let exchange in await this.exchangeService.findByUser(req.user as User)) {
-      await this.exchangeService.delete(exchange);
+    for (let exchange of await this.exchangeService.findByUser(req.user as User)) {
+      await this.exchangeService.delete((req.user as User), exchange);
     }
 
     await this.userService.deleteByEmail((req.user as User).email);
