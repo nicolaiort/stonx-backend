@@ -33,6 +33,6 @@ export class GeckoService {
         const res = await axios.get(
             `https://api.coingecko.com/api/v3/simple/price?ids=${token_id}&vs_currencies=${config["CURRENCY"].toString().toLowerCase()}`
         );
-        return parseInt(res.data[token_id][config["CURRENCY"]]);
+        return parseFloat(res.data[token_id][config["CURRENCY"]]);
     }
 }
