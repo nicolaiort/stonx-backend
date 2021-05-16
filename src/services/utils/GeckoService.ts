@@ -9,31 +9,37 @@ import { SupportedTokens } from "../../models/enums/SupportedTokens";
  */
 export class GeckoService {
     public static async getTokenPrice(token: SupportedTokens): Promise<number> {
-        let token_id = "";
-
         switch (token) {
             case SupportedTokens.ETH:
-                token_id = "ethereum";
-                break;
+                return this.getPrice("ethereum");
             case SupportedTokens.BTC:
-                token_id = "bitcoin";
-                break;
+                return this.getPrice("bitcoin");
             default:
-                const res_id = await axios.get(
-                    `https://api.coingecko.com/api/v3/coins/list`
-                );
-                // @ts-ignore
-                token_id = res_id.data.filter((c) => c.symbol.toString() == token.toString().toLowerCase())[0].id;
-
-                if (!token_id || token_id == '') {
-                    throw new NotFound("Token not found");
-                }
+                return this.getSymbolPrice(token.toString())
         }
+    }
 
+    public static async getSymbolPrice(token_symbol: string): Promise<number> {
+        return this.getPrice(await GeckoService.getTokenIdFromSymbol(token_symbol));
+    }
+
+    public static async getTokenIdFromSymbol(token_symbol: string): Promise<string> {
+        const res_id = await axios.get(
+            `https://api.coingecko.com/api/v3/coins/list`
+        );
+        // @ts-ignore
+        const token_id = res_id.data.filter((c) => c.symbol.toString() == token_symbol.toLowerCase())[0].id;
+
+        if (!token_id || token_id == '') {
+            throw new NotFound("Token not found");
+        }
+        return token_id;
+    }
+
+    public static async getPrice(token_id: string): Promise<number> {
         const res = await axios.get(
             `https://api.coingecko.com/api/v3/simple/price?ids=${token_id}&vs_currencies=${config["CURRENCY"].toString().toLowerCase()}`
         );
-        console.log(res.data)
         return parseFloat(res.data[token_id][config["CURRENCY"].toString().toLowerCase()]);
     }
 }
