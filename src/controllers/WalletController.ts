@@ -1,12 +1,11 @@
 import { BodyParams, Controller, Delete, Get, PathParams, Post, Req } from "@tsed/common";
 import { Authenticate } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
-import { config } from "../config/env";
+import { GeckoService } from "src/services/utils/GeckoService";
 import { User } from "../models/entity/User";
 import { Wallet } from "../models/Wallet";
 import { WalletCreation } from "../models/WalletCreation";
 import { WalletService } from "../services/entity/WalletService";
-import { BinanceService } from "../services/utils/BinanceService";
 
 @Controller("/wallets")
 export class WalletController {
@@ -24,7 +23,7 @@ export class WalletController {
     let returnWallets: Wallet[] = new Array<Wallet>();
 
     for (let wallet of wallets) {
-      returnWallets.push(new Wallet(wallet.token, await wallet.balance(), (await BinanceService.getTradingPair(wallet.token, config["CURRENCY"])).price, wallet.id, wallet.description));
+      returnWallets.push(new Wallet(wallet.token, await wallet.balance(), (await GeckoService.getTokenPrice(wallet.token)), wallet.id, wallet.description));
     }
 
     return returnWallets;
@@ -37,7 +36,7 @@ export class WalletController {
   @Returns(200, Wallet)
   async createWallets(@BodyParams() new_wallet: WalletCreation, @Req() req: Req): Promise<Wallet> {
     let wallet = await this.walletService.createWallet(req.user as User, new_wallet);
-    return new Wallet(wallet.token, await wallet.balance(), (await BinanceService.getTradingPair(wallet.token, config["CURRENCY"])).price, wallet.id, wallet.description);
+    return new Wallet(wallet.token, await wallet.balance(), (await GeckoService.getTokenPrice(wallet.token)), wallet.id, wallet.description);
   }
 
   @Delete("/:id")
