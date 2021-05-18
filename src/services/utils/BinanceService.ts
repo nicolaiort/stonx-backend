@@ -26,7 +26,8 @@ export class BinanceService {
     public static async getSpotWallets(token: string, secret: string): Promise<Wallet[]> {
         const binance = new Binance().options({
             APIKEY: token,
-            APISECRET: secret
+            APISECRET: secret,
+            useServerTime: true
         });
 
         const wallets: any = await new Promise((resolve, reject) => {
