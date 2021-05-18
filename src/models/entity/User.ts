@@ -64,6 +64,6 @@ export class User {
   }
 
   get linkedExchanges(): SupportedExchanges[] {
-    return this.exchanges.map((x) => x.exchange as SupportedExchanges);
+    return this.exchanges?.map((x) => x.exchange as SupportedExchanges);
   }
 }
