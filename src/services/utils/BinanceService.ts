@@ -27,8 +27,10 @@ export class BinanceService {
         const binance = new Binance().options({
             APIKEY: token,
             APISECRET: secret,
-            useServerTime: true
+            useServerTime: true,
+            recvWindow: 60000
         });
+        await binance.useServerTime();
 
         const wallets: any = await new Promise((resolve, reject) => {
             binance.balance((error: Error, balances: any) => {
