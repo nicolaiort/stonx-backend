@@ -14,6 +14,8 @@ export class GeckoService {
                 return this.getPrice("ethereum");
             case SupportedTokens.BTC:
                 return this.getPrice("bitcoin");
+            case SupportedTokens.IOTA:
+                return (await this.getPrice("iota")) * 1000;
             default:
                 return this.getSymbolPrice(token.toString())
         }

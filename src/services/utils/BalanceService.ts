@@ -19,10 +19,16 @@ export class BalanceService {
                 );
                 return parseInt(resBlockcypher.data.balance) / 100000000;
             case SupportedTokens.DOGE:
+                return 0;
                 const resDogechain = await axios.get(
                     `https://dogechain.info/api/v1/address/balance/${address}`
                 );
                 return parseFloat(resDogechain.data.balance);
+            case SupportedTokens.IOTA:
+                const resIOTA = await axios.get(
+                    `https://explorer-api.iota.org/search/mainnet/${address}`
+                );
+                return parseFloat(resIOTA.data.address.balance) / 1000000000;
             default:
                 throw new Error("Token not supported");
         }
