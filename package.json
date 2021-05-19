@@ -8,7 +8,8 @@
     "build": "tsc --project tsconfig.compile.json",
     "start:prod": "cross-env NODE_ENV=production node dist/index.js",
     "prettier": "prettier src/**/*.ts --write",
-    "typeorm": "tsed typeorm"
+    "typeorm": "tsed typeorm",
+    "release": "release-it"
   },
   "dependencies": {
     "@tsed/ajv": "^6.45.0",
@@ -68,6 +69,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "prettier": "^2.2.1",
+    "release-it": "^14.6.2",
     "ts-node": "^9.1.1",
     "ts-node-dev": "^1.1.6",
     "tsconfig-paths": "^3.9.0",
@@ -76,5 +78,22 @@
   "tsed": {
     "packageManager": "yarn",
     "convention": "default"
+  },
+  "release-it": {
+    "git": {
+      "commit": true,
+      "requireCleanWorkingDir": true,
+      "commitMessage": "🚀RELEASE ${version}",
+      "push": false,
+      "tag": true,
+      "tagName": null,
+      "tagAnnotation": "${version}"
+    },
+    "npm": {
+      "publish": false
+    },
+    "hooks": {
+      "after:bump": "npx auto-changelog --commit-limit false -p -u --hide-credit && git add CHANGELOG.md"
+    }
   }
 }
