@@ -2,10 +2,23 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [0.2.1](https://github.com/nicolaiort/stonx-backend/compare/0.2.0...0.2.1)
+
+- Added exchange service comments (and therefor for all entity services) [`5134a6f`](https://github.com/nicolaiort/stonx-backend/commit/5134a6f735a5a082f13a099819956b705e43c4f0)
+- Added comments to the userservice [`93de1e4`](https://github.com/nicolaiort/stonx-backend/commit/93de1e4cd0e8a2bef6ff91ac16164598f9ae678f)
+- Added comments to timeseries service [`f7e54fe`](https://github.com/nicolaiort/stonx-backend/commit/f7e54fedd4250705a5088d00cbead707a3b42249)
+- Added comments to the geckoservice [`d1493d6`](https://github.com/nicolaiort/stonx-backend/commit/d1493d62adf0a79baf4dbde1bc73cefe5e66e492)
+- Added comments to the WalletService [`c6314d1`](https://github.com/nicolaiort/stonx-backend/commit/c6314d171f4f17ce4ee2eddf19448f841c77b7bc)
+- Added balanceservice comments [`6e7227f`](https://github.com/nicolaiort/stonx-backend/commit/6e7227f0b6fe121fa1c91c5ad51103c679be676e)
+- Added userservice class description [`5a43fed`](https://github.com/nicolaiort/stonx-backend/commit/5a43fed212ac0c40b10b4fc99572d4f5f3ab0658)
+
 #### [0.2.0](https://github.com/nicolaiort/stonx-backend/compare/0.1.2...0.2.0)
+
+> 22 May 2021
 
 - Pinned all dependencies [`ec38433`](https://github.com/nicolaiort/stonx-backend/commit/ec384333060106561b5e1f6c3d8b6cb4bd87d6fd)
 - Implemented timeseriesmanager base structure [`8547935`](https://github.com/nicolaiort/stonx-backend/commit/8547935c7eb493bbab95e4f0a967f869ce9e7dab)
+- 🚀RELEASE 0.2.0 [`a7670db`](https://github.com/nicolaiort/stonx-backend/commit/a7670db54dcd1b938e0a32d884b9538a37914786)
 - Added getter support for binance spot wallets [`6073143`](https://github.com/nicolaiort/stonx-backend/commit/6073143f4d36be3611063f85fe5ef6df67fa8263)
 - Implemented getting bitpanda assets [`3cfb123`](https://github.com/nicolaiort/stonx-backend/commit/3cfb12359ca090f721b03d80871b772f86a28f03)
 - Added function for getting wallet timeseries data [`efdf743`](https://github.com/nicolaiort/stonx-backend/commit/efdf7434ab7eb3448221c3c79bdccffe4557123b)
