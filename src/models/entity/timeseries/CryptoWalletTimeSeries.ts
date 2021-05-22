@@ -1,4 +1,5 @@
 import { Required } from "@tsed/schema";
+import { SupportedTokens } from "src/models/enums/SupportedTokens";
 import { ChildEntity, Column } from "typeorm";
 import { User } from "../User";
 import { TimeSeriesEntry } from "./TimeSeriesEntry";
@@ -14,9 +15,14 @@ export class CryptoWalletTimeSeries extends TimeSeriesEntry {
   @Required()
   wallet_address: string;
 
-  constructor(id: string, address: string, owner: User, timestamp: Date, balance: number, fiat_value: number) {
+  @Column({ nullable: false, type: "text" })
+  @Required()
+  token: SupportedTokens;
+
+  constructor(owner: User, timestamp: Date, balance: number, fiat_value: number, id: string, address: string, token: SupportedTokens) {
     super(owner, timestamp, balance, fiat_value);
     this.wallet_id = id;
     this.wallet_address = address;
+    this.token = token;
   }
 }
