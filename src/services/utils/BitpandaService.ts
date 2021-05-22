@@ -11,7 +11,7 @@ export class BitpandaService {
 
     /**
      * Returns the current prices of all crypto tokens listed on bitpanda.
-     * @returns 
+     * @returns The pricing data for Bitpanda assets directly from the Bitpanda api.
      */
     public static async getPrices() {
         return (await axios.get("https://api.bitpanda.com/v1/ticker")).data;
@@ -29,7 +29,7 @@ export class BitpandaService {
     /**
      * Returns your bitpanda crypto token wallets
      * @param user The user who's api key (and therefore account) will be used.
-     * @returns 
+     * @returns Array of Wallet objects wrapped into a promise.
      */
     public static async getWallets(exchange_config: BitpandaConfig): Promise<Wallet[]> {
         const wallets = (
@@ -58,9 +58,9 @@ export class BitpandaService {
     /**
      * Returns your bitpanda crypto index wallets
      * @param user The user who's api key (and therefore account) will be used.
-     * @returns 
+     * @returns Array of Wallet objects wrapped into a promise.
      */
-    public static async getIndices(exchange_config: BitpandaConfig) {
+    public static async getIndices(exchange_config: BitpandaConfig): Promise<Wallet[]> {
         const indices = (await axios.get("https://api.bitpanda.com/v1/asset-wallets", {
             headers: {
                 "X-API-KEY": exchange_config.bitpanda_api_key
