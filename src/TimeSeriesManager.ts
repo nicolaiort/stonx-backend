@@ -27,7 +27,7 @@ export class TimeSeriesManager {
         this.exchangeService = new ExchangeService();
     }
 
-    public init() {
+    public async init() {
         this.scheduleQuaters();
     }
 
