@@ -1,6 +1,6 @@
 {
   "name": "stonkx-backend",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "license": "MIT",
   "scripts": {
@@ -82,7 +82,7 @@
   "release-it": {
     "git": {
       "commit": true,
-      "requireCleanWorkingDir": true,
+      "requireCleanWorkingDir": false,
       "commitMessage": "🚀RELEASE ${version}",
       "push": false,
       "tag": true,

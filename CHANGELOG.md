@@ -2,8 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [0.1.2](https://github.com/nicolaiort/stonx-backend/compare/0.1.1...0.1.2)
+
+- Reorganized services [`43e7ef2`](https://github.com/nicolaiort/stonx-backend/commit/43e7ef24a0e7d55ac7d14af74582174dbebf5595)
+
 #### [0.1.1](https://github.com/nicolaiort/stonx-backend/compare/0.1.0...0.1.1)
 
+> 19 May 2021
+
+- 🚀RELEASE 0.1.1 [`78b6a0c`](https://github.com/nicolaiort/stonx-backend/commit/78b6a0c6955d4b803d768d69471165f83db813cd)
 - Replaced old secret names [`e916a46`](https://github.com/nicolaiort/stonx-backend/commit/e916a466110efd7f19c5ce921947bb8ff288f0ce)
 
 #### 0.1.0
