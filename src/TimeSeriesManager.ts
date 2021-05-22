@@ -82,7 +82,7 @@ export class TimeSeriesManager {
     private async collectUserBinanceData(user: User, timestamp: number) {
         console.log(`Collecting binance data for user ${user.username}`)
         const config = await this.exchangeService.findBinanceByUserOrFail(user);
-        BinanceService.getSpotWallets(config.binance_api_key, config.binance_api_secret).then((wallets) => {
+        BinanceService.getSpotWallets(config).then((wallets) => {
             for (const wallet of wallets) {
                 this.timeSeriesService.saveExchangeDatapoint(new ExchangeAssetTimeSeries(user, timestamp, wallet.balance, wallet.fiat, SupportedExchanges.BINANCE, wallet.token));
             }

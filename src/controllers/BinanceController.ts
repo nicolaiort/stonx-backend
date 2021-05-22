@@ -34,7 +34,7 @@ export class BinanceController {
     @Returns(200)
     async getSpotWallets(@QueryParams("withEmpty") withEmpty: boolean = false, @Req() req: Req): Promise<Wallet[]> {
         const exchange = await this.exchangeService.findBinanceByUserOrFail((req.user as User));
-        const wallets = await BinanceService.getSpotWallets(exchange.binance_api_key, exchange.binance_api_secret);
+        const wallets = await BinanceService.getSpotWallets(exchange);
 
         if (!withEmpty) {
             return wallets.filter((w) => w.balance > 0)
