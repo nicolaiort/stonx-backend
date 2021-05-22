@@ -15,4 +15,8 @@ export class TimeSeriesService {
   public async saveExchangeDatapoint(datapoint: ExchangeAssetTimeSeries) {
     return this.exchangeTimeSeriesService.save(datapoint);
   }
+
+  public async saveWalletDatapoint(datapoint: CryptoWalletTimeSeries) {
+    return this.walletTimeSeriesService.save(datapoint);
+  }
 }
