@@ -2,6 +2,7 @@ import cron from 'node-cron';
 import { getConnection } from 'typeorm';
 import { CryptoWalletTimeSeries } from './models/entity/timeseries/CryptoWalletTimeSeries';
 import { ExchangeAssetTimeSeries } from './models/entity/timeseries/ExchangeAssetTimeSeries';
+import { TotalPortfolioTimeSeries } from './models/entity/timeseries/TotalPortfolioTimeSeries';
 import { User } from './models/entity/User';
 import { SupportedExchanges } from './models/enums/SupportedExchanges';
 import { ExchangeService } from './services/entity/ExchangeService';
@@ -55,7 +56,7 @@ export class TimeSeriesManager {
         promises.push(this.collectUserWalletData(user, timestamp));
 
         const results = await Promise.all(promises);
-        console.log(results.reduce((sum, curr) => { return sum += curr }, 0));
+        this.timeSeriesService.savePortfolioDatapoint(new TotalPortfolioTimeSeries(user, timestamp, results.reduce((sum, curr) => { return sum += curr }, 0)));
     }
 
     private async collectUserWalletData(user: User, timestamp: number) {
