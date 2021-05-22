@@ -1,7 +1,7 @@
 import { getConnectionManager, Repository } from "typeorm";
-import { BinanceConfig } from "../../models/entity/BinanceConfig";
-import { BitpandaConfig } from "../../models/entity/BitpandaConfig";
 import { ExchangeConfig } from "../../models/entity/ExchangeConfig";
+import { BinanceConfig } from "../../models/entity/exchanges/BinanceConfig";
+import { BitpandaConfig } from "../../models/entity/exchanges/BitpandaConfig";
 import { User } from "../../models/entity/User";
 import { SupportedExchanges } from "../../models/enums/SupportedExchanges";
 

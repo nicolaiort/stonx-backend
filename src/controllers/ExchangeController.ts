@@ -2,8 +2,8 @@ import { BodyParams, Controller, Delete, Get, PathParams, Post, Req } from "@tse
 import { Forbidden } from "@tsed/exceptions";
 import { Authenticate } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
-import { BinanceConfig } from "../models/entity/BinanceConfig";
-import { BitpandaConfig } from "../models/entity/BitpandaConfig";
+import { BinanceConfig } from "../models/entity/exchanges/BinanceConfig";
+import { BitpandaConfig } from "../models/entity/exchanges/BitpandaConfig";
 import { User } from "../models/entity/User";
 import { SupportedExchanges } from "../models/enums/SupportedExchanges";
 import { ExchangeService } from "../services/entity/ExchangeService";
