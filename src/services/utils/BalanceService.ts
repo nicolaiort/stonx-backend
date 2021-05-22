@@ -6,6 +6,12 @@ import { SupportedTokens } from "../../models/enums/SupportedTokens";
  * It queries the apis for a specific address's token balance.
  */
 export class BalanceService {
+    /**
+     * Get the balance for a wallet identified by it's token and address.
+     * @param address The wallet's address.
+     * @param token The wallet's token.
+     * @returns The balance in the token's main decimal denominator.
+     */
     public static async getBalance(address: string, token: SupportedTokens): Promise<number> {
         switch (token) {
             case SupportedTokens.ETH:
