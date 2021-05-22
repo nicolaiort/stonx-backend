@@ -27,8 +27,7 @@ export class TimeSeriesManager {
     }
 
     public init() {
-        // this.scheduleQuaters();
-        this.collectData();
+        this.scheduleQuaters();
     }
 
     private scheduleQuaters() {
@@ -46,7 +45,6 @@ export class TimeSeriesManager {
     }
 
     private async collectUserData(user: User, timestamp: number) {
-        console.log(`Collecting data for user ${user.username}`)
         if (user.linkedExchanges.includes(SupportedExchanges.BITPANDA)) {
             this.collectUserBitpandaData(user, timestamp);
         }
@@ -57,7 +55,6 @@ export class TimeSeriesManager {
     }
 
     private async collectUserWalletData(user: User, timestamp: number) {
-        console.log(`Collecting wallet data for user ${user.username}`);
         for (const wallet of await this.walletService.findByUser(user)) {
             let balance = await wallet.balance();
             this.timeSeriesService.saveWalletDatapoint(new CryptoWalletTimeSeries(user, timestamp, balance, ((await GeckoService.getTokenPrice(wallet.token)) * balance), wallet.id, wallet.token));
@@ -65,7 +62,6 @@ export class TimeSeriesManager {
     }
 
     private async collectUserBitpandaData(user: User, timestamp: number) {
-        console.log(`Collecting bitpanda data for user ${user.username}`)
         const config = await this.exchangeService.findBitpandaByUserOrFail(user);
         BitpandaService.getWallets(config).then((wallets) => {
             for (const wallet of wallets) {
@@ -80,7 +76,6 @@ export class TimeSeriesManager {
     }
 
     private async collectUserBinanceData(user: User, timestamp: number) {
-        console.log(`Collecting binance data for user ${user.username}`)
         const config = await this.exchangeService.findBinanceByUserOrFail(user);
         BinanceService.getSpotWallets(config).then((wallets) => {
             for (const wallet of wallets) {
