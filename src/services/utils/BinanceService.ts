@@ -47,7 +47,7 @@ export class BinanceService {
                     token,
                     parseFloat(wallets[token].available),
                     this.getPairFromList(token, config["CURRENCY"], prices).price,
-                    "binance/crypto"
+                    `binance/crypto/${token}`
                 )
             );
         }

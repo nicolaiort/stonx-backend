@@ -48,7 +48,7 @@ export class BitpandaService {
                     wallet.attributes.cryptocoin_symbol,
                     parseFloat(wallet.attributes.balance),
                     parseFloat(prices[wallet.attributes.cryptocoin_symbol][config["CURRENCY"]]),
-                    "bitpanda/crypto"
+                    `bitpanda/crypto/${wallet.attributes.balance}`
                 )
             );
         }

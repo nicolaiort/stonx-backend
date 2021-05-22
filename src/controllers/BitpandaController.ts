@@ -47,9 +47,9 @@ export class BitpandaController {
 
         for (let index of indices) {
             if (!withEmpty && parseFloat(index.attributes.balance) != 0) {
-                returnWallets.push(new Wallet(index.attributes.cryptocoin_symbol, parseFloat(index.attributes.balance), 1, "bitpanda/index"));
+                returnWallets.push(new Wallet(index.attributes.cryptocoin_symbol, parseFloat(index.attributes.balance), 1, `bitpanda/index/${index.attributes.cryptocoin_symbol}`));
             } else if (withEmpty) {
-                returnWallets.push(new Wallet(index.attributes.cryptocoin_symbol, parseFloat(index.attributes.balance), 1, "bitpanda/index"));
+                returnWallets.push(new Wallet(index.attributes.cryptocoin_symbol, parseFloat(index.attributes.balance), 1, `bitpanda/index/${index.attributes.cryptocoin_symbol}`));
             }
         }
 
