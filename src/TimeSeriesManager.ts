@@ -59,7 +59,8 @@ export class TimeSeriesManager {
     private async collectUserWalletData(user: User, timestamp: number) {
         console.log(`Collecting wallet data for user ${user.username}`);
         for (const wallet of await this.walletService.findByUser(user)) {
-            this.timeSeriesService.saveWalletDatapoint(new CryptoWalletTimeSeries(user, timestamp, await wallet.balance(), ((await GeckoService.getTokenPrice(wallet.token)) * await wallet.balance()), wallet.id, wallet.address, wallet.token));
+            let balance = await wallet.balance();
+            this.timeSeriesService.saveWalletDatapoint(new CryptoWalletTimeSeries(user, timestamp, balance, ((await GeckoService.getTokenPrice(wallet.token)) * balance), wallet.id, wallet.token));
         }
     }
 
