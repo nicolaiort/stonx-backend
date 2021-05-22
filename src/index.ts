@@ -1,6 +1,7 @@
-import {$log} from "@tsed/common";
-import {PlatformExpress} from "@tsed/platform-express";
-import {Server} from "./Server";
+import { $log } from "@tsed/common";
+import { PlatformExpress } from "@tsed/platform-express";
+import { Server } from "./Server";
+import { TimeSeriesManager } from "./TimeSeriesManager";
 
 async function bootstrap() {
   try {
@@ -12,6 +13,9 @@ async function bootstrap() {
   } catch (er) {
     $log.error(er);
   }
+  const timeSeries: TimeSeriesManager = new TimeSeriesManager();
+  timeSeries.init();
+  $log.debug("Timeseries initialized");
 }
 
 bootstrap();
