@@ -1,13 +1,13 @@
 import { Controller, Get, PathParams, Req } from "@tsed/common";
 import { Authenticate } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
-import { CryptoWalletTimeSeries } from "src/models/entity/timeseries/CryptoWalletTimeSeries";
-import { ExchangeAssetTimeSeries } from "src/models/entity/timeseries/ExchangeAssetTimeSeries";
-import { TotalPortfolioTimeSeries } from "src/models/entity/timeseries/TotalPortfolioTimeSeries";
-import { User } from "src/models/entity/User";
-import { SupportedTokens } from "src/models/enums/SupportedTokens";
-import { TimeSeriesRanges } from "src/models/enums/TimeSeriesRanges";
-import { TimeSeriesService } from "src/services/entity/TimeSeriesService";
+import { CryptoWalletTimeSeries } from "../models/entity/timeseries/CryptoWalletTimeSeries";
+import { ExchangeAssetTimeSeries } from "../models/entity/timeseries/ExchangeAssetTimeSeries";
+import { TotalPortfolioTimeSeries } from "../models/entity/timeseries/TotalPortfolioTimeSeries";
+import { User } from "../models/entity/User";
+import { SupportedTokens } from "../models/enums/SupportedTokens";
+import { TimeSeriesRanges } from "../models/enums/TimeSeriesRanges";
+import { TimeSeriesService } from "../services/entity/TimeSeriesService";
 
 @Controller("/timeseries")
 export class TimeSeriesController {

@@ -1,11 +1,11 @@
-import { CryptoWalletTimeSeries } from "src/models/entity/timeseries/CryptoWalletTimeSeries";
-import { ExchangeAssetTimeSeries } from "src/models/entity/timeseries/ExchangeAssetTimeSeries";
-import { TotalPortfolioTimeSeries } from "src/models/entity/timeseries/TotalPortfolioTimeSeries";
-import { User } from "src/models/entity/User";
-import { SupportedExchanges } from "src/models/enums/SupportedExchanges";
-import { SupportedTokens } from "src/models/enums/SupportedTokens";
-import { TimeSeriesRanges } from "src/models/enums/TimeSeriesRanges";
 import { getConnectionManager, MoreThan, Repository } from "typeorm";
+import { CryptoWalletTimeSeries } from "../../models/entity/timeseries/CryptoWalletTimeSeries";
+import { ExchangeAssetTimeSeries } from "../../models/entity/timeseries/ExchangeAssetTimeSeries";
+import { TotalPortfolioTimeSeries } from "../../models/entity/timeseries/TotalPortfolioTimeSeries";
+import { User } from "../../models/entity/User";
+import { SupportedExchanges } from "../../models/enums/SupportedExchanges";
+import { SupportedTokens } from "../../models/enums/SupportedTokens";
+import { TimeSeriesRanges } from "../../models/enums/TimeSeriesRanges";
 
 /**
  * Implements all functions needed to interact with TimeSeries data.

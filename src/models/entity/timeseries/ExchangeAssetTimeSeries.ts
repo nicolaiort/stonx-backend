@@ -1,6 +1,6 @@
 import { Enum, Required } from "@tsed/schema";
-import { SupportedExchanges } from "src/models/enums/SupportedExchanges";
 import { Column, Entity } from "typeorm";
+import { SupportedExchanges } from "../../enums/SupportedExchanges";
 import { User } from "../User";
 import { TimeSeriesEntry } from "./TimeSeriesEntry";
 

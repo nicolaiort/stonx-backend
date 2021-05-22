@@ -1,9 +1,9 @@
 import axios from "axios";
 //@ts-ignore
 import Binance from "node-binance-api";
-import { BinanceConfig } from "src/models/entity/exchanges/BinanceConfig";
 import { config } from "../../config/env";
 import { BinanceTradingPair } from "../../models/BinanceTradingPair";
+import { BinanceConfig } from "../../models/entity/exchanges/BinanceConfig";
 import { Wallet } from "../../models/Wallet";
 
 /**
