@@ -27,7 +27,6 @@ Powered by (among many others):
 * Custom Wallet Prices: https://www.coingecko.com/api
 
 ## Roadmap
-* Query timeseries data from all of your assets
 * Support for more ERC20 Tokens
 * Support for ADA
 
