@@ -27,6 +27,7 @@ export class TimeSeriesManager {
     }
 
     public init() {
+        this.collectData();
         this.scheduleQuaters();
     }
 
@@ -45,42 +46,57 @@ export class TimeSeriesManager {
     }
 
     private async collectUserData(user: User, timestamp: number) {
+        let promises = new Array<Promise<any>>();
         if (user.linkedExchanges.includes(SupportedExchanges.BITPANDA)) {
-            this.collectUserBitpandaData(user, timestamp);
+            promises.push(this.collectUserBitpandaData(user, timestamp));
         }
         if (user.linkedExchanges.includes(SupportedExchanges.BINANCE)) {
-            this.collectUserBinanceData(user, timestamp);
+            promises.push(this.collectUserBinanceData(user, timestamp));
         }
-        this.collectUserWalletData(user, timestamp);
+        promises.push(this.collectUserWalletData(user, timestamp));
+
+        const results = await Promise.all(promises);
+        console.log(results.reduce((sum, curr) => { return sum += curr }, 0));
     }
 
     private async collectUserWalletData(user: User, timestamp: number) {
+        let total_fiat: number = 0;
         for (const wallet of await this.walletService.findByUser(user)) {
             let balance = await wallet.balance();
-            this.timeSeriesService.saveWalletDatapoint(new CryptoWalletTimeSeries(user, timestamp, balance, ((await GeckoService.getTokenPrice(wallet.token)) * balance), wallet.id, wallet.token));
+            let fiat = await ((await GeckoService.getTokenPrice(wallet.token)) * balance)
+            total_fiat += fiat;
+            this.timeSeriesService.saveWalletDatapoint(new CryptoWalletTimeSeries(user, timestamp, balance, fiat, wallet.id, wallet.token));
         }
+        return total_fiat;
     }
 
     private async collectUserBitpandaData(user: User, timestamp: number) {
+        let total_fiat: number = 0;
         const config = await this.exchangeService.findBitpandaByUserOrFail(user);
-        BitpandaService.getWallets(config).then((wallets) => {
+        await BitpandaService.getWallets(config).then((wallets) => {
             for (const wallet of wallets) {
+                total_fiat += wallet.fiat;
                 this.timeSeriesService.saveExchangeDatapoint(new ExchangeAssetTimeSeries(user, timestamp, wallet.balance, wallet.fiat, SupportedExchanges.BITPANDA, wallet.token));
             }
         });
-        BitpandaService.getIndices(config).then((indices) => {
+        await BitpandaService.getIndices(config).then((indices) => {
             for (const index of indices) {
+                total_fiat += index.fiat;
                 this.timeSeriesService.saveExchangeDatapoint(new ExchangeAssetTimeSeries(user, timestamp, index.balance, index.balance, SupportedExchanges.BITPANDA, index.token));
             }
         });
+        return total_fiat;
     }
 
     private async collectUserBinanceData(user: User, timestamp: number) {
+        let total_fiat: number = 0;
         const config = await this.exchangeService.findBinanceByUserOrFail(user);
-        BinanceService.getSpotWallets(config).then((wallets) => {
+        await BinanceService.getSpotWallets(config).then((wallets) => {
             for (const wallet of wallets) {
                 this.timeSeriesService.saveExchangeDatapoint(new ExchangeAssetTimeSeries(user, timestamp, wallet.balance, wallet.fiat, SupportedExchanges.BINANCE, wallet.token));
+                total_fiat += wallet.fiat;
             }
         });
+        return total_fiat;
     }
 }
