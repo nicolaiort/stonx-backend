@@ -32,21 +32,28 @@ export class TimeSeriesService {
           let date = new Date(d.timestamp);
           return date.getHours() == 0 && date.getMinutes() == 0;
         });
-      case TimeSeriesRanges.MONTH:
+      case TimeSeriesRanges.THISYEAR:
+        now.setFullYear(now.getFullYear() - 1);
+        const allInYear = await this.exchangeTimeSeriesService.find({ owner_id: owner.id, asset_name: asset, exchange: SupportedExchanges.BITPANDA, timestamp: MoreThan(now.getTime()) })
+        return allInYear.filter((d) => {
+          let date = new Date(d.timestamp);
+          return date.getHours() == 0 && date.getMinutes() == 0;
+        });
+      case TimeSeriesRanges.THISMONTH:
         now.setMonth(now.getMonth() - 1);
         const allInMonth = await this.exchangeTimeSeriesService.find({ owner_id: owner.id, asset_name: asset, exchange: SupportedExchanges.BITPANDA, timestamp: MoreThan(now.getTime()) })
         return allInMonth.filter((d) => {
           let date = new Date(d.timestamp);
           return date.getHours() == 0 && date.getMinutes() == 0;
         });
-      case TimeSeriesRanges.WEEK:
+      case TimeSeriesRanges.THISWEEK:
         now.setMonth(now.setDate(now.getDate() - 7));
         const allInWeek = await this.exchangeTimeSeriesService.find({ owner_id: owner.id, asset_name: asset, exchange: SupportedExchanges.BITPANDA, timestamp: MoreThan(now.getTime()) })
         return allInWeek.filter((d) => {
           let date = new Date(d.timestamp);
           return date.getHours() == 0 && date.getMinutes() == 0;
         });
-      case TimeSeriesRanges.DAY:
+      case TimeSeriesRanges.TODAY:
         return this.exchangeTimeSeriesService.find({ owner_id: owner.id, asset_name: asset, exchange: SupportedExchanges.BITPANDA, timestamp: MoreThan(now.getTime() - 24 * 60 * 60 * 1000) });
       default:
         throw new Error("Not supported yet.");
