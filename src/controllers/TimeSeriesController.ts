@@ -26,5 +26,14 @@ export class TimeSeriesController {
         return this.timeSeriesService.findBitpandaAssetByUserAndRange((req.user as User), index, range);
     }
 
+    @Get("/binance/spot/:token/:range")
+    @Authenticate("jwt")
+    @Security("jwt")
+    @Description("Returns timeseries data for your bitpanda indices in the desired range.")
+    @Returns(200)
+    async getBinanceSpotTimeSeries(@PathParams("token") token: string, @PathParams("range") range: TimeSeriesRanges, @Req() req: Req): Promise<ExchangeAssetTimeSeries[]> {
+        return this.timeSeriesService.findBinanceSpotWalletsByUserAndRange((req.user as User), token, range);
+    }
+
     constructor(private timeSeriesService: TimeSeriesService) { }
 }
