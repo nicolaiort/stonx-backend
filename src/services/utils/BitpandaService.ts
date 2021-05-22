@@ -61,13 +61,20 @@ export class BitpandaService {
      * @returns 
      */
     public static async getIndices(exchange_config: BitpandaConfig) {
-        return (
-            await axios.get("https://api.bitpanda.com/v1/asset-wallets", {
-                headers: {
-                    "X-API-KEY": exchange_config.bitpanda_api_key
-                }
-            })
+        const indices = (await axios.get("https://api.bitpanda.com/v1/asset-wallets", {
+            headers: {
+                "X-API-KEY": exchange_config.bitpanda_api_key
+            }
+        })
         ).data.data.attributes.index.index.attributes.wallets;
+
+        let returnWallets: Wallet[] = new Array<Wallet>();
+        for (let index of indices) {
+            returnWallets.push(
+                new Wallet(index.attributes.cryptocoin_symbol, parseFloat(index.attributes.balance), 1, `bitpanda/index/${index.attributes.cryptocoin_symbol}`)
+            );
+        }
+        return returnWallets;
     }
 
     /**

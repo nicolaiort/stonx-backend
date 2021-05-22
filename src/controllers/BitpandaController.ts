@@ -41,19 +41,13 @@ export class BitpandaController {
     @Returns(200, Wallet)
     async getIndexAssets(@QueryParams("withEmpty") withEmpty: boolean = false, @Req() req: Req): Promise<Wallet[]> {
         const exchange = await this.exchangeService.findBitpandaByUserOrFail((req.user as User));
-        const indices = await BitpandaService.getIndices(exchange);
+        const indices: Wallet[] = await BitpandaService.getIndices(exchange);
 
-        let returnWallets: Wallet[] = new Array<Wallet>();
-
-        for (let index of indices) {
-            if (!withEmpty && parseFloat(index.attributes.balance) != 0) {
-                returnWallets.push(new Wallet(index.attributes.cryptocoin_symbol, parseFloat(index.attributes.balance), 1, `bitpanda/index/${index.attributes.cryptocoin_symbol}`));
-            } else if (withEmpty) {
-                returnWallets.push(new Wallet(index.attributes.cryptocoin_symbol, parseFloat(index.attributes.balance), 1, `bitpanda/index/${index.attributes.cryptocoin_symbol}`));
-            }
+        if (!withEmpty) {
+            return indices.filter((w) => w.balance != 0)
         }
 
-        return returnWallets;
+        return indices;
     }
 
     constructor(private exchangeService: ExchangeService) { }
