@@ -6,6 +6,9 @@ import { SupportedTokens } from "src/models/enums/SupportedTokens";
 import { TimeSeriesRanges } from "src/models/enums/TimeSeriesRanges";
 import { getConnectionManager, MoreThan, Repository } from "typeorm";
 
+/**
+ * Implements all functions needed to interact with TimeSeries data.
+ */
 export class TimeSeriesService {
 
   private walletTimeSeriesService: Repository<CryptoWalletTimeSeries>;
@@ -16,14 +19,31 @@ export class TimeSeriesService {
     this.exchangeTimeSeriesService = getConnectionManager().get().getRepository(ExchangeAssetTimeSeries);
   }
 
+  /**
+   * Create a new exchange timeseries datapoint.
+   * @param datapoint The new datapoint.
+   * @returns The datapoint entity wrapped in a repository.save promise.
+   */
   public async saveExchangeDatapoint(datapoint: ExchangeAssetTimeSeries) {
     return this.exchangeTimeSeriesService.save(datapoint);
   }
 
+  /**
+   * Create a new wallet timeseries datapoint.
+   * @param datapoint The new datapoint.
+   * @returns The datapoint entity wrapped in a repository.save promise.
+   */
   public async saveWalletDatapoint(datapoint: CryptoWalletTimeSeries) {
     return this.walletTimeSeriesService.save(datapoint);
   }
 
+  /**
+   * Provides you with the timeseries datapoints for bitpanda assets in various ranges.
+   * @param owner The asset's owner.
+   * @param asset The asset's name (token or index)
+   * @param range The range in which you want your results to reside in.
+   * @returns An array of timeseries datapoints wrapped in a Promise.
+   */
   public async findBitpandaAssetByUserAndRange(owner: User, asset: string, range: TimeSeriesRanges): Promise<ExchangeAssetTimeSeries[]> {
     const now = new Date();
     switch (range) {
@@ -61,6 +81,13 @@ export class TimeSeriesService {
     }
   }
 
+  /**
+   * Provides you with the timeseries datapoints for binance assets in various ranges.
+   * @param owner The asset's owner.
+   * @param asset The asset's name (token)
+   * @param range The range in which you want your results to reside in.
+   * @returns An array of timeseries datapoints wrapped in a Promise.
+   */
   public async findBinanceSpotWalletsByUserAndRange(owner: User, asset: string, range: TimeSeriesRanges): Promise<ExchangeAssetTimeSeries[]> {
     const now = new Date();
     switch (range) {
@@ -98,6 +125,14 @@ export class TimeSeriesService {
     }
   }
 
+  /**
+   * Provides you with the timeseries datapoints for custom wallets in various ranges.
+   * @param owner The wallet entry's owner.
+   * @param token The wallet's token.
+   * @param id The wallet's id.
+   * @param range The range in which you want your results to reside in.
+   * @returns An array of timeseries datapoints wrapped in a Promise.
+   */
   public async findWalletByIdUserTokenAndRange(owner: User, token: SupportedTokens, id: string, range: TimeSeriesRanges): Promise<CryptoWalletTimeSeries[]> {
     const now = new Date();
     switch (range) {
