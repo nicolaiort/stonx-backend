@@ -11,20 +11,14 @@ import { BitpandaService } from './services/utils/BitpandaService';
 
 export class TimeSeriesManager {
 
-    private timeSeriesService: TimeSeriesService;
-    private userService: UserService;
-    private walletService: WalletService;
-    private exchangeService: ExchangeService;
-
-    constructor() {
-        this.timeSeriesService = new TimeSeriesService();
-        this.userService = new UserService();
-        this.walletService = new WalletService();
-        this.exchangeService = new ExchangeService();
+    constructor(private userService: UserService, private timeSeriesService: TimeSeriesService, private walletService: WalletService, private exchangeService: ExchangeService) {
     }
 
-    public async init() {
+    public init() {
         // this.scheduleQuaters();
+        cron.schedule('* * * * *', () => {
+            this.collectData();
+        });
     }
 
     private scheduleQuaters() {
@@ -42,6 +36,7 @@ export class TimeSeriesManager {
     }
 
     private async collectUserData(user: User, timestamp: number) {
+        console.log(`Collecting data for user ${user.username}`)
         if (user.linkedExchanges.includes(SupportedExchanges.BITPANDA)) {
             this.collectUserBitpandaData(user, timestamp);
         }
@@ -58,6 +53,7 @@ export class TimeSeriesManager {
     }
 
     private async collectUserBitpandaData(user: User, timestamp: number) {
+        console.log(`Collecting bitpanda data for user ${user.username}`)
         const config = await this.exchangeService.findBitpandaByUserOrFail(user);
         BitpandaService.getWallets(config).then((wallets) => {
             for (const wallet of wallets) {
