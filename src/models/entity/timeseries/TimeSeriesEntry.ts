@@ -1,6 +1,6 @@
 import { Description, Ignore, Required } from "@tsed/schema";
 import { Column, Entity, PrimaryGeneratedColumn, TableInheritance } from "typeorm";
-import { User } from "./User";
+import { User } from "../User";
 
 @Entity()
 @TableInheritance({ column: { name: "type", type: "varchar" } })
