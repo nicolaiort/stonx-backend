@@ -4,6 +4,9 @@ import { User } from "../../models/entity/User";
 import { UserCreation } from "../../models/UserCreation";
 import { UserUpdating } from "../../models/UserUpdating";
 
+/**
+ * Provides standardized functions for interacting with the user entities in the db.
+ */
 @EntityRepository(User)
 export class UserService extends Repository<User> {
 
