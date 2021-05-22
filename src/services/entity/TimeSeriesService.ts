@@ -11,4 +11,8 @@ export class TimeSeriesService {
     this.walletTimeSeriesService = getConnectionManager().get().getRepository(CryptoWalletTimeSeries);
     this.exchangeTimeSeriesService = getConnectionManager().get().getRepository(ExchangeAssetTimeSeries);
   }
+
+  public async saveExchangeDatapoint(datapoint: ExchangeAssetTimeSeries) {
+    return this.exchangeTimeSeriesService.save(datapoint);
+  }
 }
