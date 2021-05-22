@@ -11,10 +11,19 @@ export class TimeSeriesController {
     @Get("/bitpanda/wallets/:token/:range")
     @Authenticate("jwt")
     @Security("jwt")
-    @Description("TODO:")
+    @Description("Returns timeseries data for your bitpanda wallets in the desired range.")
     @Returns(200)
     async getBitpandaWalletTimeSeries(@PathParams("token") token: string, @PathParams("range") range: TimeSeriesRanges, @Req() req: Req): Promise<ExchangeAssetTimeSeries[]> {
         return this.timeSeriesService.findBitpandaAssetByUserAndRange((req.user as User), token, range);
+    }
+
+    @Get("/bitpanda/indices/:index/:range")
+    @Authenticate("jwt")
+    @Security("jwt")
+    @Description("Returns timeseries data for your bitpanda indices in the desired range.")
+    @Returns(200)
+    async getBitpandaIndexTimeSeries(@PathParams("index") index: string, @PathParams("range") range: TimeSeriesRanges, @Req() req: Req): Promise<ExchangeAssetTimeSeries[]> {
+        return this.timeSeriesService.findBitpandaAssetByUserAndRange((req.user as User), index, range);
     }
 
     constructor(private timeSeriesService: TimeSeriesService) { }
