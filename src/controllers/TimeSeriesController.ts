@@ -3,6 +3,7 @@ import { Authenticate } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
 import { CryptoWalletTimeSeries } from "src/models/entity/timeseries/CryptoWalletTimeSeries";
 import { ExchangeAssetTimeSeries } from "src/models/entity/timeseries/ExchangeAssetTimeSeries";
+import { TotalPortfolioTimeSeries } from "src/models/entity/timeseries/TotalPortfolioTimeSeries";
 import { User } from "src/models/entity/User";
 import { SupportedTokens } from "src/models/enums/SupportedTokens";
 import { TimeSeriesRanges } from "src/models/enums/TimeSeriesRanges";
@@ -44,6 +45,15 @@ export class TimeSeriesController {
     @Returns(200)
     async getWalletTimeSeries(@PathParams("id") id: string, @PathParams("token") token: SupportedTokens, @PathParams("range") range: TimeSeriesRanges, @Req() req: Req): Promise<CryptoWalletTimeSeries[]> {
         return this.timeSeriesService.findWalletByIdUserTokenAndRange((req.user as User), token, id, range);
+    }
+
+    @Get("/portfolio/:range")
+    @Authenticate("jwt")
+    @Security("jwt")
+    @Description("Returns timeseries data for your whole portfolio in the desired range.")
+    @Returns(200)
+    async getPortfolioTimeSeries(@PathParams("range") range: TimeSeriesRanges, @Req() req: Req): Promise<TotalPortfolioTimeSeries[]> {
+        return this.timeSeriesService.findPortfolioByOwner((req.user as User), range);
     }
 
     constructor(private timeSeriesService: TimeSeriesService) { }
