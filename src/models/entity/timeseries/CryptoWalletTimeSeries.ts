@@ -1,10 +1,10 @@
 import { Required } from "@tsed/schema";
 import { SupportedTokens } from "src/models/enums/SupportedTokens";
-import { ChildEntity, Column } from "typeorm";
+import { Column, Entity } from "typeorm";
 import { User } from "../User";
 import { TimeSeriesEntry } from "./TimeSeriesEntry";
 
-@ChildEntity()
+@Entity()
 export class CryptoWalletTimeSeries extends TimeSeriesEntry {
 
   @Column({ nullable: false })

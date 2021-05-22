@@ -1,10 +1,10 @@
 import { Enum, Required } from "@tsed/schema";
 import { SupportedExchanges } from "src/models/enums/SupportedExchanges";
-import { ChildEntity, Column } from "typeorm";
+import { Column, Entity } from "typeorm";
 import { User } from "../User";
 import { TimeSeriesEntry } from "./TimeSeriesEntry";
 
-@ChildEntity()
+@Entity()
 export class ExchangeAssetTimeSeries extends TimeSeriesEntry {
 
   @Column({ nullable: false, type: "text" })
