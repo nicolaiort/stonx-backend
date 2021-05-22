@@ -2,6 +2,7 @@ import axios from "axios";
 //@ts-ignore
 import Binance from "node-binance-api";
 import { BinanceConfig } from "src/models/entity/exchanges/BinanceConfig";
+import { config } from "../../config/env";
 import { BinanceTradingPair } from "../../models/BinanceTradingPair";
 import { Wallet } from "../../models/Wallet";
 
@@ -36,13 +37,13 @@ export class BinanceService {
 
     /**
      * Get's all of the user's Binance spot wallets and converts them to wallet objects.
-     * @param config The user's BinanceConfig containing the api key and secret.
+     * @param api_config The user's BinanceConfig containing the api key and secret.
      * @returns Array of Wallet objects wrapped into a promise.
      */
-    public static async getSpotWallets(config: BinanceConfig): Promise<Wallet[]> {
+    public static async getSpotWallets(api_config: BinanceConfig): Promise<Wallet[]> {
         const binance = new Binance().options({
-            APIKEY: config.binance_api_key,
-            APISECRET: config.binance_api_secret,
+            APIKEY: api_config.binance_api_key,
+            APISECRET: api_config.binance_api_secret,
             useServerTime: true,
             recvWindow: 60000
         });
