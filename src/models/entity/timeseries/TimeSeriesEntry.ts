@@ -18,11 +18,11 @@ export abstract class TimeSeriesEntry {
   @Required()
   timestamp: number;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   @Required()
   balance: number;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   @Required()
   fiat_value: number;
 
