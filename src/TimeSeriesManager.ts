@@ -1,6 +1,6 @@
 import cron from 'node-cron';
 import { getConnection } from 'typeorm';
-import { CryptoWallet } from './models/entity/CryptoWallet';
+import { CryptoWalletTimeSeries } from './models/entity/timeseries/CryptoWalletTimeSeries';
 import { ExchangeAssetTimeSeries } from './models/entity/timeseries/ExchangeAssetTimeSeries';
 import { User } from './models/entity/User';
 import { SupportedExchanges } from './models/enums/SupportedExchanges';
@@ -10,6 +10,7 @@ import { UserService } from './services/entity/UserService';
 import { WalletService } from './services/entity/WalletService';
 import { BinanceService } from './services/utils/BinanceService';
 import { BitpandaService } from './services/utils/BitpandaService';
+import { GeckoService } from './services/utils/GeckoService';
 
 export class TimeSeriesManager {
 
@@ -52,13 +53,14 @@ export class TimeSeriesManager {
         if (user.linkedExchanges.includes(SupportedExchanges.BINANCE)) {
             this.collectUserBinanceData(user, timestamp);
         }
-        for (const wallet of await this.walletService.findByUser(user)) {
-
-        }
+        this.collectUserWalletData(user, timestamp);
     }
 
-    private async collectUserWalletData(wallet: CryptoWallet, timestamp: number) {
-        //TODO:
+    private async collectUserWalletData(user: User, timestamp: number) {
+        console.log(`Collecting wallet data for user ${user.username}`);
+        for (const wallet of await this.walletService.findByUser(user)) {
+            this.timeSeriesService.saveWalletDatapoint(new CryptoWalletTimeSeries(user, timestamp, await wallet.balance(), ((await GeckoService.getTokenPrice(wallet.token)) * await wallet.balance()), wallet.id, wallet.address, wallet.token));
+        }
     }
 
     private async collectUserBitpandaData(user: User, timestamp: number) {
