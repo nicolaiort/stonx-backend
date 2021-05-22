@@ -1,6 +1,6 @@
 import axios from "axios";
 import { config } from "../../config/env";
-import { BitpandaConfig } from "../../models/entity/BitpandaConfig";
+import { BitpandaConfig } from "../../models/entity/exchanges/BitpandaConfig";
 import { SupportedTokens } from "../../models/enums/SupportedTokens";
 import { Wallet } from "../../models/Wallet";
 
