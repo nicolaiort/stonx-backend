@@ -1,4 +1,5 @@
 import cron from 'node-cron';
+import { getConnection } from 'typeorm';
 import { CryptoWallet } from './models/entity/CryptoWallet';
 import { ExchangeAssetTimeSeries } from './models/entity/timeseries/ExchangeAssetTimeSeries';
 import { User } from './models/entity/User';
@@ -7,18 +8,26 @@ import { ExchangeService } from './services/entity/ExchangeService';
 import { TimeSeriesService } from './services/entity/TimeSeriesService';
 import { UserService } from './services/entity/UserService';
 import { WalletService } from './services/entity/WalletService';
+import { BinanceService } from './services/utils/BinanceService';
 import { BitpandaService } from './services/utils/BitpandaService';
 
 export class TimeSeriesManager {
 
-    constructor(private userService: UserService, private timeSeriesService: TimeSeriesService, private walletService: WalletService, private exchangeService: ExchangeService) {
+    private timeSeriesService: TimeSeriesService;
+    private userService: UserService;
+    private walletService: WalletService;
+    private exchangeService: ExchangeService;
+
+    constructor() {
+        this.timeSeriesService = new TimeSeriesService();
+        this.userService = getConnection().getCustomRepository(UserService);
+        this.walletService = getConnection().getCustomRepository(WalletService);
+        this.exchangeService = new ExchangeService();
     }
 
     public init() {
         // this.scheduleQuaters();
-        cron.schedule('* * * * *', () => {
-            this.collectData();
-        });
+        this.collectData();
     }
 
     private scheduleQuaters() {
@@ -29,7 +38,7 @@ export class TimeSeriesManager {
 
     private async collectData() {
         const timestamp: number = Date.now();
-        const users = await this.userService.find();
+        const users = await this.userService.find({ relations: ['exchanges'] });
         for (const user of users) {
             this.collectUserData(user, timestamp);
         }
@@ -41,7 +50,7 @@ export class TimeSeriesManager {
             this.collectUserBitpandaData(user, timestamp);
         }
         if (user.linkedExchanges.includes(SupportedExchanges.BINANCE)) {
-            this.collectUserBinanceData(timestamp);
+            this.collectUserBinanceData(user, timestamp);
         }
         for (const wallet of await this.walletService.findByUser(user)) {
 
@@ -67,7 +76,13 @@ export class TimeSeriesManager {
         });
     }
 
-    private async collectUserBinanceData(timestamp: number) {
-
+    private async collectUserBinanceData(user: User, timestamp: number) {
+        console.log(`Collecting binance data for user ${user.username}`)
+        const config = await this.exchangeService.findBinanceByUserOrFail(user);
+        BinanceService.getSpotWallets(config.binance_api_key, config.binance_api_secret).then((wallets) => {
+            for (const wallet of wallets) {
+                this.timeSeriesService.saveExchangeDatapoint(new ExchangeAssetTimeSeries(user, timestamp, wallet.balance, wallet.fiat, SupportedExchanges.BINANCE, wallet.token));
+            }
+        });
     }
 }
