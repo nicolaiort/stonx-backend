@@ -14,7 +14,7 @@ export class TimeSeriesController {
     @Description("TODO:")
     @Returns(200)
     async getBitpandaWalletTimeSeries(@PathParams("token") token: string, @PathParams("range") range: TimeSeriesRanges, @Req() req: Req): Promise<ExchangeAssetTimeSeries[]> {
-        return this.timeSeriesService.findBitpandaWalletByUserAndRange((req.user as User), token, range);
+        return this.timeSeriesService.findBitpandaAssetByUserAndRange((req.user as User), token, range);
     }
 
     constructor(private timeSeriesService: TimeSeriesService) { }

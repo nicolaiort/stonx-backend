@@ -23,7 +23,7 @@ export class TimeSeriesService {
     return this.walletTimeSeriesService.save(datapoint);
   }
 
-  public async findBitpandaWalletByUserAndRange(owner: User, asset: string, range: TimeSeriesRanges): Promise<ExchangeAssetTimeSeries[]> {
+  public async findBitpandaAssetByUserAndRange(owner: User, asset: string, range: TimeSeriesRanges): Promise<ExchangeAssetTimeSeries[]> {
     const now = new Date();
     switch (range) {
       case TimeSeriesRanges.ALL:
