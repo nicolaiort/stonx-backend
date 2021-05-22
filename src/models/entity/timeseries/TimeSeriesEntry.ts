@@ -16,7 +16,7 @@ export abstract class TimeSeriesEntry {
 
   @Column({ nullable: false })
   @Required()
-  timestamp: Date;
+  timestamp: number;
 
   @Column({ nullable: false })
   @Required()
@@ -26,7 +26,7 @@ export abstract class TimeSeriesEntry {
   @Required()
   fiat_value: number;
 
-  constructor(owner: User, timestamp: Date, balance: number, fiat_value: number) {
+  constructor(owner: User, timestamp: number, balance: number, fiat_value: number) {
     this.owner_id = owner?.id || "-1";
     this.timestamp = timestamp;
     this.balance = balance;

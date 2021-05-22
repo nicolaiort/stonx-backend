@@ -16,7 +16,7 @@ export class ExchangeAssetTimeSeries extends TimeSeriesEntry {
   @Required()
   asset_name: string;
 
-  constructor(owner: User, timestamp: Date, balance: number, fiat_value: number, exchange: SupportedExchanges, asset_name: string) {
+  constructor(owner: User, timestamp: number, balance: number, fiat_value: number, exchange: SupportedExchanges, asset_name: string) {
     super(owner, timestamp, balance, fiat_value);
     this.exchange = exchange;
     this.asset_name = asset_name;
