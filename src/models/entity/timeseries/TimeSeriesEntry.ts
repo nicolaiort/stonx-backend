@@ -1,9 +1,8 @@
 import { Description, Ignore, Required } from "@tsed/schema";
-import { Column, Entity, PrimaryGeneratedColumn, TableInheritance } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "../User";
 
 @Entity()
-@TableInheritance({ column: { name: "type", type: "varchar" } })
 export abstract class TimeSeriesEntry {
   @PrimaryGeneratedColumn("uuid")
   @Description("Id assigned by the datbase.")
