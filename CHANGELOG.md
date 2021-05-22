@@ -2,13 +2,28 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [0.2.2](https://github.com/nicolaiort/stonx-backend/compare/0.2.1...0.2.2)
+
+- Added TimeSeriesService functions to interact with the new entity [`92da69c`](https://github.com/nicolaiort/stonx-backend/commit/92da69cf0aecfaf9a72d8d02b312ec04f7a8efe2)
+- Fixed imports [`cfccd69`](https://github.com/nicolaiort/stonx-backend/commit/cfccd69b594e0379aa43af624319e5c00b9e4421)
+- Implemented basics for summing up total portfolio value for data collection [`4d2e6c0`](https://github.com/nicolaiort/stonx-backend/commit/4d2e6c03bc30aba0471048a81a0c8e40a882571b)
+- Split time series entities into their own tables [`2455f5a`](https://github.com/nicolaiort/stonx-backend/commit/2455f5a54ec1cb0e249d374c088af4bf1fbc1a4a)
+- Added new entity for total protfolio value timeseries [`ad39544`](https://github.com/nicolaiort/stonx-backend/commit/ad3954435472ed9684747bbc01da91cf0c6f55d3)
+- formatting [`56cbd48`](https://github.com/nicolaiort/stonx-backend/commit/56cbd48e1fd034cd5154b176bb362af4fd97b611)
+- The scheduled timeseries checks now also save total portfolio value [`f43ac0f`](https://github.com/nicolaiort/stonx-backend/commit/f43ac0f4bac8b169ce65ab252ebbb34aebebeb2f)
+- Marked init function as aysnc [`22f999b`](https://github.com/nicolaiort/stonx-backend/commit/22f999b6d35dd6391ac1d6b571bbe401795845cc)
+- Removed autotimeseries on startup [`5a3ed62`](https://github.com/nicolaiort/stonx-backend/commit/5a3ed62db9f678bb739b5e1fd6129ba2ce4522d6)
+
 #### [0.2.1](https://github.com/nicolaiort/stonx-backend/compare/0.2.0...0.2.1)
+
+> 22 May 2021
 
 - Added exchange service comments (and therefor for all entity services) [`5134a6f`](https://github.com/nicolaiort/stonx-backend/commit/5134a6f735a5a082f13a099819956b705e43c4f0)
 - Added comments to the userservice [`93de1e4`](https://github.com/nicolaiort/stonx-backend/commit/93de1e4cd0e8a2bef6ff91ac16164598f9ae678f)
 - Added comments to timeseries service [`f7e54fe`](https://github.com/nicolaiort/stonx-backend/commit/f7e54fedd4250705a5088d00cbead707a3b42249)
 - Added comments to the geckoservice [`d1493d6`](https://github.com/nicolaiort/stonx-backend/commit/d1493d62adf0a79baf4dbde1bc73cefe5e66e492)
 - Added comments to the WalletService [`c6314d1`](https://github.com/nicolaiort/stonx-backend/commit/c6314d171f4f17ce4ee2eddf19448f841c77b7bc)
+- 🚀RELEASE 0.2.1 [`fd90e9b`](https://github.com/nicolaiort/stonx-backend/commit/fd90e9b592800a0ba0eca14ea81d096e45caa3d9)
 - Added balanceservice comments [`6e7227f`](https://github.com/nicolaiort/stonx-backend/commit/6e7227f0b6fe121fa1c91c5ad51103c679be676e)
 - Added userservice class description [`5a43fed`](https://github.com/nicolaiort/stonx-backend/commit/5a43fed212ac0c40b10b4fc99572d4f5f3ab0658)
 
