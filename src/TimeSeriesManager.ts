@@ -27,7 +27,6 @@ export class TimeSeriesManager {
     }
 
     public init() {
-        this.collectData();
         this.scheduleQuaters();
     }
 
