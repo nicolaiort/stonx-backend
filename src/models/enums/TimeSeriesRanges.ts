@@ -1,6 +1,7 @@
 export enum TimeSeriesRanges {
-  DAY = "DAY",
-  WEEK = "WEEK",
-  MONTH = "MONTH",
+  TODAY = "TODAY",
+  THISWEEK = "THISWEEK",
+  THISMONTH = "THISMONTH",
+  THISYEAR = "THISYEAR",
   ALL = "ALL"
 }
