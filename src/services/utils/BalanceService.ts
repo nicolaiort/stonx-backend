@@ -1,5 +1,12 @@
 import axios from "axios";
+import NodeCache from "node-cache";
 import { SupportedTokens } from "../../models/enums/SupportedTokens";
+
+/*
+ * This is the cache object that caches api responses for 39 seconds before calling the api again.
+ * We do this to mitigate getting banned by the api for making too many requests.
+*/
+const balanceCache = new NodeCache({ stdTTL: 30, checkperiod: 40 });
 
 /**
  * The BalanceService is a api-wrapper over multiple different apis.
@@ -13,27 +20,34 @@ export class BalanceService {
      * @returns The balance in the token's main decimal denominator.
      */
     public static async getBalance(address: string, token: SupportedTokens): Promise<number> {
+        const cached = balanceCache.get(`${token}-tokenaddress-${address}`);
+        if (cached) {
+            return cached as number;
+        }
         switch (token) {
             case SupportedTokens.ETH:
                 const resEtherscan = await axios.get(
                     `https://api.blockcypher.com/v1/eth/main/addrs/${address}/balance`
                 );
+                balanceCache.set(`${token}-tokenaddress-${address}`, (parseInt(resEtherscan.data.balance) / 1000000000000000000));
                 return parseInt(resEtherscan.data.balance) / 1000000000000000000;
             case SupportedTokens.BTC:
                 const resBlockcypher = await axios.get(
                     `https://api.blockcypher.com/v1/btc/main/addrs/${address}/balance`
                 );
+                balanceCache.set(`${token}-tokenaddress-${address}`, (parseInt(resBlockcypher.data.balance) / 100000000));
                 return parseInt(resBlockcypher.data.balance) / 100000000;
             case SupportedTokens.DOGE:
-                return 0;
                 const resDogechain = await axios.get(
                     `https://dogechain.info/api/v1/address/balance/${address}`
                 );
+                balanceCache.set(`${token}-tokenaddress-${address}`, parseFloat(resDogechain.data.balance));
                 return parseFloat(resDogechain.data.balance);
             case SupportedTokens.IOTA:
                 const resIOTA = await axios.get(
                     `https://explorer-api.iota.org/search/mainnet/${address}`
                 );
+                balanceCache.set(`${token}-tokenaddress-${address}`, parseFloat(resIOTA.data.address.balance) / 1000000000);
                 return parseFloat(resIOTA.data.address.balance) / 1000000000;
             default:
                 throw new Error("Token not supported");
