@@ -1,10 +1,18 @@
 import axios from "axios";
 //@ts-ignore
 import Binance from "node-binance-api";
+import NodeCache from "node-cache";
 import { config } from "../../config/env";
 import { BinanceTradingPair } from "../../models/BinanceTradingPair";
 import { BinanceConfig } from "../../models/entity/exchanges/BinanceConfig";
 import { Wallet } from "../../models/Wallet";
+
+/*
+ * This is the cache object that caches api responses for 100 seconds before calling the api again.
+ * We do this to mitigate getting banned by the api for making too many requests.
+*/
+const binanceCache = new NodeCache({ stdTTL: 100, checkperiod: 120 });
+
 
 /**
  * The BinanceService is a simple api-wrapper over the binance api - mainly used to get pricing data.
@@ -31,8 +39,14 @@ export class BinanceService {
      * @returns BinanceTradingPair object
      */
     public static async getTradingPair(token: string, currency: string): Promise<BinanceTradingPair> {
+        const cached = binanceCache.get(`${token}-${currency}-pair`);
+        if (cached) {
+            return cached as BinanceTradingPair;
+        }
         const pairs = await this.getTradingPairs();
-        return this.getPairFromList(token, currency, pairs);
+        const pair = this.getPairFromList(token, currency, pairs);
+        binanceCache.set(`${token}-${currency}-pair`, pair, 30);
+        return pair;
     }
 
     /**
@@ -59,11 +73,16 @@ export class BinanceService {
         const prices = await this.getTradingPairs();
         let returnWallets: Wallet[] = new Array<Wallet>();
         for (let token of Object.keys(wallets)) {
+            let price = binanceCache.get(`${token}-price`);
+            if (!price) {
+                price = this.getPairFromList(token, config["CURRENCY"], prices).price;
+            }
+
             returnWallets.push(
                 new Wallet(
                     token,
                     parseFloat(wallets[token].available),
-                    this.getPairFromList(token, config["CURRENCY"], prices).price,
+                    price as number,
                     `binance/crypto/${token}`
                 )
             );
