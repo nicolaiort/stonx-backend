@@ -1,8 +1,15 @@
 import axios from "axios";
+import NodeCache from "node-cache";
 import { config } from "../../config/env";
 import { BitpandaConfig } from "../../models/entity/exchanges/BitpandaConfig";
 import { SupportedTokens } from "../../models/enums/SupportedTokens";
 import { Wallet } from "../../models/Wallet";
+
+/*
+ * This is the cache object that caches api responses for 39 seconds before calling the api again.
+ * We do this to mitigate getting banned by the api for making too many requests.
+*/
+const bitpandaCache = new NodeCache({ stdTTL: 100, checkperiod: 120 });
 
 /**
  * The BitpandaService is a simple api-wrapper over the bitpanda api.
@@ -14,7 +21,13 @@ export class BitpandaService {
      * @returns The pricing data for Bitpanda assets directly from the Bitpanda api.
      */
     public static async getPrices() {
-        return (await axios.get("https://api.bitpanda.com/v1/ticker")).data;
+        const cached = bitpandaCache.get(`bitpandaprices`);
+        if (cached) {
+            return cached;
+        }
+        const prices = (await axios.get("https://api.bitpanda.com/v1/ticker")).data;
+        bitpandaCache.set(`bitpandaprices`, prices, 30);
+        return prices;
     }
 
     /**
@@ -23,7 +36,14 @@ export class BitpandaService {
      * @returns 
      */
     public static async getTokenPrices(token: SupportedTokens) {
-        return (await this.getPrices())[token.toString()];
+        const cached = bitpandaCache.get(`price-${token}`);
+        if (cached) {
+            return cached;
+        }
+        const price = (await this.getPrices())[token.toString()];
+
+        bitpandaCache.set(`price-${token}`, price);
+        return price;
     }
 
     /**
