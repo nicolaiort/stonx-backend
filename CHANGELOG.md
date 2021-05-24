@@ -2,11 +2,21 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [0.3.0](https://github.com/nicolaiort/stonx-backend/compare/0.2.2...0.3.0)
+
+- Now cacheing some information for bitpanda [`21adf64`](https://github.com/nicolaiort/stonx-backend/commit/21adf648626b5e8ed26d05dd69494dc35305edb4)
+- Added cacheing for binance stuff [`890c109`](https://github.com/nicolaiort/stonx-backend/commit/890c109ac385ae6c3ffa53056948083964c7c573)
+- Added basic coingecko cacheing [`efa8137`](https://github.com/nicolaiort/stonx-backend/commit/efa8137ec1fa0623cd796f2b23ee14960c998784)
+- Implemented balance caching [`9aab7a5`](https://github.com/nicolaiort/stonx-backend/commit/9aab7a54279520ae0549e1297c34e5e185ebd32f)
+
 #### [0.2.2](https://github.com/nicolaiort/stonx-backend/compare/0.2.1...0.2.2)
+
+> 22 May 2021
 
 - Added TimeSeriesService functions to interact with the new entity [`92da69c`](https://github.com/nicolaiort/stonx-backend/commit/92da69cf0aecfaf9a72d8d02b312ec04f7a8efe2)
 - Fixed imports [`cfccd69`](https://github.com/nicolaiort/stonx-backend/commit/cfccd69b594e0379aa43af624319e5c00b9e4421)
 - Implemented basics for summing up total portfolio value for data collection [`4d2e6c0`](https://github.com/nicolaiort/stonx-backend/commit/4d2e6c03bc30aba0471048a81a0c8e40a882571b)
+- 🚀RELEASE 0.2.2 [`2546317`](https://github.com/nicolaiort/stonx-backend/commit/2546317f541ba5b60f6eadf4021de6671d6b023f)
 - Split time series entities into their own tables [`2455f5a`](https://github.com/nicolaiort/stonx-backend/commit/2455f5a54ec1cb0e249d374c088af4bf1fbc1a4a)
 - Added new entity for total protfolio value timeseries [`ad39544`](https://github.com/nicolaiort/stonx-backend/commit/ad3954435472ed9684747bbc01da91cf0c6f55d3)
 - formatting [`56cbd48`](https://github.com/nicolaiort/stonx-backend/commit/56cbd48e1fd034cd5154b176bb362af4fd97b611)
