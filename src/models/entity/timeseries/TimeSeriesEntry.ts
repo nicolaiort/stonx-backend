@@ -12,7 +12,7 @@ export abstract class TimeSeriesEntry {
   @Required()
   owner_id: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, type: 'bigint' })
   @Required()
   timestamp: number;
 
