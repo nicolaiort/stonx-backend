@@ -2,8 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [0.3.2](https://github.com/nicolaiort/stonx-backend/compare/0.3.1...0.3.2)
+
+- Balance and fiat are now floats [`fb57b60`](https://github.com/nicolaiort/stonx-backend/commit/fb57b6071d402846ea00bbf19be28d46e2bcdb24)
+
 #### [0.3.1](https://github.com/nicolaiort/stonx-backend/compare/0.3.0...0.3.1)
 
+> 26 May 2021
+
+- 🚀RELEASE 0.3.1 [`f5815d2`](https://github.com/nicolaiort/stonx-backend/commit/f5815d2030820620bce0da00aacac49c6805da90)
 - Switched timeseries timestamps to bigint [`7c597c9`](https://github.com/nicolaiort/stonx-backend/commit/7c597c96aa37f1fba130f627ee55774adcea7e40)
 
 #### [0.3.0](https://github.com/nicolaiort/stonx-backend/compare/0.2.2...0.3.0)
