@@ -2,12 +2,19 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [0.3.1](https://github.com/nicolaiort/stonx-backend/compare/0.3.0...0.3.1)
+
+- Switched timeseries timestamps to bigint [`7c597c9`](https://github.com/nicolaiort/stonx-backend/commit/7c597c96aa37f1fba130f627ee55774adcea7e40)
+
 #### [0.3.0](https://github.com/nicolaiort/stonx-backend/compare/0.2.2...0.3.0)
+
+> 24 May 2021
 
 - Now cacheing some information for bitpanda [`21adf64`](https://github.com/nicolaiort/stonx-backend/commit/21adf648626b5e8ed26d05dd69494dc35305edb4)
 - Added cacheing for binance stuff [`890c109`](https://github.com/nicolaiort/stonx-backend/commit/890c109ac385ae6c3ffa53056948083964c7c573)
 - Added basic coingecko cacheing [`efa8137`](https://github.com/nicolaiort/stonx-backend/commit/efa8137ec1fa0623cd796f2b23ee14960c998784)
 - Implemented balance caching [`9aab7a5`](https://github.com/nicolaiort/stonx-backend/commit/9aab7a54279520ae0549e1297c34e5e185ebd32f)
+- 🚀RELEASE 0.3.0 [`83f8c46`](https://github.com/nicolaiort/stonx-backend/commit/83f8c4651d01ec9891683c0f011216b02af4dbb7)
 
 #### [0.2.2](https://github.com/nicolaiort/stonx-backend/compare/0.2.1...0.2.2)
 
