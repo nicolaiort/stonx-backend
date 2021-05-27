@@ -2,8 +2,16 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [0.4.4](https://github.com/nicolaiort/stonx-backend/compare/0.4.3...0.4.4)
+
+- New multistage docker build with slightly slimmer end-result [`968d09d`](https://github.com/nicolaiort/stonx-backend/commit/968d09dcade5cc7842ad301d1864de82f353c776)
+- Updated used endpoint value [`c11aade`](https://github.com/nicolaiort/stonx-backend/commit/c11aade2c291953a58a8b5f5a92bce88e57827ee)
+
 #### [0.4.3](https://github.com/nicolaiort/stonx-backend/compare/0.4.2...0.4.3)
 
+> 27 May 2021
+
+- 🚀RELEASE 0.4.3 [`f94e159`](https://github.com/nicolaiort/stonx-backend/commit/f94e159ea16ad4da288abb3728cc1e3018c19f58)
 - Fixed import [`da4c556`](https://github.com/nicolaiort/stonx-backend/commit/da4c5561be746cf14e067805ddb89a414d8dde20)
 
 #### [0.4.2](https://github.com/nicolaiort/stonx-backend/compare/0.4.1...0.4.2)
