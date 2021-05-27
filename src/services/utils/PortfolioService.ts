@@ -9,11 +9,14 @@ import { BitpandaService } from "./BitpandaService";
 import { GeckoService } from "./GeckoService";
 
 /*
- * This is the cache object that caches api responses for 39 seconds before calling the api again.
- * We do this to mitigate getting banned by the api for making too many requests.
+ * This is the cache object that caches calculated values for 100 seconds before calling the api again.
+ * We do this to mitigate high server load and long response times.
 */
 const portfolioCache = new NodeCache({ stdTTL: 100, checkperiod: 120 });
 
+/**
+ * This services provides different endpoints relating to your whole portfolio (mostly statistics).
+ */
 export class PortfolioService {
 
     private walletService: WalletService;
@@ -24,6 +27,11 @@ export class PortfolioService {
         this.exchangeService = new ExchangeService();
     }
 
+    /**
+     * Selects all the unique assets from your portfolio and sums up their balances and fiat from all different sources to provie a portfolio overview that can be used to display diversity information.
+     * @param user The user who's porfolio shall get analyzed.
+     * @returns Wallet objects conaining the atomar units of your portfolio with their balance set to fiat.
+     */
     public async getDiversity(user: User): Promise<Wallet[]> {
         const cached = portfolioCache.get(`${user.id}-diversity`);
         if (cached) {
