@@ -2,9 +2,19 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [0.4.0](https://github.com/nicolaiort/stonx-backend/compare/0.3.5...0.4.0)
+
+- Implemented function for calculating portfolio diversity [`4095c0f`](https://github.com/nicolaiort/stonx-backend/commit/4095c0fadd3f3101b2b03dc02d9faadf69b36270)
+- Added controller for all things portfolio [`d221a25`](https://github.com/nicolaiort/stonx-backend/commit/d221a25f5e2ca52c072c0d33ff87f4c1ef8f98a3)
+- Added comments [`f1e4752`](https://github.com/nicolaiort/stonx-backend/commit/f1e4752d35aa3048414f6c5e4ce50e13b6d4d2a8)
+- Added endpoint description [`020b78b`](https://github.com/nicolaiort/stonx-backend/commit/020b78b76fa64f3c0cda166b3cf5ac91c3b29b84)
+
 #### [0.3.5](https://github.com/nicolaiort/stonx-backend/compare/0.3.4...0.3.5)
 
+> 27 May 2021
+
 - Implemented filter granularity [`66215ce`](https://github.com/nicolaiort/stonx-backend/commit/66215ce52a2c5c6db91343f88d0139c872a7491a)
+- 🚀RELEASE 0.3.5 [`87a4fce`](https://github.com/nicolaiort/stonx-backend/commit/87a4fce08b0f684c4f62ea157d15e947486e2503)
 - Implemented custom filtering for year intervall [`06e213d`](https://github.com/nicolaiort/stonx-backend/commit/06e213d016a22910d56c5c73677410fdfc31bf8f)
 - Fixed bug in date conversion [`e6dd01f`](https://github.com/nicolaiort/stonx-backend/commit/e6dd01f174d99256bf1aaf47838ffb65b79cac9a)
 - Fixed wrong filter index [`cf7f3e3`](https://github.com/nicolaiort/stonx-backend/commit/cf7f3e3563267e0bcb63d08ff62c44396d4aabef)
