@@ -2,8 +2,16 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [0.4.2](https://github.com/nicolaiort/stonx-backend/compare/0.4.1...0.4.2)
+
+- Updated readme [`2bbb5d0`](https://github.com/nicolaiort/stonx-backend/commit/2bbb5d04731775fd379414208a4eddd4ac778c1b)
+- Switched back to etherscan for ETH balances [`3b091e9`](https://github.com/nicolaiort/stonx-backend/commit/3b091e9385df02373a5984a53a8ce8413e53a298)
+
 #### [0.4.1](https://github.com/nicolaiort/stonx-backend/compare/0.4.0...0.4.1)
 
+> 27 May 2021
+
+- 🚀RELEASE 0.4.1 [`9bc5705`](https://github.com/nicolaiort/stonx-backend/commit/9bc57050f7ff296c1fc98b59f72c910c0511240b)
 - Fixed broken imports [`d723eb3`](https://github.com/nicolaiort/stonx-backend/commit/d723eb3e3f6b62abd09780d84155689bdd98ee40)
 
 #### [0.4.0](https://github.com/nicolaiort/stonx-backend/compare/0.3.5...0.4.0)
