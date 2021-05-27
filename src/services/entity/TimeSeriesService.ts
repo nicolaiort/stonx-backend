@@ -178,6 +178,11 @@ export class TimeSeriesService {
     }
   }
 
+  /**
+   * Filters an array containing timeseries data for only entrys that reflect midnight (00:00) of any day.
+   * @param array Array that you want to filter (Type has to implement TimeSeriesEntry)
+   * @returns The sorted Array as any of the timeseries child-classes.
+   */
   private filterForMidnight(array: Array<TimeSeriesEntry | CryptoWalletTimeSeries | ExchangeAssetTimeSeries>): Array<TimeSeriesEntry | CryptoWalletTimeSeries | ExchangeAssetTimeSeries> {
     return array.filter((d) => {
       if (isNaN(d.timestamp)) {
