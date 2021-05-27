@@ -10,7 +10,7 @@ export class PortfolioController {
   @Get("/diversity")
   @Authenticate("jwt")
   @Security("jwt")
-  @Description("TODO")
+  @Description("Returns all of your assets values summed up by token/index")
   @Returns(200, Wallet)
   async getDiversity(@Req() req: Req): Promise<Wallet[]> {
     let wallets = await this.portfolioService.getDiversity(req.user as User);
