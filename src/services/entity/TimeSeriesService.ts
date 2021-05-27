@@ -1,3 +1,4 @@
+import { TimeSeriesEntry } from "src/models/entity/timeseries/TimeSeriesEntry";
 import { getConnectionManager, MoreThan, Repository } from "typeorm";
 import { CryptoWalletTimeSeries } from "../../models/entity/timeseries/CryptoWalletTimeSeries";
 import { ExchangeAssetTimeSeries } from "../../models/entity/timeseries/ExchangeAssetTimeSeries";
@@ -61,31 +62,19 @@ export class TimeSeriesService {
     switch (range) {
       case TimeSeriesRanges.ALL:
         const all = await this.exchangeTimeSeriesService.find({ owner_id: owner.id, asset_name: asset, exchange: SupportedExchanges.BITPANDA });
-        return all.filter((d) => {
-          let date = new Date(d.timestamp);
-          return date.getHours() == 0 && date.getMinutes() == 0;
-        });
+        return this.filterExchangeForMidnight(all);
       case TimeSeriesRanges.THISYEAR:
         now.setFullYear(now.getFullYear() - 1);
         const allInYear = await this.exchangeTimeSeriesService.find({ owner_id: owner.id, asset_name: asset, exchange: SupportedExchanges.BITPANDA, timestamp: MoreThan(now.getTime()) })
-        return allInYear.filter((d) => {
-          let date = new Date(d.timestamp);
-          return date.getHours() == 0 && date.getMinutes() == 0;
-        });
+        return this.filterExchangeForMidnight(allInYear);
       case TimeSeriesRanges.THISMONTH:
         now.setMonth(now.getMonth() - 1);
         const allInMonth = await this.exchangeTimeSeriesService.find({ owner_id: owner.id, asset_name: asset, exchange: SupportedExchanges.BITPANDA, timestamp: MoreThan(now.getTime()) })
-        return allInMonth.filter((d) => {
-          let date = new Date(d.timestamp);
-          return date.getHours() == 0 && date.getMinutes() == 0;
-        });
+        return this.filterExchangeForMidnight(allInMonth);
       case TimeSeriesRanges.THISWEEK:
         now.setDate(now.getDate() - 7);
         const allInWeek = await this.exchangeTimeSeriesService.find({ owner_id: owner.id, asset_name: asset, exchange: SupportedExchanges.BITPANDA, timestamp: MoreThan(now.getTime()) })
-        return allInWeek.filter((d) => {
-          let date = new Date(d.timestamp);
-          return date.getHours() == 0 && date.getMinutes() == 0;
-        });
+        return this.filterExchangeForMidnight(allInWeek);
       case TimeSeriesRanges.TODAY:
         return this.exchangeTimeSeriesService.find({ owner_id: owner.id, asset_name: asset, exchange: SupportedExchanges.BITPANDA, timestamp: MoreThan(now.getTime() - 24 * 60 * 60 * 1000) });
       default:
@@ -105,31 +94,19 @@ export class TimeSeriesService {
     switch (range) {
       case TimeSeriesRanges.ALL:
         const all = await this.exchangeTimeSeriesService.find({ owner_id: owner.id, asset_name: asset, exchange: SupportedExchanges.BINANCE });
-        return all.filter((d) => {
-          let date = new Date(d.timestamp);
-          return date.getHours() == 0 && date.getMinutes() == 0;
-        });
+        return this.filterExchangeForMidnight(all);
       case TimeSeriesRanges.THISYEAR:
         now.setFullYear(now.getFullYear() - 1);
         const allInYear = await this.exchangeTimeSeriesService.find({ owner_id: owner.id, asset_name: asset, exchange: SupportedExchanges.BINANCE, timestamp: MoreThan(now.getTime()) })
-        return allInYear.filter((d) => {
-          let date = new Date(d.timestamp);
-          return date.getHours() == 0 && date.getMinutes() == 0;
-        });
+        return this.filterExchangeForMidnight(allInYear);
       case TimeSeriesRanges.THISMONTH:
         now.setMonth(now.getMonth() - 1);
         const allInMonth = await this.exchangeTimeSeriesService.find({ owner_id: owner.id, asset_name: asset, exchange: SupportedExchanges.BINANCE, timestamp: MoreThan(now.getTime()) })
-        return allInMonth.filter((d) => {
-          let date = new Date(d.timestamp);
-          return date.getHours() == 0 && date.getMinutes() == 0;
-        });
+        return this.filterExchangeForMidnight(allInMonth);
       case TimeSeriesRanges.THISWEEK:
         now.setDate(now.getDate() - 7);
         const allInWeek = await this.exchangeTimeSeriesService.find({ owner_id: owner.id, asset_name: asset, exchange: SupportedExchanges.BINANCE, timestamp: MoreThan(now.getTime()) })
-        return allInWeek.filter((d) => {
-          let date = new Date(d.timestamp);
-          return date.getHours() == 0 && date.getMinutes() == 0;
-        });
+        return this.filterExchangeForMidnight(allInWeek);
       case TimeSeriesRanges.TODAY:
         return this.exchangeTimeSeriesService.find({ owner_id: owner.id, asset_name: asset, exchange: SupportedExchanges.BINANCE, timestamp: MoreThan(now.getTime() - 24 * 60 * 60 * 1000) });
       default:
@@ -150,31 +127,19 @@ export class TimeSeriesService {
     switch (range) {
       case TimeSeriesRanges.ALL:
         const all = await this.walletTimeSeriesService.find({ owner_id: owner.id, token: token, wallet_id: id });
-        return all.filter((d) => {
-          let date = new Date(d.timestamp);
-          return date.getHours() == 0 && date.getMinutes() == 0;
-        });
+        return this.filterWalletForMidnight(all);
       case TimeSeriesRanges.THISYEAR:
         now.setFullYear(now.getFullYear() - 1);
         const allInYear = await this.walletTimeSeriesService.find({ owner_id: owner.id, token: token, wallet_id: id, timestamp: MoreThan(now.getTime()) })
-        return allInYear.filter((d) => {
-          let date = new Date(d.timestamp);
-          return date.getHours() == 0 && date.getMinutes() == 0;
-        });
+        return this.filterWalletForMidnight(allInYear);
       case TimeSeriesRanges.THISMONTH:
         now.setMonth(now.getMonth() - 1);
         const allInMonth = await this.walletTimeSeriesService.find({ owner_id: owner.id, token: token, wallet_id: id, timestamp: MoreThan(now.getTime()) })
-        return allInMonth.filter((d) => {
-          let date = new Date(d.timestamp);
-          return date.getHours() == 0 && date.getMinutes() == 0;
-        });
+        return this.filterWalletForMidnight(allInMonth);
       case TimeSeriesRanges.THISWEEK:
         now.setDate(now.getDate() - 7);
         const allInWeek = await this.walletTimeSeriesService.find({ owner_id: owner.id, token: token, wallet_id: id, timestamp: MoreThan(now.getTime()) })
-        return allInWeek.filter((d) => {
-          let date = new Date(d.timestamp);
-          return date.getHours() == 0 && date.getMinutes() == 0;
-        });
+        return this.filterWalletForMidnight(allInWeek);
       case TimeSeriesRanges.TODAY:
         return this.walletTimeSeriesService.find({ owner_id: owner.id, token: token, wallet_id: id, timestamp: MoreThan(now.getTime() - 24 * 60 * 60 * 1000) });
       default:
@@ -193,35 +158,53 @@ export class TimeSeriesService {
     switch (range) {
       case TimeSeriesRanges.ALL:
         const all = await this.portfolioTimeSeriesService.find({ owner_id: owner.id });
-        return all.filter((d) => {
-          let date = new Date(d.timestamp);
-          return date.getHours() == 0 && date.getMinutes() == 0;
-        });
+        return this.filterForMidnight(all);
       case TimeSeriesRanges.THISYEAR:
         now.setFullYear(now.getFullYear() - 1);
         const allInYear = await this.portfolioTimeSeriesService.find({ owner_id: owner.id, timestamp: MoreThan(now.getTime()) })
-        return allInYear.filter((d) => {
-          let date = new Date(d.timestamp);
-          return date.getHours() == 0 && date.getMinutes() == 0;
-        });
+        return this.filterForMidnight(allInYear);
       case TimeSeriesRanges.THISMONTH:
         now.setMonth(now.getMonth() - 1);
         const allInMonth = await this.portfolioTimeSeriesService.find({ owner_id: owner.id, timestamp: MoreThan(now.getTime()) })
-        return allInMonth.filter((d) => {
-          let date = new Date(d.timestamp);
-          return date.getHours() == 0 && date.getMinutes() == 0;
-        });
+        return this.filterForMidnight(allInMonth);
       case TimeSeriesRanges.THISWEEK:
         now.setDate(now.getDate() - 7);
         const allInWeek = await this.portfolioTimeSeriesService.find({ owner_id: owner.id, timestamp: MoreThan(now.getTime()) })
-        return allInWeek.filter((d) => {
-          let date = new Date(d.timestamp);
-          return date.getHours() == 0 && date.getMinutes() == 0;
-        });
+        return this.filterForMidnight(allInWeek);
       case TimeSeriesRanges.TODAY:
         return this.portfolioTimeSeriesService.find({ owner_id: owner.id, timestamp: MoreThan(now.getTime() - 24 * 60 * 60 * 1000) });
       default:
         throw new Error("Not supported yet.");
     }
+  }
+
+  private filterForMidnight(array: Array<TimeSeriesEntry>): Array<TimeSeriesEntry> {
+    return array.filter((d) => {
+      if (isNaN(d.timestamp)) {
+        d.timestamp = parseInt(d.timestamp.toString());
+      }
+      let date = new Date(d.timestamp);
+      return date.getHours() == 0 && date.getMinutes() == 0;
+    });
+  }
+
+  private filterWalletForMidnight(array: Array<CryptoWalletTimeSeries>): Array<CryptoWalletTimeSeries> {
+    return array.filter((d) => {
+      if (isNaN(d.timestamp)) {
+        d.timestamp = parseInt(d.timestamp.toString());
+      }
+      let date = new Date(d.timestamp);
+      return date.getHours() == 0 && date.getMinutes() == 0;
+    });
+  }
+
+  private filterExchangeForMidnight(array: Array<ExchangeAssetTimeSeries>): Array<ExchangeAssetTimeSeries> {
+    return array.filter((d) => {
+      if (isNaN(d.timestamp)) {
+        d.timestamp = parseInt(d.timestamp.toString());
+      }
+      let date = new Date(d.timestamp);
+      return date.getHours() == 0 && date.getMinutes() == 0;
+    });
   }
 }
