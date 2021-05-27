@@ -2,10 +2,17 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [0.4.1](https://github.com/nicolaiort/stonx-backend/compare/0.4.0...0.4.1)
+
+- Fixed broken imports [`d723eb3`](https://github.com/nicolaiort/stonx-backend/commit/d723eb3e3f6b62abd09780d84155689bdd98ee40)
+
 #### [0.4.0](https://github.com/nicolaiort/stonx-backend/compare/0.3.5...0.4.0)
+
+> 27 May 2021
 
 - Implemented function for calculating portfolio diversity [`4095c0f`](https://github.com/nicolaiort/stonx-backend/commit/4095c0fadd3f3101b2b03dc02d9faadf69b36270)
 - Added controller for all things portfolio [`d221a25`](https://github.com/nicolaiort/stonx-backend/commit/d221a25f5e2ca52c072c0d33ff87f4c1ef8f98a3)
+- 🚀RELEASE 0.4.0 [`e1b5e71`](https://github.com/nicolaiort/stonx-backend/commit/e1b5e7191677b68bcd67b6f2389d5244a89f3d81)
 - Added comments [`f1e4752`](https://github.com/nicolaiort/stonx-backend/commit/f1e4752d35aa3048414f6c5e4ce50e13b6d4d2a8)
 - Added endpoint description [`020b78b`](https://github.com/nicolaiort/stonx-backend/commit/020b78b76fa64f3c0cda166b3cf5ac91c3b29b84)
 
