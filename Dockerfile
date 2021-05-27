@@ -5,7 +5,15 @@ RUN yarn
 
 COPY . ./
 RUN yarn build
-EXPOSE 8083
 ENV NODE_ENV production
 
-CMD ["node", "./dist/index.js"]
+FROM node:15-alpine as run
+
+COPY package.json .
+RUN yarn --prod
+
+ENV NODE_ENV production
+EXPOSE 8083
+COPY --from=build /dist ./app
+
+CMD ["node", "./app/index.js"]
