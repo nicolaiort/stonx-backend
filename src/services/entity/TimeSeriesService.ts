@@ -80,7 +80,7 @@ export class TimeSeriesService {
           return date.getHours() == 0 && date.getMinutes() == 0;
         });
       case TimeSeriesRanges.THISWEEK:
-        now.setMonth(now.setDate(now.getDate() - 7));
+        now.setDate(now.getDate() - 7);
         const allInWeek = await this.exchangeTimeSeriesService.find({ owner_id: owner.id, asset_name: asset, exchange: SupportedExchanges.BITPANDA, timestamp: MoreThan(now.getTime()) })
         return allInWeek.filter((d) => {
           let date = new Date(d.timestamp);
@@ -124,7 +124,7 @@ export class TimeSeriesService {
           return date.getHours() == 0 && date.getMinutes() == 0;
         });
       case TimeSeriesRanges.THISWEEK:
-        now.setMonth(now.setDate(now.getDate() - 7));
+        now.setDate(now.getDate() - 7);
         const allInWeek = await this.exchangeTimeSeriesService.find({ owner_id: owner.id, asset_name: asset, exchange: SupportedExchanges.BINANCE, timestamp: MoreThan(now.getTime()) })
         return allInWeek.filter((d) => {
           let date = new Date(d.timestamp);
@@ -169,7 +169,7 @@ export class TimeSeriesService {
           return date.getHours() == 0 && date.getMinutes() == 0;
         });
       case TimeSeriesRanges.THISWEEK:
-        now.setMonth(now.setDate(now.getDate() - 7));
+        now.setDate(now.getDate() - 7);
         const allInWeek = await this.walletTimeSeriesService.find({ owner_id: owner.id, token: token, wallet_id: id, timestamp: MoreThan(now.getTime()) })
         return allInWeek.filter((d) => {
           let date = new Date(d.timestamp);
@@ -212,7 +212,7 @@ export class TimeSeriesService {
           return date.getHours() == 0 && date.getMinutes() == 0;
         });
       case TimeSeriesRanges.THISWEEK:
-        now.setMonth(now.setDate(now.getDate() - 7));
+        now.setDate(now.getDate() - 7);
         const allInWeek = await this.portfolioTimeSeriesService.find({ owner_id: owner.id, timestamp: MoreThan(now.getTime()) })
         return allInWeek.filter((d) => {
           let date = new Date(d.timestamp);
