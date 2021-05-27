@@ -180,13 +180,23 @@ export class TimeSeriesService {
 
   /**
    * Filters an array containing timeseries data for only entrys that reflect midnight (00:00) of any day.
+   * If the granularity is set to year only the first and 15th of the month get displayed.
    * @param array Array that you want to filter (Type has to implement TimeSeriesEntry)
    * @returns The sorted Array as any of the timeseries child-classes.
    */
-  private filterForMidnight(array: Array<TimeSeriesEntry | CryptoWalletTimeSeries | ExchangeAssetTimeSeries>): Array<TimeSeriesEntry | CryptoWalletTimeSeries | ExchangeAssetTimeSeries> {
-    return array.filter((d) => {
+  private filterForMidnight(array: Array<TimeSeriesEntry | CryptoWalletTimeSeries | ExchangeAssetTimeSeries>, granularity?: TimeSeriesRanges): Array<TimeSeriesEntry | CryptoWalletTimeSeries | ExchangeAssetTimeSeries> {
+    const filtered = array.filter((d) => {
       let date = new Date(parseInt(d.timestamp.toString()));
-      return date.getHours() == 0 && date.getMinutes() == 0;
+      switch (granularity) {
+        case TimeSeriesRanges.THISYEAR:
+          return date.getHours() == 0 && date.getMinutes() == 0 && (date.getDate() == 1 || date.getDate() == 15);
+        default:
+          return date.getHours() == 0 && date.getMinutes() == 0;
+      }
     });
+    if (filtered?.length == 0) {
+      return array.slice(array.length - 2);
+    }
+    return filtered;
   }
 }
