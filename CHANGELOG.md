@@ -2,10 +2,20 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [0.3.5](https://github.com/nicolaiort/stonx-backend/compare/0.3.4...0.3.5)
+
+- Implemented filter granularity [`66215ce`](https://github.com/nicolaiort/stonx-backend/commit/66215ce52a2c5c6db91343f88d0139c872a7491a)
+- Implemented custom filtering for year intervall [`06e213d`](https://github.com/nicolaiort/stonx-backend/commit/06e213d016a22910d56c5c73677410fdfc31bf8f)
+- Fixed bug in date conversion [`e6dd01f`](https://github.com/nicolaiort/stonx-backend/commit/e6dd01f174d99256bf1aaf47838ffb65b79cac9a)
+- Fixed wrong filter index [`cf7f3e3`](https://github.com/nicolaiort/stonx-backend/commit/cf7f3e3563267e0bcb63d08ff62c44396d4aabef)
+
 #### [0.3.4](https://github.com/nicolaiort/stonx-backend/compare/0.3.3...0.3.4)
+
+> 27 May 2021
 
 - Added private functions to abstract midnight filtering [`c0d8b3b`](https://github.com/nicolaiort/stonx-backend/commit/c0d8b3b685d13dac36371c623f33cc2c5df67718)
 - Consolidated fiulter functions [`617d31a`](https://github.com/nicolaiort/stonx-backend/commit/617d31abc5603d5475d5bf9877c480bb1a56cae6)
+- 🚀RELEASE 0.3.4 [`be6f396`](https://github.com/nicolaiort/stonx-backend/commit/be6f39692fd2b43569cb1f9fe0cdd79cc124b736)
 - Added comments [`398554a`](https://github.com/nicolaiort/stonx-backend/commit/398554a8837737a77bc1842eb45439f87e134794)
 
 #### [0.3.3](https://github.com/nicolaiort/stonx-backend/compare/0.3.2...0.3.3)
