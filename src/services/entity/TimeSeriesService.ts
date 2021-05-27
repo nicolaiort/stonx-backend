@@ -185,10 +185,7 @@ export class TimeSeriesService {
    */
   private filterForMidnight(array: Array<TimeSeriesEntry | CryptoWalletTimeSeries | ExchangeAssetTimeSeries>): Array<TimeSeriesEntry | CryptoWalletTimeSeries | ExchangeAssetTimeSeries> {
     return array.filter((d) => {
-      if (isNaN(d.timestamp)) {
-        d.timestamp = parseInt(d.timestamp.toString());
-      }
-      let date = new Date(d.timestamp);
+      let date = new Date(parseInt(d.timestamp.toString()));
       return date.getHours() == 0 && date.getMinutes() == 0;
     });
   }
