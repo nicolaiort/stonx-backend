@@ -1,9 +1,9 @@
 import { Controller, Get, Req } from "@tsed/common";
 import { Authenticate } from "@tsed/passport";
 import { Description, Returns, Security } from "@tsed/schema";
-import { PortfolioService } from "src/services/utils/PortfolioService";
 import { User } from "../models/entity/User";
 import { Wallet } from "../models/Wallet";
+import { PortfolioService } from "../services/utils/PortfolioService";
 
 @Controller("/portfolio")
 export class PortfolioController {

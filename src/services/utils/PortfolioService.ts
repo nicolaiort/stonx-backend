@@ -1,7 +1,7 @@
 import NodeCache from "node-cache";
-import { User } from "src/models/entity/User";
-import { Wallet } from "src/models/Wallet";
 import { getConnectionManager } from "typeorm";
+import { User } from "../../models/entity/User";
+import { Wallet } from "../../models/Wallet";
 import { ExchangeService } from "../entity/ExchangeService";
 import { WalletService } from "../entity/WalletService";
 import { BinanceService } from "./BinanceService";

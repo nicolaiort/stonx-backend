@@ -1,7 +1,7 @@
-import { TimeSeriesEntry } from "src/models/entity/timeseries/TimeSeriesEntry";
 import { getConnectionManager, MoreThan, Repository } from "typeorm";
 import { CryptoWalletTimeSeries } from "../../models/entity/timeseries/CryptoWalletTimeSeries";
 import { ExchangeAssetTimeSeries } from "../../models/entity/timeseries/ExchangeAssetTimeSeries";
+import { TimeSeriesEntry } from "../../models/entity/timeseries/TimeSeriesEntry";
 import { TotalPortfolioTimeSeries } from "../../models/entity/timeseries/TotalPortfolioTimeSeries";
 import { User } from "../../models/entity/User";
 import { SupportedExchanges } from "../../models/enums/SupportedExchanges";
