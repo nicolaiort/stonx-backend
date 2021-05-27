@@ -195,7 +195,7 @@ export class TimeSeriesService {
       }
     });
     if (filtered?.length == 0) {
-      return array.slice(array.length - 2);
+      return array.slice(array.length - 1);
     }
     return filtered;
   }
