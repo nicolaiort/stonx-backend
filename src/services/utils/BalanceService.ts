@@ -1,6 +1,6 @@
 import axios from "axios";
 import NodeCache from "node-cache";
-import { config } from "src/config/env";
+import { config } from "../../config/env";
 import { SupportedTokens } from "../../models/enums/SupportedTokens";
 
 /*
