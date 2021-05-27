@@ -1,5 +1,6 @@
 import axios from "axios";
 import NodeCache from "node-cache";
+import { config } from "src/config/env";
 import { SupportedTokens } from "../../models/enums/SupportedTokens";
 
 /*
@@ -27,7 +28,7 @@ export class BalanceService {
         switch (token) {
             case SupportedTokens.ETH:
                 const resEtherscan = await axios.get(
-                    `https://api.blockcypher.com/v1/eth/main/addrs/${address}/balance`
+                    `https://api.etherscan.io/api?module=account&action=balance&address=${address}&tag=latest&apikey=${config["ETHERSCAN_APIKEY"]}`
                 );
                 balanceCache.set(`${token}-tokenaddress-${address}`, (parseInt(resEtherscan.data.balance) / 1000000000000000000));
                 return parseInt(resEtherscan.data.balance) / 1000000000000000000;
