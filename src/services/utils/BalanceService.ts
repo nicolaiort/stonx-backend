@@ -31,7 +31,7 @@ export class BalanceService {
                     `https://api.etherscan.io/api?module=account&action=balance&address=${address}&tag=latest&apikey=${config["ETHERSCAN_APIKEY"]}`
                 );
                 balanceCache.set(`${token}-tokenaddress-${address}`, (parseInt(resEtherscan.data.balance) / 1000000000000000000));
-                return parseInt(resEtherscan.data.balance) / 1000000000000000000;
+                return parseInt(resEtherscan.data.result) / 1000000000000000000;
             case SupportedTokens.BTC:
                 const resBlockcypher = await axios.get(
                     `https://api.blockcypher.com/v1/btc/main/addrs/${address}/balance`
