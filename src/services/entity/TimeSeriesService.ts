@@ -66,7 +66,7 @@ export class TimeSeriesService {
       case TimeSeriesRanges.THISYEAR:
         now.setFullYear(now.getFullYear() - 1);
         const allInYear = await this.exchangeTimeSeriesService.find({ owner_id: owner.id, asset_name: asset, exchange: SupportedExchanges.BITPANDA, timestamp: MoreThan(now.getTime()) })
-        return this.filterForMidnight(allInYear) as Array<ExchangeAssetTimeSeries>;
+        return this.filterForMidnight(allInYear, TimeSeriesRanges.THISYEAR) as Array<ExchangeAssetTimeSeries>;
       case TimeSeriesRanges.THISMONTH:
         now.setMonth(now.getMonth() - 1);
         const allInMonth = await this.exchangeTimeSeriesService.find({ owner_id: owner.id, asset_name: asset, exchange: SupportedExchanges.BITPANDA, timestamp: MoreThan(now.getTime()) })
@@ -98,7 +98,7 @@ export class TimeSeriesService {
       case TimeSeriesRanges.THISYEAR:
         now.setFullYear(now.getFullYear() - 1);
         const allInYear = await this.exchangeTimeSeriesService.find({ owner_id: owner.id, asset_name: asset, exchange: SupportedExchanges.BINANCE, timestamp: MoreThan(now.getTime()) })
-        return this.filterForMidnight(allInYear) as Array<ExchangeAssetTimeSeries>;
+        return this.filterForMidnight(allInYear, TimeSeriesRanges.THISYEAR) as Array<ExchangeAssetTimeSeries>;
       case TimeSeriesRanges.THISMONTH:
         now.setMonth(now.getMonth() - 1);
         const allInMonth = await this.exchangeTimeSeriesService.find({ owner_id: owner.id, asset_name: asset, exchange: SupportedExchanges.BINANCE, timestamp: MoreThan(now.getTime()) })
@@ -131,7 +131,7 @@ export class TimeSeriesService {
       case TimeSeriesRanges.THISYEAR:
         now.setFullYear(now.getFullYear() - 1);
         const allInYear = await this.walletTimeSeriesService.find({ owner_id: owner.id, token: token, wallet_id: id, timestamp: MoreThan(now.getTime()) })
-        return this.filterForMidnight(allInYear) as Array<CryptoWalletTimeSeries>;
+        return this.filterForMidnight(allInYear, TimeSeriesRanges.THISYEAR) as Array<CryptoWalletTimeSeries>;
       case TimeSeriesRanges.THISMONTH:
         now.setMonth(now.getMonth() - 1);
         const allInMonth = await this.walletTimeSeriesService.find({ owner_id: owner.id, token: token, wallet_id: id, timestamp: MoreThan(now.getTime()) })
@@ -162,7 +162,7 @@ export class TimeSeriesService {
       case TimeSeriesRanges.THISYEAR:
         now.setFullYear(now.getFullYear() - 1);
         const allInYear = await this.portfolioTimeSeriesService.find({ owner_id: owner.id, timestamp: MoreThan(now.getTime()) })
-        return this.filterForMidnight(allInYear);
+        return this.filterForMidnight(allInYear, TimeSeriesRanges.THISYEAR);
       case TimeSeriesRanges.THISMONTH:
         now.setMonth(now.getMonth() - 1);
         const allInMonth = await this.portfolioTimeSeriesService.find({ owner_id: owner.id, timestamp: MoreThan(now.getTime()) })
