@@ -22,7 +22,8 @@ Powered by (among many others):
 ### Balances and prices powered by:
 * Bitpanda Assets and Prices: https://api.bitpanda.com
 * Binance Assets and Prices: https://api.binance.com
-* ETH and BTC Wallet Balances: https://api.blockcypher.com/
+* ETH Wallet Balances: https://api.etherscan.io
+* BTC Wallet Balances: https://api.blockcypher.com/
 * DOGE Wallet Balances: https://dogechain.info/
 * Custom Wallet Prices: https://www.coingecko.com/api
 
@@ -38,6 +39,7 @@ Powered by (among many others):
 | - | - | - | - | - |
 | JWT_SECRET | String | No | empty | The secret used by the backend to sign jwts - Should be at least 32bits (Max 512) |
 | CURRENCY | String | No | empty | Your local currency string (Tested with EUR and USD) |
+| ETHERSCAN_APIKEY | String | No | empty | An api key for etherscan - the backend uses etherscan to get the balance of erc20 wallets - You can get one for free [here](https://etherscan.io/apis) |
 | ENABLE_SIGNUP | Boolan | Yes | true | Enable the aut/signup endpoint(true,default) or disable it |
 | DATABASE_TYPE | String | No | `sqlite` | The type of the db that you want to use(currently supported: `sqlite`, `postgres`, `mysql`, `mariadb`) |
 | DATABASE_NAME | String | No | `database.sql` | The name of the db that you want to use (filename for sqlite) |
