@@ -49,7 +49,8 @@ export class JwtPayload {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: config["JWT_SECRET"],
     issuer: "accounts.examplesoft.com",
-    audience: "yoursite.net"
+    audience: "yoursite.net",
+    algorithms: ["HS256"]
   }
 })
 export class JwtProtocol implements OnVerify {
