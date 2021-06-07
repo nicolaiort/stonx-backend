@@ -28,8 +28,7 @@ Powered by (among many others):
 * Custom Wallet Prices: https://www.coingecko.com/api
 
 ## Roadmap
-* Support for more ERC20 Tokens
-* Support for ADA
+* Suport more Tokens and exchanges (if i have time)
 
 ## Configuration
 > You can (or sometimes have to) use the following env vars to configure some parts of the backend
