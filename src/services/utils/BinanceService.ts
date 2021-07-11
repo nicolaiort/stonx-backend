@@ -104,21 +104,32 @@ export class BinanceService {
         if (pair) {
             return new BinanceTradingPair(pair.symbol, pair.price);
         }
-        else {
-            //@ts-ignore
-            pair = prices.filter((p) => {
-                return p.symbol == `${token}USDT`;
-            })[0];
-            if (!pair) {
-                return new BinanceTradingPair(`N/A`, -1)
-            }
-            else {
-                //@ts-ignore
-                let eurusdt = prices.filter((p) => {
-                    return p.symbol == `${currency}USDT`;
-                })[0];
-                return new BinanceTradingPair(`${token}-USDT-${currency}`, pair.price * eurusdt.price);
-            }
+
+        if (token.startsWith("LD")) {
+            token = token.substr(2, token.length);
         }
+        if (currency.startsWith("LD")) {
+            currency = currency.substr(2, currency.length);
+        }
+        pair = prices.filter((p) => {
+            return p.symbol == `${token}${currency}`;
+        })[0];
+
+        if (pair) {
+            return new BinanceTradingPair(pair.symbol, pair.price);
+        }
+        //@ts-ignore
+        pair = prices.filter((p) => {
+            return p.symbol == `${token}USDT`;
+        })[0];
+        if (!pair) {
+            return new BinanceTradingPair(`N/A`, -1)
+        }
+
+        //@ts-ignore
+        let eurusdt = prices.filter((p) => {
+            return p.symbol == `${currency}USDT`;
+        })[0];
+        return new BinanceTradingPair(`${token}-USDT-${currency}`, pair.price * eurusdt.price);
     }
 }
