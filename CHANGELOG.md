@@ -2,9 +2,19 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [0.4.5](https://github.com/nicolaiort/stonx-backend/compare/0.4.4...0.4.5)
+
+- Added test for LD(Lended) Binance pairs [`e22106e`](https://github.com/nicolaiort/stonx-backend/commit/e22106ed5aec187cc8732a9a5f22bff38da6ad7c)
+- Now manually providing jwt algorithm [`17cd47d`](https://github.com/nicolaiort/stonx-backend/commit/17cd47d840fcaae1176e035d94c5f2fc7064aca8)
+- Updated sample readme [`d01f01e`](https://github.com/nicolaiort/stonx-backend/commit/d01f01e5300011b482013954cd7505ec74d445cb)
+- Updated roadmap [skip ci] [`ee80152`](https://github.com/nicolaiort/stonx-backend/commit/ee80152f4d5e4882aec08f1e2b37cc4b28aa80ba)
+
 #### [0.4.4](https://github.com/nicolaiort/stonx-backend/compare/0.4.3...0.4.4)
 
+> 27 May 2021
+
 - New multistage docker build with slightly slimmer end-result [`968d09d`](https://github.com/nicolaiort/stonx-backend/commit/968d09dcade5cc7842ad301d1864de82f353c776)
+- 🚀RELEASE 0.4.4 [`3828670`](https://github.com/nicolaiort/stonx-backend/commit/3828670580c5d71a825b3d4a47c79c2eeb3871c5)
 - Updated used endpoint value [`c11aade`](https://github.com/nicolaiort/stonx-backend/commit/c11aade2c291953a58a8b5f5a92bce88e57827ee)
 
 #### [0.4.3](https://github.com/nicolaiort/stonx-backend/compare/0.4.2...0.4.3)
