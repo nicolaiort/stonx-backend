@@ -2,9 +2,19 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [0.4.6](https://github.com/nicolaiort/stonx-backend/compare/0.4.5...0.4.6)
+
+- Bumped some dependencies [`5b51d0c`](https://github.com/nicolaiort/stonx-backend/commit/5b51d0cec556629f2c8214fdcc09edca2f6d8ce8)
+- Bumped more dependencies [`8d6f048`](https://github.com/nicolaiort/stonx-backend/commit/8d6f0480e6c94b9b39186f0db117ec2419e24d0f)
+- Fixed json schema errors [`1c69d85`](https://github.com/nicolaiort/stonx-backend/commit/1c69d853ebc21b648ce42948e291cc31684b9ebc)
+- Updated node baseimage to 17 [`5be502d`](https://github.com/nicolaiort/stonx-backend/commit/5be502d5fc5d7c47e71d43a2a0f6c4401095b44e)
+
 #### [0.4.5](https://github.com/nicolaiort/stonx-backend/compare/0.4.4...0.4.5)
 
+> 11 July 2021
+
 - Added test for LD(Lended) Binance pairs [`e22106e`](https://github.com/nicolaiort/stonx-backend/commit/e22106ed5aec187cc8732a9a5f22bff38da6ad7c)
+- 🚀RELEASE 0.4.5 [`e435121`](https://github.com/nicolaiort/stonx-backend/commit/e4351218c8e944ac2e12d48cff29f36991c579d8)
 - Now manually providing jwt algorithm [`17cd47d`](https://github.com/nicolaiort/stonx-backend/commit/17cd47d840fcaae1176e035d94c5f2fc7064aca8)
 - Updated sample readme [`d01f01e`](https://github.com/nicolaiort/stonx-backend/commit/d01f01e5300011b482013954cd7505ec74d445cb)
 - Updated roadmap [skip ci] [`ee80152`](https://github.com/nicolaiort/stonx-backend/commit/ee80152f4d5e4882aec08f1e2b37cc4b28aa80ba)
