@@ -32,7 +32,7 @@ export class UserController {
   @Delete("/me")
   @Authenticate("jwt")
   @Security("jwt")
-  @Returns(200, boolean)
+  // @Returns(boolean)
   @Description("Deletes the account, linked exchanges and wallets of the user calling this endpoint - handle with caution!")
   async deleteMe(@Req() req: Req, @QueryParams("confirm") confirm: boolean) {
     if (!confirm) {

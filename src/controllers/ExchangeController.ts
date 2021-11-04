@@ -14,7 +14,7 @@ export class ExchangeController {
   @Authenticate("jwt")
   @Security("jwt")
   @Description("Returns your exchanges (Only the type).")
-  @Returns(200, SupportedExchanges)
+  // @Returns(200, SupportedExchanges)
   async getWallets(@Req() req: Req): Promise<SupportedExchanges[]> {
     return await this.exchangeService.findByUser(req.user as User);
   }
@@ -23,7 +23,7 @@ export class ExchangeController {
   @Authenticate("jwt")
   @Security("jwt")
   @Description("Create a bitpanda connection for yourself.")
-  @Returns(200, SupportedExchanges)
+  // @Returns(200, SupportedExchanges)
   async createBitpandaConfig(@BodyParams() new_config: BitpandaConfig, @Req() req: Req): Promise<SupportedExchanges> {
     const user = (req.user as User);
     const exchange = await await this.exchangeService.findBitpandaByUser(user);
@@ -39,7 +39,7 @@ export class ExchangeController {
   @Authenticate("jwt")
   @Security("jwt")
   @Description("Create a binance connection for yourself.")
-  @Returns(200, SupportedExchanges)
+  // @Returns(200, SupportedExchanges)
   async createBinanceConfig(@BodyParams() new_config: BinanceConfig, @Req() req: Req): Promise<SupportedExchanges> {
     const user = (req.user as User);
     const exchange = await this.exchangeService.findBinanceByUser(user);
