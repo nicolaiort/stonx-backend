@@ -1,4 +1,4 @@
-FROM node:15-alpine as build
+FROM node:17.0.1-alpine3.13 as build
 
 COPY package.json .
 RUN yarn
@@ -7,7 +7,7 @@ COPY . ./
 RUN yarn build
 ENV NODE_ENV production
 
-FROM node:15-alpine as run
+FROM node:17.0.1-alpine3.13 as run
 
 COPY package.json .
 RUN yarn --prod
