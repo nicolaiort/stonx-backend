@@ -12,17 +12,17 @@
     "release": "release-it"
   },
   "dependencies": {
-    "@tsed/ajv": "6.45.0",
-    "@tsed/common": "6.45.0",
-    "@tsed/core": "6.45.0",
-    "@tsed/di": "6.45.0",
-    "@tsed/exceptions": "6.45.0",
-    "@tsed/json-mapper": "6.45.0",
-    "@tsed/passport": "6.45.0",
-    "@tsed/platform-express": "6.45.0",
-    "@tsed/schema": "6.45.0",
-    "@tsed/swagger": "6.45.0",
-    "@tsed/typeorm": "6.45.0",
+    "@tsed/ajv": "6.75.11",
+    "@tsed/common": "6.75.11",
+    "@tsed/core": "6.75.11",
+    "@tsed/di": "6.75.11",
+    "@tsed/exceptions": "6.75.11",
+    "@tsed/json-mapper": "6.75.11",
+    "@tsed/passport": "6.75.11",
+    "@tsed/platform-express": "6.75.11",
+    "@tsed/schema": "6.75.11",
+    "@tsed/swagger": "6.75.11",
+    "@tsed/typeorm": "6.75.11",
     "ajv": "7.2.4",
     "argon2": "0.27.2",
     "axios": "0.21.1",
@@ -46,7 +46,7 @@
     "passport-local": "1.0.0",
     "pg": "8.6.0",
     "sqlite3": "5.0.2",
-    "typeorm": "0.2.32"
+    "typeorm": "0.2.38"
   },
   "devDependencies": {
     "@tsed/cli-plugin-eslint": "3.0.2",
